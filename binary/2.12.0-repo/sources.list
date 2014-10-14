@@ -1,0 +1,5 @@
+deb     http://snapshot.debian.org/archive/debian/20101016T044154Z/ squeeze main
+deb-src http://snapshot.debian.org/archive/debian/20101016T044154Z/ squeeze main
+deb     http://snapshot.debian.org/archive/debian-security/20101016T044154Z/ squeeze/updates main
+deb-src http://snapshot.debian.org/archive/debian-security/20101016T044154Z/ squeeze/updates main
+
