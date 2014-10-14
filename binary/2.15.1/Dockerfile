@@ -1,4 +1,4 @@
-## Install from debian:7 (wheezy), R 2.11.1
+## Install from debian:7 (wheezy), R 2.15.1
 
 FROM debian:7
 RUN apt-get update  && apt-get install -y --no-install-recommends \

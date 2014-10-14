@@ -1,6 +1,6 @@
 ## Install from debian:squeeze, installs R 2.11.1, then gets the binares for 2.12
+FROM debian:6.0
 
-FROM debian:squeeze
 RUN apt-get update  && apt-get install -y --no-install-recommends \
     r-base \
     r-base-dev \
