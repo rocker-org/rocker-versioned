@@ -7,10 +7,6 @@ FROM debian:stable
 MAINTAINER "Carl Boettiger and Dirk Eddelbuettel" rocker-maintainers@eddelbuettel.com
 
 ### SNAPSHOTTING
-#RUN echo 'deb http://snapshot.debian.org/archive/debian/20131030/ jessie  main' \
-#      >> /etc/apt/sources.list.d/snapshot.list \
-#    && apt-get -o Acquire::Check-Valid-Until=false update
- 
 RUN echo 'deb http://snapshot.debian.org/archive/debian/20131030/ jessie  main' > /etc/apt/sources.list \
     &&  apt-get -o Acquire::Check-Valid-Until=false update
 
@@ -31,7 +27,6 @@ RUN apt-get install -y --no-install-recommends \
 
 ## Set the corresponding MRAN snapshot Repo (2014-09-08is the oldest available snapshot)
 RUN echo 'options(repos = list(CRAN = "http://mran.revolutionanalytics.com/snapshot/2014-09-08/"))' >> /etc/R/Rprofile.site
-
 
 ## Set a default user. Available via runtime flag `--user docker` 
 RUN useradd -g staff -m docker

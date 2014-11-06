@@ -1,4 +1,4 @@
-NAME=r-base-3.1.1
+NAME=r-3.0.2
 
 all: build
 
@@ -7,7 +7,7 @@ build:
 
 
 run-root: build 
-	docker run -u docker -ti $(NAME) bash
+	docker run  -ti $(NAME) bash
 
 run: build
 	docker run -u docker -ti $(NAME) bash
