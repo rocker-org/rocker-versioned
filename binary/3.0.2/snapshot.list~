@@ -1,0 +1,2 @@
+deb http://snapshot.debian.org/archive/debian/20140710T163307Z/ jessie  main contrib non-free
+deb http://snapshot.debian.org/archive/debian/20140710T163307Z/ jessie/updates main contrib non-free
