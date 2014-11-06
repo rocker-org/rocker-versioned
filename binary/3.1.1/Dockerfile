@@ -2,7 +2,7 @@
 ### Rocker 3.1.1-1 - debian snapshot 20140730
 
 ## use a fixed debian version for reproducibility
-FROM debian:jessie
+FROM debian:wheezy
 ## This handle reaches Carl and Dirk
 MAINTAINER "Carl Boettiger and Dirk Eddelbuettel" rocker-maintainers@eddelbuettel.com
 

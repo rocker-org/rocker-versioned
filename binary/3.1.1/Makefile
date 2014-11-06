@@ -1,4 +1,4 @@
-NAME=r-base-3.1.1
+NAME=r-3.1.1
 
 all: build
 
