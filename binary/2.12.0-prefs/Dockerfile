@@ -9,7 +9,7 @@ RUN echo \
 
 RUN apt-get install -y --no-install-recommends  --allow-unauthenticated r-base-dev
 
+RUN useradd -g staff -m docker
 
-#RUN useradd docker
 
 
