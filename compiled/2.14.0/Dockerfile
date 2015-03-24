@@ -1,62 +1,13 @@
 ## Emacs, make this -*- mode: sh; -*-
 
 ## start with the Docker 'base R' Debian-based image
-FROM rocker/r-base
+FROM rocker/r-devel
 
 ## This handle reaches Carl and Dirk
 MAINTAINER "Carl Boettiger and Dirk Eddelbuettel" rocker-maintainers@eddelbuettel.com
 
-## Remain current
-RUN apt-get update -qq \
-&& apt-get dist-upgrade -y
-
-## From the Build-Depends of the Debian R package, plus subversion
-RUN apt-get update -qq \
-&& apt-get install -y --no-install-recommends \
-   bash-completion \
-   bison \
-   debhelper \
-   default-jdk \
-   g++ \
-   gcc \
-   gfortran \
-   groff-base \
-   libblas-dev \
-   libbz2-dev \
-   libcairo2-dev \
-   libjpeg-dev \
-   liblapack-dev \
-   liblzma-dev \
-   libncurses5-dev \
-   libpango1.0-dev \
-   libpcre3-dev \
-   libpng-dev \
-   libreadline-dev \
-   libtiff5-dev \
-   libx11-dev \
-   libxt-dev \
-   mpack \
-   subversion \
-   tcl8.5-dev \
-   texinfo \
-   texlive-base \
-   texlive-extra-utils \
-   texlive-fonts-extra \
-   texlive-fonts-recommended \
-   texlive-generic-recommended \
-   texlive-latex-base \
-   texlive-latex-extra \
-   texlive-latex-recommended \
-   tk8.5-dev \
-   x11proto-core-dev \
-   xauth \
-   xdg-utils \
-   xfonts-base \
-   xvfb \
-   zlib1g-dev 
-
 ## Check out R-devel
-RUN cd /tmp \
+RUN rm -rf /tmp && mkdir /tmp && cd /tmp \
 && svn co http://svn.r-project.org/R/tags/R-2-14-0/ R-devel 
 
 ## Build and install according the standard 'recipe' I emailed/posted years ago
