@@ -1,5 +1,5 @@
 FROM rocker/tidyverse:3.3.2
-
+MAINTAINER "Carl Boettiger" cboettig@ropensci.org
 
 ## Add LaTeX, rticles and bookdown support
 RUN apt-get update \
@@ -8,6 +8,9 @@ RUN apt-get update \
     imagemagick \
     libhunspell-dev \
     lmodern \
+    ## for git via ssh key 
+    ssh \
+    ## for building pdfs via pandoc/LaTeX
     texlive-fonts-recommended \
     texlive-humanities \
     texlive-latex-extra \
