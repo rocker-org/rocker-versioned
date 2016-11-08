@@ -14,6 +14,7 @@ RUN apt-get update \
     texinfo \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
+  ## R likes inconsolata but texlive-fonts-extra is huge, so:
   && cd /usr/share/texlive/texmf-dist \
   && wget http://mirrors.ctan.org/install/fonts/inconsolata.tds.zip \
   && unzip inconsolata.tds.zip \
@@ -21,6 +22,6 @@ RUN apt-get update \
   && echo "Map zi4.map" >> /usr/share/texlive/texmf-dist/web2c/updmap.cfg \
   && mktexlsr \
   && updmap-sys \
-  && Rscript -e "install.packages(c('bookdown', 'rticles'), repo = 'https://mran.microsoft.com/snapshot/$BUILD_DATE')"
-
+  ## And some nice R packages for publishing-related stuff 
+  && Rscript -e "install.packages(c('bookdown', 'rticles', 'rmdshower'), dep=TRUE)"
 
