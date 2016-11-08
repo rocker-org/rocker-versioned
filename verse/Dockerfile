@@ -25,3 +25,5 @@ RUN apt-get update \
   ## And some nice R packages for publishing-related stuff 
   && Rscript -e "install.packages(c('bookdown', 'rticles', 'rmdshower'), dep=TRUE)"
 
+## Consider: yihui/printr when released
+
