@@ -9,8 +9,8 @@
 image            | description                               | tags 
 ---------------- | ----------------------------------------  | ---- 
 r-ver:3.3.2      |  Version-stable base R & src build tools  | [![](https://images.microbadger.com/badges/image/rocker/r-ver.svg)](https://microbadger.com/images/rocker/r-ver "Get your own image badge on microbadger.com")  
-rstudio:3.3.2    |  Adds rstudio                             | [![](https://images.microbadger.com/badges/image/rocker/rstudio.svg)](https://microbadger.com/images/rocker/rstudio "Get your own image badge on microbadger.com")  
-tidyverse:3.3,2  |  Adds tidyverse & devtools                | [![](https://images.microbadger.com/badges/image/rocker/tidyverse.svg)](https://microbadger.com/images/rocker/tidyverse "Get your own image badge on microbadger.com")  
+rstudio:3.3.2    |  Adds rstudio                             | [![](https://images.microbadger.com/badges/image/cboettig/rstudio.svg)](https://microbadger.com/)  
+tidyverse:3.3.2  |  Adds tidyverse & devtools                | [![](https://images.microbadger.com/badges/image/rocker/tidyverse.svg)](https://microbadger.com/images/rocker/tidyverse "Get your own image badge on microbadger.com")  
 verse:3.3.2      |  Adds tex & publishing-related packages   | [![](https://images.microbadger.com/badges/image/rocker/verse.svg)](https://microbadger.com/images/rocker/verse "Get your own image badge on microbadger.com")  
 
 
