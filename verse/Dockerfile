@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:3.3.2
+FROM rocker/tidyverse:latest
 MAINTAINER "Carl Boettiger" cboettig@ropensci.org
 
 ## Add LaTeX, rticles and bookdown support
