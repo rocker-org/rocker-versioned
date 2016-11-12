@@ -26,7 +26,7 @@ RUN apt-get update \
   && mktexlsr \
   && updmap-sys \
   ## And some nice R packages for publishing-related stuff 
-  && Rscript -e "install.packages(c('bookdown', 'rticles', 'rmdshower'), dep=TRUE)"
+  && Rscript -e "install.packages(c('bookdown', 'rticles', 'rmdshower'), dep=TRUE, repo = getOption('repos')[['MRAN']])"
 
 ## Consider: yihui/printr when released
 
