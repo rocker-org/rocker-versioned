@@ -5,7 +5,7 @@ r-ver: .PHONY
 rstudio: .PHONY 
 	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio:${R_VERSION} rstudio/${R_VERSION}
 tidyverse: .PHONY 
-	docker build --build-arg BUILD_DATE=$(date -I) -t rocker/tidyverse:${R_VERSION} tidyverse/${R_VERSION}
+	docker build --build-arg BUILD_DATE=$(date -I --date='TZ="America/Los_Angeles"') -t rocker/tidyverse:${R_VERSION} tidyverse/${R_VERSION}
 verse: .PHONY 
 	docker build -t rocker/verse:${R_VERSION} verse/${R_VERSION}
 
