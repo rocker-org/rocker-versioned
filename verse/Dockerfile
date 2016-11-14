@@ -26,6 +26,7 @@ RUN apt-get update \
   && mktexlsr \
   && updmap-sys \
   ## And some nice R packages for publishing-related stuff 
+  && export INCLUDE_SUGGESTS="TRUE" \
   && install.r bookdown rticles rmdshower
 
 ## Consider: yihui/printr when released
