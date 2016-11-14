@@ -14,6 +14,7 @@ all:
 	make sync r-ver rstudio tidyverse verse
 
 sync:
+	make -C r-ver/ dockerfiles
 	cp rstudio/Dockerfile rstudio/${R_VERSION}/Dockerfile
 	cp tidyverse/Dockerfile tidyverse/${R_VERSION}/Dockerfile
 	sed -i "s/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE $$\{BUILD_DATE:-${BUILD_DATE}\}/" tidyverse/${R_VERSION}/Dockerfile
