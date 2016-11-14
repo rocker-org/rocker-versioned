@@ -1,7 +1,7 @@
 FROM rocker/rstudio:3.3.2
 
 ARG BUILD_DATE
-ENV BUILD_DATE {BUILD_DATE:-2016-11-08}
+ENV BUILD_DATE ${BUILD_DATE:-2016-11-08}
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libxml2-dev \
   libsqlite-dev \
