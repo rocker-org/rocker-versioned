@@ -1,13 +1,15 @@
 FROM debian:jessie 
 
 ARG R_VERSION
-ENV R_VERSION ${R_VERSION:-3-3-2}
+ENV R_VERSION ${R_VERSION:-3-3-1}
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 ## dependencies
 RUN apt-get update \ 
 	&& apt-get install -y --no-install-recommends \
+  ## for https connections
+    ca-certificates \
   ## keep for installing packages with compiled code, compression libs, linear algebra libs, graphics libs
     g++ \
 		gfortran \

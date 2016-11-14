@@ -8,6 +8,8 @@ ENV LANG en_US.UTF-8
 ## dependencies
 RUN apt-get update \ 
 	&& apt-get install -y --no-install-recommends \
+  ## for https connections
+    ca-certificates \
   ## keep for installing packages with compiled code, compression libs, linear algebra libs, graphics libs
     g++ \
 		gfortran \
