@@ -1,16 +1,16 @@
 latest:
-	docker build --build-arg R_VERSION=3-3-2 -t cboettig/r-ver:3.3.2 .	
+	docker build --build-arg R_VERSION=3-3-2 -t rocker/r-ver:3.3.2 .	
 
 
 ## Using build-arg
 all:
-	docker build --build-arg R_VERSION=3-3-2 -t cboettig/r-ver:3.3.2 .	
-	docker build --build-arg R_VERSION=3-3-1 -t cboettig/r-ver:3.3.1 .	
-	docker build --build-arg R_VERSION=3-3-0 -t cboettig/r-ver:3.3.0 .	
-	docker build --build-arg R_VERSION=3-2-0 -t cboettig/r-ver:3.2.0 .	
-	docker build --build-arg R_VERSION=3-1-0 -t cboettig/r-ver:3.1.0 .	
-	docker build --build-arg R_VERSION=3-0-0 -t cboettig/r-ver:3.0.0 .
-	docker build --build-arg R_VERSION=2-15-0 -t cboettig/r-ver:2.15.0 .
+	docker build --build-arg R_VERSION=3-3-2 -t rocker/r-ver:3.3.2 .	
+	docker build --build-arg R_VERSION=3-3-1 -t rocker/r-ver:3.3.1 .	
+	docker build --build-arg R_VERSION=3-3-0 -t rocker/r-ver:3.3.0 .	
+	docker build --build-arg R_VERSION=3-2-0 -t rocker/r-ver:3.2.0 .	
+	docker build --build-arg R_VERSION=3-1-0 -t rocker/r-ver:3.1.0 .	
+	docker build --build-arg R_VERSION=3-0-0 -t rocker/r-ver:3.0.0 .
+	docker build --build-arg R_VERSION=2-15-0 -t rocker/r-ver:2.15.0 .
 
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
