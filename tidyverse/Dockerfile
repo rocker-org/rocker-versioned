@@ -14,8 +14,8 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
 ## devtools dependency not on CRAN:
   && export REPOS=http://www.bioconductor.org/packages/release/bioc \
   && install.r BiocInstaller \
-  && export REPOS=https://mran.microsoft.com/snapshot/$BUILD_DATE \
+  && echo "REPOS=https://mran.microsoft.com/snapshot/$BUILD_DATE" >> /usr/local/lib/R/etc/Renviron \
   && install.r RSQLite RMySQL RPostgreSQL \
   && export INCLUDE_SUGGESTS="TRUE" \
   && install.r tidyverse devtools profvis
-ENV REPOS $REPOS
+
