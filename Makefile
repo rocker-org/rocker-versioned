@@ -16,7 +16,7 @@ all:
 sync:
 	cp rstudio/Dockerfile rstudio/${R_VERSION}/Dockerfile
 	cp tidyverse/Dockerfile tidyverse/${R_VERSION}/Dockerfile
-	sed -i 's/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE \$\{BUILD_DATE:-${BUILD_DATE}\}/' tidyverse/${R_VERSION}/Dockerfile
+	sed -i "s/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE $$\{BUILD_DATE:-${BUILD_DATE}\}/" tidyverse/${R_VERSION}/Dockerfile
 	cp verse/Dockerfile verse/${R_VERSION}/Dockerfile
 	sed -i 's/tidyverse:latest/tidyverse:${R_VERSION}/' verse/${R_VERSION}/Dockerfile
 
