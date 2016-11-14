@@ -16,8 +16,12 @@ verse: .PHONY
 sync:
 	make -C r-ver/ dockerfiles
 	cp rstudio/Dockerfile rstudio/${R_VERSION}/Dockerfile
+	sed -i 's/r-ver:latest/r-ver:${R_VERSION}/' rstudio/${R_VERSION}/Dockerfile
+	## cp tidyverse:latest to tidyverse:3.3.2 and fix version
 	cp tidyverse/Dockerfile tidyverse/${R_VERSION}/Dockerfile
+	sed -i 's/rstudio:latest/rstudio:${R_VERSION}/' tidyverse/${R_VERSION}/Dockerfile
 	sed -i "s/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE $$\{BUILD_DATE:-${BUILD_DATE}\}/" tidyverse/${R_VERSION}/Dockerfile
+	## cp verse:latest to verse:3.3.2 and fix version
 	cp verse/Dockerfile verse/${R_VERSION}/Dockerfile
 	sed -i 's/tidyverse:latest/tidyverse:${R_VERSION}/' verse/${R_VERSION}/Dockerfile
 

@@ -1,4 +1,4 @@
-FROM rocker/rstudio:3.3.2
+FROM rocker/rstudio:latest
 
 ARG BUILD_DATE
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
