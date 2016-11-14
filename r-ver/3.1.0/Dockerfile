@@ -53,7 +53,6 @@ RUN apt-get update \
   && BUILDDEPS="bash-completion \
     bison \
     debhelper \
-    ca-certificates \
     default-jdk \
     file \
     groff-base \
