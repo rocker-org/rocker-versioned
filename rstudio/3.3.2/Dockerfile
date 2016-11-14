@@ -12,7 +12,6 @@ ENV PATH /usr/lib/rstudio-server/bin/:$PATH
 ## Symlink pandoc, pandoc-citeproc so they are available system-wide
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates \
     file \
     git \
     libapparmor1 \

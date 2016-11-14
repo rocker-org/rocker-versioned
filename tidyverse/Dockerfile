@@ -7,11 +7,11 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libmariadbd-dev \
   libmariadb-client-lgpl-dev \
   libpq-dev \
-  ## Set default repo to install all packages from date-locked MRAN snapshot of CRAN
+  ## install these packages from date-locked MRAN snapshot of CRAN
   && [ -z "$BUILD_DATE" ] && BUILD_DATE=$(date -I --date='TZ="America/Los_Angeles"') || true \
-  && MRAN=https://mran.microsoft.com/snapshot/$BUILD_DATE \
-  && echo "options(repos = c(CRAN = 'https://cran.rstudio.com', MRAN = '$MRAN'))" > /usr/local/lib/R/etc/Rprofile.site \
-  && Rscript -e "install.packages(c('RSQLite', 'RMySQL', 'RPostgreSQL'), repo = getOption('repos')[['MRAN']])" \
-  ## Install tidyverse & devtools suites (including suggests)
-  && Rscript -e "install.packages(c('tidyverse', 'devtools', 'profvis'), dep=TRUE, repo = getOption('repos')[['MRAN']])"
-
+  && wget https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/tidyverse/install.r \
+  && export REPOS=https://mran.microsoft.com/snapshot/$BUILD_DATE \
+  && install.r RSQLite RMySQL RPostgreSQL \
+  && export INCLUDE_SUGGESTS="TRUE" \
+  && install.r tidyverse devtools profvis
+ENV REPOS $REPOS
