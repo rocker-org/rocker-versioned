@@ -1,6 +1,9 @@
 R_VERSION=3.3.2
 BUILD_DATE=2016-11-08
 
+all: 
+	make sync r-ver rstudio tidyverse verse
+
 r-ver: .PHONY 
 	make -C r-ver/ latest
 rstudio: .PHONY 
@@ -9,9 +12,6 @@ tidyverse: .PHONY
 	docker build --build-arg BUILD_DATE=$(date -I --date='TZ="America/Los_Angeles"') -t rocker/tidyverse:${R_VERSION} tidyverse/${R_VERSION}
 verse: .PHONY 
 	docker build -t rocker/verse:${R_VERSION} verse/${R_VERSION}
-
-all: 
-	make sync r-ver rstudio tidyverse verse
 
 sync:
 	make -C r-ver/ dockerfiles
@@ -23,3 +23,4 @@ sync:
 
 .PHONY:
 	echo "Building Rocker versioned images locally...\n"
+
