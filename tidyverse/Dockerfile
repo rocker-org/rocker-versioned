@@ -20,5 +20,9 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
-  && install2.r --error --repos $MRAN --deps "TRUE" tidyverse devtools profvis
+  && install2.r --error \
+  --repos 'http://www.bioconductor.org/packages/release/bioc' \
+  --repos $MRAN \ 
+  --deps "TRUE" \
+  tidyverse devtools profvis
 
