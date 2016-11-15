@@ -58,6 +58,10 @@ RUN apt-get update \
   && echo '#!/bin/bash \
            \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
            > /etc/services.d/rstudio/run
+
+## Temp measure for RStudio bug(?) https://support.rstudio.com/hc/en-us/community/posts/245035627-RStudio-erroneously-asks-to-install-build-tools-when-they-are-already-installed
+RUN apt-get -y install --no-install-recommends r-base-core
+
 COPY userconf.sh /etc/cont-init.d/conf
 EXPOSE 8787
 
