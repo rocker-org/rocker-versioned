@@ -60,7 +60,7 @@ RUN apt-get update \
            > /etc/services.d/rstudio/run
 
 ## Temp measure for RStudio bug(?) https://support.rstudio.com/hc/en-us/community/posts/245035627-RStudio-erroneously-asks-to-install-build-tools-when-they-are-already-installed
-RUN apt-get update && apt-get -y install --no-install-recommends r-base-core
+RUN apt-get update && apt-get -y install --force-yes --no-install-recommends r-base-core
 
 COPY userconf.sh /etc/cont-init.d/conf
 EXPOSE 8787
