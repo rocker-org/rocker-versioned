@@ -27,7 +27,8 @@ RUN apt-get update \
   && updmap-sys \
   ## And some nice R packages for publishing-related stuff 
   && export INCLUDE_SUGGESTS="TRUE" \
-  && install.r bookdown rticles rmdshower
+  && install2.r --error --repos $MRAN --deps "TRUE" \
+  && bookdown rticles rmdshower
 
 ## Consider: yihui/printr when released
 
