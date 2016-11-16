@@ -28,7 +28,7 @@ RUN apt-get update \
   ## And some nice R packages for publishing-related stuff 
   && . /etc/environment \ 
   && install2.r --error --repos $MRAN --deps TRUE \
-  bookdown rticles rmdshower
+    bookdown rticles rmdshower
 
 ## Consider: yihui/printr when released
 
