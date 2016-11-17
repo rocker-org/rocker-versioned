@@ -63,7 +63,10 @@ RUN apt-get update \
   && mkdir -p /etc/services.d/rstudio \
   && echo '#!/bin/bash \
            \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
-           > /etc/services.d/rstudio/run
+           > /etc/services.d/rstudio/run \
+  ## hack to avoid RStudio-bug in detecting build-dependencies         
+  && ln -s /usr/local/bin/R /usr/bin/R \
+  && ln -s /usr/local/lib/R /usr/lib/R
 
 COPY userconf.sh /etc/cont-init.d/conf
 EXPOSE 8787

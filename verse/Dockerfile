@@ -7,6 +7,7 @@ RUN apt-get update \
     ghostscript \
     imagemagick \
     libhunspell-dev \
+    less \
     lmodern \
     ## for git via ssh key 
     ssh \
@@ -15,6 +16,7 @@ RUN apt-get update \
     texlive-humanities \
     texlive-latex-extra \
     texinfo \
+    vim \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   ## R likes inconsolata but texlive-fonts-extra is huge, so:
