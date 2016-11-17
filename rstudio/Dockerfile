@@ -55,6 +55,7 @@ RUN apt-get update \
 	&& addgroup rstudio staff \
   && mkdir -p /usr/local/lib/R/site-library \
   && chown root:staff /usr/local/lib/R/site-library \
+  && chmod g+wx /usr/local/lib/R/site-library \
   && echo "R_LIBS_USER='/usr/local/lib/R/site-library'" >> /usr/local/lib/R/etc/Renviron \
   && echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron \
   ## Set up S6 init system
