@@ -24,11 +24,11 @@ RUN apt-get update \
     liblapack3 \
     libquadmath0 \
   ## Perl Regex
-    libpcre3 \
+    libpcre3-dev \
     libpaper-utils \ 
   ## Compression 
-    libbz2-1.0 \ 
-    liblzma5 \
+    libbz2-dev \ 
+    liblzma-dev \
     unzip \
     zlib1g \
     zip \
@@ -56,12 +56,9 @@ RUN apt-get update \
     default-jdk \
     file \
     groff-base \
-    libpcre3-dev \
     libblas-dev \
-    libbz2-dev \
     libcairo2-dev \
     liblapack-dev \
-    liblzma-dev \
     libjpeg-dev \
     libpng-dev \
     libreadline-dev \
