@@ -4,6 +4,7 @@ ARG R_VERSION
 ENV R_VERSION ${R_VERSION:-3-3-1}
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
+ENV TERM xterm
 
 ## dependencies
 RUN apt-get update \ 
