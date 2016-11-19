@@ -6,12 +6,12 @@
 ![rocker](https://avatars0.githubusercontent.com/u/9100160?v=3&s=200)
 
 
-image            | description                               | badges 
----------------- | ----------------------------------------  | ------ 
-[r-ver](https://hub.docker.com/r/rocker/r-ver)            |  Version-stable base R & src build tools  | [![](https://images.microbadger.com/badges/image/rocker/r-ver.svg)](https://microbadger.com/images/rocker/r-ver) [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/Dockerfile)
-[rstudio](https://hub.docker.com/r/rocker/rstudio)          |  Adds rstudio                             | [![](https://images.microbadger.com/badges/image/rocker/rstudio-stable.svg)](https://microbadger.com/) [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker/blob/master/rstudio/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/rstudio/Dockerfile)  
-[tidyverse](https://hub.docker.com/r/rocker/tidyverse)        |  Adds tidyverse & devtools                | [![](https://images.microbadger.com/badges/image/rocker/tidyverse.svg)](https://microbadger.com/images/rocker/tidyverse) [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/tidyverse/3.3.2/Dockerfile) [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/tidyverse/Dockerfile)  
-[verse](https://hub.docker.com/r/rocker/verse)            |  Adds tex & publishing-related packages   | [![](https://images.microbadger.com/badges/image/rocker/verse.svg)](https://microbadger.com/images/rocker/verse) [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/verse/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/verse/Dockerfile)
+image            | description                               | size   | metrics | build status 
+---------------- | ----------------------------------------- | ------ | ------- | --------------
+[r-ver](https://hub.docker.com/r/rocker/r-ver)            |  Version-stable base R & src build tools  | [![](https://images.microbadger.com/badges/image/rocker/r-ver.svg)](https://microbadger.com/images/rocker/r-ver) | [![](https://img.shields.io/docker/pulls/rocker/r-ver.svg)](https://hub.docker.com/r/rocker/r-ver) |  [![](https://img.shields.io/docker/automated/rocker/r-ver.svg)](https://hub.docker.com/r/rocker/r-ver/builds)
+[rstudio](https://hub.docker.com/r/rocker/rstudio)          |  Adds rstudio                             | [![](https://images.microbadger.com/badges/image/rocker/rstudio-stable.svg)](https://microbadger.com/) | [![](https://img.shields.io/docker/pulls/rocker/rstudio.svg)](https://hub.docker.com/r/rocker/rstudio)  |  [![](https://img.shields.io/docker/automated/rocker/rstudio.svg)](https://hub.docker.com/r/rocker/rstudio/builds)
+[tidyverse](https://hub.docker.com/r/rocker/tidyverse)        |  Adds tidyverse & devtools                | [![](https://images.microbadger.com/badges/image/rocker/tidyverse.svg)](https://microbadger.com/images/rocker/tidyverse) | [![](https://img.shields.io/docker/pulls/rocker/tidyverse.svg)](https://hub.docker.com/r/rocker/tidyverse) |  [![](https://img.shields.io/docker/automated/rocker/tidyverse.svg)](https://hub.docker.com/r/rocker/tidyverse/builds) 
+[verse](https://hub.docker.com/r/rocker/verse)            |  Adds tex & publishing-related packages   | [![](https://images.microbadger.com/badges/image/rocker/verse.svg)](https://microbadger.com/images/rocker/verse) | [![](https://img.shields.io/docker/pulls/rocker/verse.svg)](https://hub.docker.com/r/rocker/verse) | [![](https://img.shields.io/docker/automated/rocker/verse.svg)](https://hub.docker.com/r/rocker/verse/builds)
 
 
 This repository provides alternate stack to `r-base`, `rocker/rstudio`, `rocker/hadleyverse` series, with an emphasis on reproducibility.  Compared to those images, this stack:
@@ -34,5 +34,16 @@ The image `rocker/r-ver` is the functional equivalent of `r-base`, though slight
 The image `rocker/tidyverse` is the functional equivalent of `rocker/hadleyverse`, minus the LaTeX part which is moved into a downstream `rocker/verse` in order to keep the `tidyverse` image more compact.  Now that [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html) is a thing, the term "hadleyverse" is on the way out.  Users building the `tidyverse` Dockerfile directly can set a custom snapshot date for the image by using `--build-arg BUILD_DATE=<DATE>`. 
 
 The `rocker/rstudio` image builds with RStudio `v1.0.44` by default. This can be customized by specifying the desired version in `--build-arg RSTUDIO_VERSION=<VERSION>` if building locally from its Dockerfile. *Note that:* `rocker/rstudio:latest` is the only image name in this stack that already existed.  For consistency, `rocker/rstudio:latest` now builds on `r-ver:latest` instead of `r-base:latest`.  This change may break downstream images, which should either build explicitly on the `debian:testing` stack by using the `testing` tag (`rocker/rstudio:testing`) or be patched to support this change.
+
+
+
+
+image            |  Dockerfiles  
+---------------- | -------------
+[r-ver](https://hub.docker.com/r/rocker/r-ver)         | [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/Dockerfile)
+[rstudio](https://hub.docker.com/r/rocker/rstudio)     | [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker/blob/master/rstudio/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/rstudio/Dockerfile)  
+[tidyverse](https://hub.docker.com/r/rocker/tidyverse) | [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/tidyverse/3.3.2/Dockerfile) [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/tidyverse/Dockerfile)  
+[verse](https://hub.docker.com/r/rocker/verse)         | [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/verse/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/verse/Dockerfile)
+
 
 
