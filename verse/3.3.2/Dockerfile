@@ -9,6 +9,7 @@ RUN apt-get update \
     libhunspell-dev \
     less \
     lmodern \
+    qpdf \
     ## for git via ssh key 
     ssh \
     ## for building pdfs via pandoc/LaTeX
