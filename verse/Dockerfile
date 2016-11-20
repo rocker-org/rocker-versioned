@@ -6,21 +6,26 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ghostscript \
     imagemagick \
+    ## system dependency of hadley/pkgdown
+    libmagick++-dev \
+    ## system dependency of hunspell (devtools)
     libhunspell-dev \
-    less \
-    lmodern \
+    ## R CMD Check wants qpdf to check pdf sizes, or iy throws a Warning 
     qpdf \
     ## for git via ssh key 
     ssh \
     ## for building pdfs via pandoc/LaTeX
+    lmodern \
     texlive-fonts-recommended \
     texlive-humanities \
     texlive-latex-extra \
     texinfo \
+    ## just because
+    less \
     vim \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
-  ## R likes inconsolata but texlive-fonts-extra is huge, so:
+  ## R manuals use inconsolata font, but texlive-fonts-extra is huge, so:
   && cd /usr/share/texlive/texmf-dist \
   && wget http://mirrors.ctan.org/install/fonts/inconsolata.tds.zip \
   && unzip inconsolata.tds.zip \
