@@ -45,7 +45,9 @@ RUN apt-get update \
   ## for UTF-8 locale
     locales \
   ## Preferred graphics fonts
+    gsfonts \
     fonts-texgyre \
+  ## download utility
     wget \
   && rm -rf /var/lib/apt/lists/* \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
