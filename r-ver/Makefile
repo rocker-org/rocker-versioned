@@ -14,7 +14,7 @@ all:
 
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
-dockerfiles: 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile 3.0.0/Dockerfile 2.15.0/Dockerfile
+sync: 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile 3.0.0/Dockerfile 2.15.0/Dockerfile
 
 3.3.2/Dockerfile: Dockerfile
 	cp Dockerfile 3.3.2/Dockerfile && sed -i s/3-3-2/3-3-2/ 3.3.2/Dockerfile
