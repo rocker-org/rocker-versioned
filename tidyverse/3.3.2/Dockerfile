@@ -14,7 +14,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   && MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE} \
   && echo MRAN=$MRAN >> /etc/environment \
   && export MRAN=$MRAN \
-  && echo "options(repos=c(CRAN='$MRAN'))" > /usr/local/lib/R/Rprofile.site \ 
+  && echo "options(repos=c(CRAN='$MRAN'))" > /usr/local/lib/R/etc/Rprofile.site \ 
   && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \

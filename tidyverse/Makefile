@@ -18,7 +18,7 @@ update:
 	cp Dockerfile ${R_VERSION}/Dockerfile
 	sed -i 's/rstudio:latest/rstudio:${R_VERSION}/' ${R_VERSION}/Dockerfile
 	sed -i "s/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE $$\{BUILD_DATE:-${BUILD_DATE}\}/" ${R_VERSION}/Dockerfile
-	sed -i 's/## MRAN becomes default only in versioned images/  \&\& echo \"options\(repos=c\(CRAN=\x27$$MRAN\x27\)\)\" > \/usr\/local\/lib\/R\/Rprofile.site \\ /' ${R_VERSION}/Dockerfile
+	sed -i 's/## MRAN becomes default only in versioned images/  \&\& echo \"options\(repos=c\(CRAN=\x27$$MRAN\x27\)\)\" > \/usr\/local\/lib\/R\/etc\/Rprofile.site \\ /' ${R_VERSION}/Dockerfile
 
 
 build:
