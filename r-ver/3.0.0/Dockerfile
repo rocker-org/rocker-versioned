@@ -9,7 +9,8 @@ ENV TERM xterm
 ## dependencies
 RUN apt-get update \ 
   && apt-get install -y --no-install-recommends \
-  ## for https connections
+    bash-completion \
+     ## for https connections
     ca-certificates \
   ## keep for installing packages with compiled code, compression libs, linear algebra libs, graphics libs
     g++ \
@@ -33,7 +34,7 @@ RUN apt-get update \
     unzip \
     zlib1g \
     zip \
-  ## Graphics
+  ## Graphics (without dev libs)
     libcairo2 \ 
     libjpeg62-turbo \
     libpango-1.0-0 \ 
@@ -53,8 +54,7 @@ RUN apt-get update \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && locale-gen en_US.utf8 \
   && /usr/sbin/update-locale LANG=en_US.UTF-8 \
-  && BUILDDEPS="bash-completion \
-    bison \
+  && BUILDDEPS="bison \
     debhelper \
     default-jdk \
     file \

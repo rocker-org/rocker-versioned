@@ -38,5 +38,10 @@ RUN apt-get update \
   && install2.r --error --repos $MRAN --deps TRUE \
     bookdown rticles rmdshower
 
-## Consider: yihui/printr when released
-
+## Consider including: 
+# - libv8-dev (Javascript V8 packages)
+# - yihui/printr R package (when released to CRAN)
+# - jekyll ruby-rouge (servr R package, Jekyll)
+# - jags 4.2 (build from source, repo version too old and apt-tagging forces upgrade of all compiler libs)
+# - libgdal-dev libproj-dev libgeos-dev (for rgdal and related geo deps)
+# - libgsl0-dev (GSL math library dependencies)
