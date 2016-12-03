@@ -1,4 +1,4 @@
-latest: .PHONY 
+latest:
 	export BUILD_DATE=$(date -I --date='TZ="America/Los_Angeles"') && docker build --build-arg BUILD_DATE=${BUILD_DATE} -t rocker/tidyverse .
 
 sync: 
