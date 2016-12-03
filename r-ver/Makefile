@@ -1,5 +1,5 @@
 latest:
-	docker build --build-arg R_VERSION=3-3-2 -t rocker/r-ver:3.3.2 .	
+	docker build --build-arg R_VERSION=3-3-2 -t rocker/r-ver .	
 
 
 ## Using build-arg
