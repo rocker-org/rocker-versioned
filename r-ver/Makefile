@@ -4,19 +4,20 @@ latest:
 	docker build --build-arg R_VERSION=3-3-2 -t rocker/r-ver .	
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
-sync: 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.1/Dockerfile
+sync: 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile
 
 3.3.2/Dockerfile: Dockerfile
 	export R_VERSION=3.3.2 export R_SVN=3-3-2 && unset BUILD_DATE && make update
 3.3.1/Dockerfile: Dockerfile
 	export R_VERSION=3.3.1 export R_SVN=3-3-1 && export BUILD_DATE=2016-10-31 && make update
 3.3.0/Dockerfile: Dockerfile
-	export R_VERSION=3.3.0 export R_SVN=3-3-0 && export BUILD_DATE=2016-05-03 && make update
+	export R_VERSION=3.3.0 export R_SVN=3-3-0 && export BUILD_DATE=2016-06-21 && make update
+## NOTE: This uses Build Date of the last day of version 3.2.x, e.g. day 3.3.0 was released
 3.2.0/Dockerfile: Dockerfile
-	export R_VERSION=3.2.0 export R_SVN=3-2-0 && export BUILD_DATE=2016-10-31 && make update
+	export R_VERSION=3.2.0 export R_SVN=3-2-0 && export BUILD_DATE=2016-05-03 && make update
 ## NOTE: MRAN goes back only to 2014-09-17, (during R 3.1.1; 3.1.2 was released in Oct 2014)
-3.1.1/Dockerfile: Dockerfile
-	export R_VERSION=3.1.1 export R_SVN=3-1-1 && export BUILD_DATE=2014-09-17 && make update
+3.1.0/Dockerfile: Dockerfile
+	export R_VERSION=3.1.0 export R_SVN=3-1-0 && export BUILD_DATE=2014-09-17 && make update
 
 update:
 	cp Dockerfile ${R_VERSION}/Dockerfile

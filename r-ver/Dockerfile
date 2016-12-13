@@ -33,7 +33,7 @@ RUN apt-get update \
     libbz2-dev \ 
     liblzma-dev \
     unzip \
-    zlib1g \
+    zlib1g-dev \
     zip \
     ## Graphics (without dev libs)
     libcairo2 \ 
@@ -136,8 +136,7 @@ RUN apt-get update \
   && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
-  && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
-
-
+  && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r
 
 CMD ["R"]
+
