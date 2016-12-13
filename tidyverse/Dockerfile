@@ -6,6 +6,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libmariadbd-dev \
   libmariadb-client-lgpl-dev \
   libpq-dev \
+  && . /etc/environment \
   && install2.r --error \
     --repos 'http://www.bioconductor.org/packages/release/bioc' \
     --repos $MRAN \ 
