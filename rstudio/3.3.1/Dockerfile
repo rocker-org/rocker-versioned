@@ -16,7 +16,6 @@ RUN apt-get update \
     git \
     libapparmor1 \
     libedit2 \
-    libcurl4-openssl-dev \
     libssl-dev \
     lsb-release \
     psmisc \
