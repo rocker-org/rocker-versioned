@@ -115,6 +115,7 @@ RUN apt-get update \
   && make \
   && make install \
   ## Clean up from R source install
+  && cd / \
   && rm -rf /tmp/R-devel \
   && apt-get remove --purge -y $BUILDDEPS \
   && apt-get autoremove -y \
