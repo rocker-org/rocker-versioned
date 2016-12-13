@@ -1,41 +1,26 @@
+LATEST=3-3-2
+
 latest:
 	docker build --build-arg R_VERSION=3-3-2 -t rocker/r-ver .	
 
-
-## Using build-arg
-all:
-	docker build --build-arg R_VERSION=3-3-2 -t rocker/r-ver:3.3.2 .	
-	docker build --build-arg R_VERSION=3-3-1 -t rocker/r-ver:3.3.1 .	
-	docker build --build-arg R_VERSION=3-3-0 -t rocker/r-ver:3.3.0 .	
-	docker build --build-arg R_VERSION=3-2-0 -t rocker/r-ver:3.2.0 .	
-	docker build --build-arg R_VERSION=3-1-0 -t rocker/r-ver:3.1.0 .	
-	docker build --build-arg R_VERSION=3-0-0 -t rocker/r-ver:3.0.0 .
-	docker build --build-arg R_VERSION=2-15-0 -t rocker/r-ver:2.15.0 .
-
-
 ## Auto-generate separate Dockerfiles for auto builds by hub
-sync: 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile 3.0.0/Dockerfile 2.15.0/Dockerfile
+sync: 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.1/Dockerfile
 
 3.3.2/Dockerfile: Dockerfile
-	cp Dockerfile 3.3.2/Dockerfile && sed -i s/3-3-2/3-3-2/ 3.3.2/Dockerfile
+	export R_VERSION=3.3.2 export R_SVN=3-3-2 && unset BUILD_DATE && make update
 3.3.1/Dockerfile: Dockerfile
-	cp Dockerfile 3.3.1/Dockerfile && sed -i s/3-3-2/3-3-1/ 3.3.1/Dockerfile
+	export R_VERSION=3.3.1 export R_SVN=3-3-1 && export BUILD_DATE=2016-10-31 && make update
 3.3.0/Dockerfile: Dockerfile
-	cp Dockerfile 3.3.0/Dockerfile && sed -i s/3-3-2/3-3-0/ 3.3.0/Dockerfile
+	export R_VERSION=3.3.0 export R_SVN=3-3-0 && export BUILD_DATE=2016-05-03 && make update
 3.2.0/Dockerfile: Dockerfile
-	cp Dockerfile 3.2.0/Dockerfile && sed -i s/3-3-2/3-3-0/ 3.2.0/Dockerfile
-3.1.0/Dockerfile: Dockerfile
-	cp Dockerfile 3.1.0/Dockerfile && sed -i s/3-3-2/3-1-0/ 3.1.0/Dockerfile
-3.0.0/Dockerfile: Dockerfile
-	cp Dockerfile 3.0.0/Dockerfile && sed -i s/3-3-2/3-0-0/ 3.0.0/Dockerfile
-2.15.0/Dockerfile: Dockerfile
-	cp Dockerfile 2.15.0/Dockerfile && sed -i s/3-3-2/2-15-0/ 2.15.0/Dockerfile
+	export R_VERSION=3.2.0 export R_SVN=3-2-0 && export BUILD_DATE=2016-10-31 && make update
+## NOTE: MRAN goes back only to 2014-09-17, (during R 3.1.1; 3.1.2 was released in Oct 2014)
+3.1.1/Dockerfile: Dockerfile
+	export R_VERSION=3.1.1 export R_SVN=3-1-1 && export BUILD_DATE=2014-09-17 && make update
 
-
-
-
-
-
-
-
+update:
+	cp Dockerfile ${R_VERSION}/Dockerfile
+	sed -i 's/${LATEST}/${R_SVN}/' ${R_VERSION}/Dockerfile
+	sed -i "s/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE $$\{BUILD_DATE:-${BUILD_DATE}\}/" ${R_VERSION}/Dockerfile
+	sed -i 's/## MRAN becomes default only in versioned images/  \&\& echo \"options\(repos=c\(CRAN=\x27$$MRAN\x27\)\)\" > \/usr\/local\/lib\/R\/etc\/Rprofile.site \\ /' ${R_VERSION}/Dockerfile
 

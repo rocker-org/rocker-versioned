@@ -1,7 +1,9 @@
 FROM debian:jessie 
 
 ARG R_VERSION
-ENV R_VERSION ${R_VERSION:-3-0-0}
+ARG BUILD_DATE
+ENV BUILD_DATE ${BUILD_DATE:-2014-09-17}
+ENV R_VERSION ${R_VERSION:-3-1-1}
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV TERM xterm
@@ -10,9 +12,9 @@ ENV TERM xterm
 RUN apt-get update \ 
   && apt-get install -y --no-install-recommends \
     bash-completion \
-     ## for https connections
+    ## for https connections
     ca-certificates \
-  ## keep for installing packages with compiled code, compression libs, linear algebra libs, graphics libs
+    ## package build tools
     g++ \
     gfortran \
     make \
@@ -21,39 +23,40 @@ RUN apt-get update \
     libc6 \
     libreadline6 \ 
     ucf \
- ## linear algebra
+    ## linear algebra
     libblas3 \ 
     liblapack3 \
     libquadmath0 \
-  ## Perl Regex
+    ## Perl Regex
     libpcre3-dev \
     libpaper-utils \ 
-  ## Compression 
+    ## Compression 
     libbz2-dev \ 
     liblzma-dev \
     unzip \
     zlib1g \
     zip \
-  ## Graphics (without dev libs)
+    ## Graphics (without dev libs)
     libcairo2 \ 
     libjpeg62-turbo \
     libpango-1.0-0 \ 
     libpangocairo-1.0-0 \ 
     libpng12-0 \
     libtiff5 \ 
-  ## networking
+    ## networking
     libcurl4-openssl-dev \
-  ## for UTF-8 locale
+    ## for UTF-8 locale
     locales \
-  ## Preferred graphics fonts
+    ## Preferred graphics fonts
     gsfonts \
     fonts-texgyre \
-  ## download utility
+    ## download utility
     wget \
-  && rm -rf /var/lib/apt/lists/* \
+  ## Set locales
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && locale-gen en_US.utf8 \
   && /usr/sbin/update-locale LANG=en_US.UTF-8 \
+  ## These BUILDDEPS needed only to build R from source, these are later removed!
   && BUILDDEPS="bison \
     debhelper \
     default-jdk \
@@ -111,16 +114,30 @@ RUN apt-get update \
                --without-recommended-packages \
   && make \
   && make install \
+  ## Clean up from R source install
+  && rm -rf /tmp/R-devel \
+  && apt-get remove --purge -y $BUILDDEPS \
+  && apt-get autoremove -y \
+  && apt-get autoclean -y \
+  && rm -rf /var/lib/apt/lists/* \
+  ## Configure user package library
   && echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /usr/local/lib/R/etc/Rprofile.site \
   && mkdir -p /usr/local/lib/R/site-library \
   && chown root:staff /usr/local/lib/R/site-library \
   && chmod g+wx /usr/local/lib/R/site-library \
   && echo "R_LIBS_USER='/usr/local/lib/R/site-library'" >> /usr/local/lib/R/etc/Renviron \
   && echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron \
-  && rm -rf /tmp/R-devel \
-  && apt-get remove --purge -y $BUILDDEPS \
-  && apt-get autoremove -y \
-  && apt-get autoclean -y \
-  && rm -rf /var/lib/apt/lists/*
+  ## install packages from date-locked MRAN snapshot of CRAN
+  && [ -z "$BUILD_DATE" ] && BUILD_DATE=$(date -I --date='TZ="America/Los_Angeles"') || true \
+  && MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE} \
+  && echo MRAN=$MRAN >> /etc/environment \
+  && export MRAN=$MRAN \
+    && echo "options(repos=c(CRAN='$MRAN'))" > /usr/local/lib/R/etc/Rprofile.site \ 
+  && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
+  && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
+  && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
+  && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
+
+
 
 CMD ["R"]
