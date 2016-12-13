@@ -85,8 +85,7 @@ RUN apt-get update \
     xauth \
     xdg-utils \
     xfonts-base \
-    xvfb \
-    zlib1g-dev" \
+    xvfb" \
   && apt-get update -qq \
   && apt-get install -y --no-install-recommends $BUILDDEPS \
   && cd /tmp \
