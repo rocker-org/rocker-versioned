@@ -15,6 +15,7 @@ RUN apt-get update \
     file \
     git \
     libapparmor1 \
+    libcurl4-openssl-dev \
     libedit2 \
     libssl-dev \
     lsb-release \

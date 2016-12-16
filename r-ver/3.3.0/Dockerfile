@@ -3,7 +3,7 @@ FROM debian:jessie
 ARG R_VERSION
 ARG BUILD_DATE
 ENV BUILD_DATE ${BUILD_DATE:-2016-06-21}
-ENV R_VERSION ${R_VERSION:-3-3-0}
+ENV R_VERSION ${R_VERSION:-3.3.0}
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV TERM xterm
@@ -12,86 +12,58 @@ ENV TERM xterm
 RUN apt-get update \ 
   && apt-get install -y --no-install-recommends \
     bash-completion \
-    ## for https connections
     ca-certificates \
-    ## package build tools
+    file \
+    fonts-texgyre \
     g++ \
     gfortran \
-    make \
-    libgfortran3 \ 
-    libglib2.0-0 \
-    libc6 \
-    libreadline6 \ 
-    ucf \
-    ## linear algebra
-    libblas3 \ 
-    liblapack3 \
-    libquadmath0 \
-    ## Perl Regex
-    libpcre3-dev \
-    libpaper-utils \ 
-    ## Compression 
-    libbz2-dev \ 
-    liblzma-dev \
-    unzip \
-    zlib1g-dev \
-    zip \
-    ## Graphics (without dev libs)
-    libcairo2 \ 
+    gsfonts \
+    libbz2-1.0 \
+    libcurl3 \
+    libicu52 \
     libjpeg62-turbo \
-    libpango-1.0-0 \ 
+    libopenblas-dev \
     libpangocairo-1.0-0 \ 
+    libpcre3 \
     libpng12-0 \
     libtiff5 \ 
-    ## networking
-    libcurl4-openssl-dev \
-    ## for UTF-8 locale
+    liblzma5 \
     locales \
-    ## Preferred graphics fonts
-    gsfonts \
-    fonts-texgyre \
-    ## download utility
-    wget \
-  ## Set locales
+    make \
+    unzip \
+    zip \
+    zlib1g \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && locale-gen en_US.utf8 \
   && /usr/sbin/update-locale LANG=en_US.UTF-8 \
-  ## These BUILDDEPS needed only to build R from source, these are later removed!
-  && BUILDDEPS="bison \
-    debhelper \
+  && BUILDDEPS="curl \
     default-jdk \
-    file \
-    groff-base \
-    libblas-dev \
-    libcairo2-dev \
-    liblapack-dev \
+    libbz2-dev \
+    libcairo2-dev \ 
+    libcurl4-openssl-dev \
+    libpango1.0-dev \
     libjpeg-dev \
+    libicu-dev \
+    libpcre3-dev \
     libpng-dev \
     libreadline-dev \
     libtiff5-dev \
-    libncurses5-dev \
-    libpango1.0-dev \
-    libx11-dev \
-    libxt-dev \
-    mpack \
-    subversion \
-    tcl8.6-dev \
+    liblzma-dev \ 
+    perl \
     texinfo \
     texlive-extra-utils \
-    texlive-fonts-extra \
     texlive-fonts-recommended \
+    texlive-fonts-extra \
     texlive-latex-recommended \
-    tk8.6-dev \
-    x11proto-core-dev \
-    xauth \
-    xdg-utils \
-    xfonts-base \
-    xvfb" \
-  && apt-get update -qq \
-  && apt-get install -y --no-install-recommends $BUILDDEPS \
-  && cd /tmp \
-  && svn co https://svn.r-project.org/R/tags/R-${R_VERSION}/ R-devel \ 
-  && cd /tmp/R-devel \
+    zlib1g-dev" \
+  && apt-get install -y --no-install-recommends $BUILDDEPS \ 
+  && cd tmp/ \
+  ## Download source code 
+  && curl -O https://cran.r-project.org/src/base/R-3/R-${R_VERSION}.tar.gz \
+  ## Extract source code
+  && tar -xf R-${R_VERSION}.tar.gz \
+  && cd R-${R_VERSION} \
+  ## Set compiler flags
   && R_PAPERSIZE=letter \
     R_BATCHSAVE="--no-save --no-restore" \
     R_BROWSER=xdg-open \
@@ -102,29 +74,25 @@ RUN apt-get update \
     R_PRINTCMD=/usr/bin/lpr \
     LIBnn=lib \
     AWK=/usr/bin/awk \
-    CFLAGS=$(R CMD config CFLAGS) \
-    CXXFLAGS=$(R CMD config CXXFLAGS) \
+    CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g" \
+    CXXFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g" \
+  ## Configure options
   ./configure --enable-R-shlib \
-               --without-blas \
-               --without-lapack \
+               --enable-memory-profiling \
                --with-readline \
+               --with-blas="-lopenblas" \
                --disable-nls \
                --without-x \
                --without-recommended-packages \
+  ## Build and install
   && make \
   && make install \
-  ## Clean up from R source install
-  && cd / \
-  && rm -rf /tmp/R-devel \
-  && apt-get remove --purge -y $BUILDDEPS \
-  && apt-get autoremove -y \
-  && apt-get autoclean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  ## Configure user package library
+  ## Add a default CRAN mirror
   && echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /usr/local/lib/R/etc/Rprofile.site \
+  ## Add a library directory (for user-installed packages)
   && mkdir -p /usr/local/lib/R/site-library \
-  && chown root:staff /usr/local/lib/R/site-library \
-  && chmod g+wx /usr/local/lib/R/site-library \
+  && chgrp staff /usr/local/lib/R/site-library \
+  ## Fix library path
   && echo "R_LIBS_USER='/usr/local/lib/R/site-library'" >> /usr/local/lib/R/etc/Renviron \
   && echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron \
   ## install packages from date-locked MRAN snapshot of CRAN
@@ -133,10 +101,18 @@ RUN apt-get update \
   && echo MRAN=$MRAN >> /etc/environment \
   && export MRAN=$MRAN \
     && echo "options(repos=c(CRAN='$MRAN'))" > /usr/local/lib/R/etc/Rprofile.site \ 
+  ## Use littler installation scripts
   && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
-  && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r
+  && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
+  ## Clean up from R source install
+  && cd / \
+  && rm -rf /tmp/* \
+  && apt-get remove --purge -y $BUILDDEPS \
+  && apt-get autoremove -y \
+  && apt-get autoclean -y \
+  && rm -rf /var/lib/apt/lists/* \
 
 CMD ["R"]
 
