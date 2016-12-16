@@ -7,4 +7,4 @@ machine:
 test:
   override:
     - make all 
-    - docker run --rm -ti -v $(pwd):/tmp -w /tmp rocker/verse ./tests.sh
+    - docker run -ti -v $(pwd):/tmp -w /tmp rocker/verse ./tests.sh
