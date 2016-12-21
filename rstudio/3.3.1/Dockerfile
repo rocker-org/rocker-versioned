@@ -60,6 +60,9 @@ RUN apt-get update \
   && echo '#!/bin/bash \
            \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
            > /etc/services.d/rstudio/run \
+   && echo '#!/bin/bash \
+           \n rstudio-server stop' \
+           > /etc/services.d/rstudio/finish \
   ## hack to avoid RStudio-bug in detecting build-dependencies         
   && ln -s /usr/local/bin/R /usr/bin/R \
   && ln -s /usr/local/lib/R /usr/lib/R
