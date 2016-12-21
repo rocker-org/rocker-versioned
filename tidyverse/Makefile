@@ -14,5 +14,5 @@ update:
 	sed -i 's/rstudio:latest/rstudio:${R_VERSION}/' ${R_VERSION}/Dockerfile
 
 build:
-	docker build --build-arg BUILD_DATE=${BUILD_DATE} -t rocker/tidyverse:${R_VERSION} ${R_VERSION}
+	docker build -t rocker/tidyverse:${R_VERSION} ${R_VERSION}
 

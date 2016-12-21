@@ -45,3 +45,6 @@ RUN apt-get update \
 # - jags 4.2 (build from source, repo version too old and apt-tagging forces upgrade of all compiler libs)
 # - libgdal-dev libproj-dev libgeos-dev (for rgdal and related geo deps)
 # - libgsl0-dev (GSL math library dependencies)
+# - liblzma-dev libbz2-dev libiuc-dev (dev libraries needed to build R, also used to build littler & rJava)
+# - default-jdk needed for rJava
+
