@@ -19,3 +19,6 @@ sync:
 .PHONY:
 	echo "Building Rocker versioned images locally...\n"
 
+
+clean:
+	docker rmi rocker/r-ver rocker/rstuido rocker/tidyverse rocker/verse
