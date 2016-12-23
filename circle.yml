@@ -6,5 +6,8 @@ machine:
 
 test:
   override:
-    - make all 
+    - make r-ver
+    - make rstudio
+    - make tidyverse
+    - make verse
     - docker run -ti -v $(pwd):/tmp -w /tmp rocker/verse ./tests.sh

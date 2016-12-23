@@ -53,6 +53,9 @@ RUN apt-get update \
 	&& mkdir /home/rstudio \
 	&& chown rstudio:rstudio /home/rstudio \
 	&& addgroup rstudio staff \
+  ## configure git not to request password each time 
+  && git config --system credential.helper 'cache --timeout=3600' \
+  && git config --system push.default simple \
   ## Set up S6 init system
   && wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz \
   && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
