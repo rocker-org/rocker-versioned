@@ -5,7 +5,7 @@ ARG PANDOC_TEMPLATES_VERSION
 ENV PANDOC_TEMPLATES_VERSION ${PANDOC_TEMPLATES_VERSION:-1.18}
 
 ## Add RStudio binaries to PATH
-ENV PATH /usr/lib/rstudio-server/bin/:$PATH
+ENV PATH /usr/lib/rstudio-server/bin:$PATH
 
 ## Download and install RStudio server & dependencies
 ## Attempts to get detect latest version, otherwise falls back to version given in $VER
@@ -37,16 +37,17 @@ RUN apt-get update \
   && mkdir /root/.pandoc && ln -s /opt/pandoc/templates /root/.pandoc/templates \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
-  ## RStudio configuration for docker
+  ## RStudio wants an /etc/R, will populate from $R_HOME/etc
   && mkdir -p /etc/R \
+  ## Write config files in $R_HOME/etc
   && echo '\n\
     \n# Configure httr to perform out-of-band authentication if HTTR_LOCALHOST \
     \n# is not set since a redirect to localhost may not work depending upon \
     \n# where this Docker container is running. \
     \nif(is.na(Sys.getenv("HTTR_LOCALHOST", unset=NA))) { \
     \n  options(httr_oob_default = TRUE) \
-    \n}' >> /etc/R/Rprofile.site \
-  && echo "PATH=\"/usr/lib/rstudio-server/bin/:\${PATH}\"" >> /etc/R/Renviron.site \
+    \n}' >> /usr/local/lib/R/etc/Rprofile \
+  && echo "PATH=\"${PATH}\"" >> /usr/local/lib/R/etc/Renviron \
   ## Need to configure non-root user for RStudio
   && useradd rstudio \
   && echo "rstudio:rstudio" | chpasswd \
@@ -65,10 +66,7 @@ RUN apt-get update \
            > /etc/services.d/rstudio/run \
    && echo '#!/bin/bash \
            \n rstudio-server stop' \
-           > /etc/services.d/rstudio/finish \
-  ## hack to avoid RStudio-bug in detecting build-dependencies         
-  && ln -s /usr/local/bin/R /usr/bin/R \
-  && ln -s /usr/local/lib/R /usr/lib/R
+           > /etc/services.d/rstudio/finish
 
 COPY userconf.sh /etc/cont-init.d/conf
 EXPOSE 8787
