@@ -49,12 +49,18 @@ RUN apt-get update \
     libreadline-dev \
     libtiff5-dev \
     liblzma-dev \ 
+    libx11-dev \
+    libxt-dev \
     perl \
     texinfo \
     texlive-extra-utils \
     texlive-fonts-recommended \
     texlive-fonts-extra \
     texlive-latex-recommended \
+    x11proto-core-dev \
+    xauth \
+    xfonts-base \
+    xvfb \
     zlib1g-dev" \
   && apt-get install -y --no-install-recommends $BUILDDEPS \ 
   && cd tmp/ \
@@ -82,7 +88,6 @@ RUN apt-get update \
                --with-readline \
                --with-blas="-lopenblas" \
                --disable-nls \
-               --without-x \
                --without-recommended-packages \
   ## Build and install
   && make \
