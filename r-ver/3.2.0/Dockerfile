@@ -12,7 +12,7 @@ ENV TERM xterm
 RUN apt-get update \ 
   && apt-get install -y --no-install-recommends \
     bash-completion \
-    ca-certificates \
+    ca-certificates curl \
     file \
     fonts-texgyre \
     g++ \
@@ -36,7 +36,7 @@ RUN apt-get update \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && locale-gen en_US.utf8 \
   && /usr/sbin/update-locale LANG=en_US.UTF-8 \
-  && BUILDDEPS="curl \
+  && BUILDDEPS="\
     default-jdk \
     libbz2-dev \
     libcairo2-dev \ 
@@ -93,7 +93,7 @@ RUN apt-get update \
   && make \
   && make install \
   ## Add a default CRAN mirror
-  && echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /usr/local/lib/R/etc/Rprofile.site \
+  && echo "options(repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'curl')" >> /usr/local/lib/R/etc/Rprofile.site \
   ## Add a library directory (for user-installed packages)
   && mkdir -p /usr/local/lib/R/site-library \
   && chown root:staff /usr/local/lib/R/site-library \
@@ -106,7 +106,7 @@ RUN apt-get update \
   && MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE} \
   && echo MRAN=$MRAN >> /etc/environment \
   && export MRAN=$MRAN \
-    && echo "options(repos=c(CRAN='$MRAN'))" > /usr/local/lib/R/etc/Rprofile.site \ 
+  && echo "options(repos = c(CRAN='$MRAN'), download.file.method = 'curl')" >> /usr/local/lib/R/etc/Rprofile.site \
   ## Use littler installation scripts
   && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
