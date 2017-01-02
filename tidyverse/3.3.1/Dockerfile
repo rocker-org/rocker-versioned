@@ -11,7 +11,12 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   && install2.r --error \
     --repos 'http://www.bioconductor.org/packages/release/bioc' \
     --repos $MRAN \ 
-    --deps "TRUE" \
-    ## explicitly include dplyr & ggplot2 to get their suggests lists
-    tidyverse devtools profvis dplyr ggplot2
+    --deps TRUE \
+    tidyverse devtools dplyr ggplot2 profvis formatR
+
+## Notes: Above install2.r uses --deps TRUE to get Suggests dependencies as well,
+## dplyr and ggplot are already part of tidyverse, but listed explicitly to get their (many) suggested dependencies.
+## In addition to the the title 'tidyverse' packages, devtools is included for package development.
+## RStudio wants formatR for rmarkdown, even though it's not suggested.
+## profvis included just for profiling / development (developed by RStudio though not formally tidyverse).
 
