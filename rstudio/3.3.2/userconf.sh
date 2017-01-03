@@ -4,7 +4,9 @@
 USER=${USER:=rstudio}
 PASSWORD=${PASSWORD:=rstudio}
 USERID=${USERID:=1000}
+GROUPID=${GROUPID:=1000}
 ROOT=${ROOT:=FALSE}
+UMASK=${UMASK:=022}
 
 
 if [ "$USERID" -lt 1000 ]
@@ -35,6 +37,14 @@ elif [ "$USER" != "rstudio" ]
     chown -R $USER:$USER /home/$USER
     echo "USER is now $USER"  
 fi
+
+if [ "$GROUPID" -ne 1000 ]
+## Configure the primary GID (whether rstudio or $USER) with a different GROUPID if requested.
+  then
+    echo "Modifying primary group $(id $USER -g -n)"
+    groupmod -g $GROUPID $(id $USER -g -n)
+    echo "Primary group ID is now custom_group $GROUPID"
+fi
   
 ## Add a password to user
 echo "$USER:$PASSWORD" | chpasswd
@@ -44,6 +54,13 @@ if [ "$ROOT" == "TRUE" ]
   then
     adduser $USER sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
     echo "$USER added to sudoers"
+fi
+
+## Change Umask value if desired
+if [ "$UMASK" -ne 022 ]
+  then
+    echo "server-set-umask=false" >> /etc/rstudio/rserver.conf
+    echo "Sys.umask(mode=$UMASK)" >> /home/$USER/.Rprofile
 fi
 
 ## add these to the global environment so they are avialable to the RStudio user 
