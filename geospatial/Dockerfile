@@ -8,7 +8,6 @@ RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.
   && apt-get update \
   && apt-get build-dep -y -o APT::Get::Build-Dep-Automatic=true libgdal-dev \
   && apt-get install -y --no-install-recommends \
-  netcdf-bin \
   libgeos-dev \
   libproj-dev \
   libudunits2-dev \
