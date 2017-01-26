@@ -20,7 +20,7 @@ RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.
   libsqlite3-dev \
   libfreexl.dev \
   libspatialite-dev \
-
+  unixodbc-dev \
   ## Optionsl? Maybe leave out in the base image?
   netcdf-bin \
   libudunits2-dev
@@ -42,6 +42,8 @@ RUN cd gdal* \
     --with-geos \
     --with-static-proj4 \
     --with-libjson-c \
+    --with-odbc \
+    --with-curl \
     --without-grass \
     --without-libgrass \
   && make \
