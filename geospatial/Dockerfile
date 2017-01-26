@@ -2,6 +2,7 @@ FROM rocker/tidyverse:latest
 MAINTAINER "Carl Boettiger" cboettig@ropensci.org
 
 ENV GDAL_VERSION 2.1.2
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH 
 
 ## Add LaTeX, rticles and bookdown support
 RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list \
