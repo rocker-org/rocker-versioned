@@ -6,7 +6,7 @@ ENV GDAL_VERSION 2.1.2
 ## Add LaTeX, rticles and bookdown support
 RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list \
   && apt-get update \
-#  && apt-get build-dep -o APT::Get::Build-Dep-Automatic=true libgdal-dev \
+  && apt-get build-dep -y -o APT::Get::Build-Dep-Automatic=true libgdal-dev \
   && apt-get install -y --no-install-recommends \
   netcdf-bin \
   libgeos-dev \
