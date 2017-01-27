@@ -26,8 +26,6 @@ RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.
   libhdf4-alt-dev \
   ## hdf5
   libhdf5-dev \
-  libhdf5-serial-dev \
-  zlib1g-dev \
   ## sqlite
   libsqlite3-dev \
   ## freexl
@@ -52,7 +50,7 @@ RUN cd gdal* \
     --with-spatialite \
     --with-geos \
     --with-hdf4 \
-    --with-hdf5 \
+    --with-hdf5=/usr/lib/x86_64-linux-gnu/hdf5/serialSV \
     --with-libjson-c \
     --with-netcdf \
     --with-odbc \
