@@ -4,19 +4,23 @@ MAINTAINER "Carl Boettiger" cboettig@ropensci.org
 ENV GDAL_VERSION 2.1.2
 ENV MRAN https://cloud.r-project.org/
 
-## Add LaTeX, rticles and bookdown support
+RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz \
+  && tar -xf gdal-${GDAL_VERSION}.tar.gz
+
+## Install dependencies of gdal-$GDAL_VERSION
 RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list \
   && apt-get update \
 #  && apt-get build-dep -o APT::Get::Build-Dep-Automatic=true libgdal-dev \
   && apt-get install -y --no-install-recommends \
-  ## Dependencies as used in homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
-  libpng12-dev \
-  libjpeg-dev \
-  libgif-dev \
-  libtiff-dev \
-  libgeotiff-dev \
+  # libpng12-dev \
+  # libjpeg-dev \
+  # libgif-dev \
+  # libtiff-dev \
+  # libgeotiff-dev \
   libproj-dev \
   libgeos-dev \
+  libhdf4-dev \
+  libhdf5-dev \
   libsqlite3-dev \
   libfreexl.dev \
   libspatialite-dev \
@@ -25,23 +29,19 @@ RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.
   netcdf-bin \
   libudunits2-dev
 
-RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz \
-  && tar -xf gdal-${GDAL_VERSION}.tar.gz
   
-  ## Configure options take from homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
+## Configure options based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
 RUN cd gdal* \
   && ./configure \
-    --with-jpeg \
-    --without-jpeg12 \
-    --with-gif \
-    --with-libtiff \
     --with-geotiff \
     --with-sqlite3 \
     --with-freexl \
     --with-spatialite \
     --with-geos \
-    --with-static-proj4 \
+    --with-hdf4 \
+    --with-hdf5 \
     --with-libjson-c \
+    --with-netcdf \
     --with-odbc \
     --with-curl \
     --without-grass \
@@ -51,7 +51,7 @@ RUN cd gdal* \
   && cd .. && rm -rf gdal-* \
   && . /etc/environment
 
-  ## Install R packages labeled "core" in Spatial taskview 
+## Install R packages labeled "core" in Spatial taskview 
 RUN install2.r --error --repos $MRAN \
     classInt \
     DCluster \
