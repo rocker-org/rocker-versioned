@@ -19,14 +19,14 @@ RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.
   # libgeotiff-dev \
   libproj-dev \
   libgeos-dev \
-  libhdf4-dev \
+  libhdf4-alt-dev \
   libhdf5-dev \
   libsqlite3-dev \
   libfreexl.dev \
-  libspatialite-dev \
   unixodbc-dev \
-  ## Optionsl? Maybe leave out in the base image?
-  netcdf-bin \
+  libexpat1-dev \
+  libxerces-c-dev \
+  libnetcdf-dev \
   libudunits2-dev
 
   
