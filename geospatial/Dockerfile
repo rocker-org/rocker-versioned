@@ -1,7 +1,7 @@
 FROM rocker/tidyverse:latest
 MAINTAINER "Carl Boettiger" cboettig@ropensci.org
 
-ENV GDAL_VERSION 2.1.2
+ENV GDAL_VERSION 2.1.3
 ENV MRAN https://cloud.r-project.org/
 
 RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz \
@@ -19,15 +19,25 @@ RUN echo "deb-src http://deb.debian.org/debian jessie main" >> /etc/apt/sources.
   # libgeotiff-dev \
   libproj-dev \
   libgeos-dev \
+  ## hdf4
   libhdf4-alt-dev \
+  ## hdf5
   libhdf5-dev \
+  libhdf5-serial-dev \
+  zlib1g-dev \
+  ## sqlite
   libsqlite3-dev \
+  ## freexl
   libfreexl.dev \
+  ## odbc
   unixodbc-dev \
+  ## diverse
   libexpat1-dev \
   libxerces-c-dev \
   libnetcdf-dev \
-  libudunits2-dev
+  libudunits2-dev \
+  ## KML 
+  libkml-dev 
 
   
 ## Configure options based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
