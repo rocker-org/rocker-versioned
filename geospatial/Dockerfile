@@ -1,7 +1,10 @@
 FROM rocker/tidyverse:latest
 MAINTAINER "Carl Boettiger" cboettig@ropensci.org
 
+
 ENV GDAL_VERSION 2.1.3
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
 ENV MRAN https://cloud.r-project.org/
 
 RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz \
