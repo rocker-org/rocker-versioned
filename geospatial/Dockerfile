@@ -50,7 +50,7 @@ RUN cd gdal* \
     --with-spatialite \
     --with-geos \
     --with-hdf4 \
-    --with-hdf5=/usr/lib/x86_64-linux-gnu/hdf5/serialSV \
+    --with-hdf5=/usr/lib/x86_64-linux-gnu/hdf5/serial \
     --with-libjson-c \
     --with-netcdf \
     --with-odbc \
