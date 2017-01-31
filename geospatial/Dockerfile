@@ -28,6 +28,7 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libnetcdf-dev \
   libudunits2-dev \ 
   libkml-dev \
+  libdap-dev \
 ## Configure options based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
   && cd gdal* \
   && ./configure \
@@ -42,6 +43,7 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     --with-netcdf \
     --with-odbc \
     --with-curl \
+    --with-dods-root=/usr \
     --without-grass \
     --without-libgrass \
   && make \
