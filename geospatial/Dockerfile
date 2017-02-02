@@ -11,37 +11,32 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   && apt-get update \
 ##  && apt-get build-dep -y -o APT::Get::Build-Dep-Automatic=true libgdal-dev \
   && apt-get install -y --no-install-recommends \
-  # libpng12-dev \
-  # libjpeg-dev \
-  # libgif-dev \
-  # libtiff-dev \
-  # libgeotiff-dev \
-  libproj-dev \
+  libexpat1-dev \
+  libfreexl-dev \
   libgeos-dev \
   libhdf4-alt-dev \
   libhdf5-dev \
-  libsqlite3-dev \
-  libfreexl-dev \
-  unixodbc-dev \
-  libexpat1-dev \
-  libxerces-c-dev \
-  libnetcdf-dev \
-  libudunits2-dev \ 
   libkml-dev \
+  libnetcdf-dev \
+  libproj-dev \
+  libsqlite3-dev \
+  libudunits2-dev \ 
+  libxerces-c-dev \
+  unixodbc-dev \
 ## Configure options based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
   && cd gdal* \
   && ./configure \
-    --with-geotiff \
-    --with-sqlite3 \
+    --with-curl \
     --with-freexl \
-    --with-spatialite \
     --with-geos \
+    --with-geotiff \
     --with-hdf4 \
     --with-hdf5=/usr/lib/x86_64-linux-gnu/hdf5/serial \
     --with-libjson-c \
     --with-netcdf \
     --with-odbc \
-    --with-curl \
+    --with-spatialite \
+    --with-sqlite3 \
     --without-grass \
     --without-libgrass \
   && make \
@@ -50,16 +45,15 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   && . /etc/environment \
 ## Install R packages labeled "core" in Spatial taskview 
   && install2.r --error --repos $MRAN \
-    classInt \
     DCluster \
+    RColorBrewer \
+    RandomFields \
+    classInt \
     deldir \
     dggridR \
-#       geoR \ ## Needs R built with tcl/tk support 
     gstat \
     maptools \
-    RandomFields \
     raster \
-    RColorBrewer \
     rgdal \
     rgeos \
     sf \
@@ -68,4 +62,5 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     spatstat \
     spdep \
     splancs
+#       geoR \ ## Needs R built with tcl/tk support 
     
