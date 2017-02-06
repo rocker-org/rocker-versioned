@@ -11,63 +11,72 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   && apt-get update \
 ##  && apt-get build-dep -y -o APT::Get::Build-Dep-Automatic=true libgdal-dev \
   && apt-get install -y --no-install-recommends \
-  # libpng12-dev \
-  # libjpeg-dev \
-  # libgif-dev \
-  # libtiff-dev \
-  # libgeotiff-dev \
-  libproj-dev \
+  ## dev packages
+  libdap-dev \
+  libexpat1-dev \
+  libfreexl-dev \
   libgeos-dev \
+  libgsl0-dev \
+  libglu1-mesa-dev \
   libhdf4-alt-dev \
   libhdf5-dev \
-  libsqlite3-dev \
-  libfreexl-dev \
-  unixodbc-dev \
-  libexpat1-dev \
-  libxerces-c-dev \
-  libnetcdf-dev \
-  libudunits2-dev \ 
   libkml-dev \
-  libdap-dev \
+  libnetcdf-dev \
+  libproj-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  libudunits2-dev \ 
+  libxerces-c-dev \
+  ## runtime packages
+  netcdf-bin \
+  unixodbc-dev \
 ## Configure options based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
   && cd gdal* \
   && ./configure \
-    --with-geotiff \
-    --with-sqlite3 \
+    --with-curl \
+    --with-dods-root=/usr \
     --with-freexl \
-    --with-spatialite \
     --with-geos \
+    --with-geotiff \
     --with-hdf4 \
     --with-hdf5=/usr/lib/x86_64-linux-gnu/hdf5/serial \
     --with-libjson-c \
     --with-netcdf \
     --with-odbc \
-    --with-curl \
-    --with-dods-root=/usr \
+    ##
     --without-grass \
     --without-libgrass \
   && make \
   && make install \
   && cd .. && rm -rf gdal-* \
   && . /etc/environment \
-## Install R packages labeled "core" in Spatial taskview 
-  && install2.r --error --repos $MRAN \
-    classInt \
+  ## Install R packages labeled "core" in Spatial taskview 
+  && install2.r --error \
+    --repos 'https://cloud.r-project.org/' \
+    --repos 'http://www.bioconductor.org/packages/release/bioc' \
+    --deps TRUE \
+    ## from CRAN
     DCluster \
+    RColorBrewer \
+    ## RandomFields \ ## depends on tcl/tk (direct or indirect)
+    classInt \
     deldir \
     dggridR \
-#       geoR \ ## Needs R built with tcl/tk support 
     gstat \
+    lidR \
     maptools \
-    RandomFields \
+    ncdf4 \
+    proj4 \
     raster \
-    RColorBrewer \
     rgdal \
     rgeos \
-    sf \
+    rlas \
+    ## sf \
     sp \
     spacetime \
-    spatstat \
+    ## spatstat \ ## Needs tcltk
     spdep \
-    splancs
-    
+    splancs \
+    ##  geoR \ ## Needs R built with tcl/tk support
+    ## from bioconductor
+    rhdf5 
