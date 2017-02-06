@@ -12,6 +12,7 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
 ##  && apt-get build-dep -y -o APT::Get::Build-Dep-Automatic=true libgdal-dev \
   && apt-get install -y --no-install-recommends \
   ## dev packages
+  libdap-dev \
   libexpat1-dev \
   libfreexl-dev \
   libgeos-dev \
@@ -26,13 +27,14 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libssl-dev \
   libudunits2-dev \ 
   libxerces-c-dev \
-  unixodbc-dev \
   ## runtime packages
   netcdf-bin \
+  unixodbc-dev \
 ## Configure options based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
   && cd gdal* \
   && ./configure \
     --with-curl \
+    --with-dods-root=/usr \
     --with-freexl \
     --with-geos \
     --with-geotiff \
@@ -41,8 +43,7 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     --with-libjson-c \
     --with-netcdf \
     --with-odbc \
-    --with-spatialite \
-    --with-sqlite3 \
+    ##
     --without-grass \
     --without-libgrass \
   && make \
