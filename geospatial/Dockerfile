@@ -26,6 +26,7 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libproj-dev \
   libsqlite3-dev \
   libssl-dev \
+
   libtiff5-dev \
   libudunits2-dev \ 
   libxerces-c-dev \
@@ -83,4 +84,4 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     splancs \
     ##  geoR \ ## Needs R built with tcl/tk support
     ## from bioconductor
-    rhdf5
+    rhdf5 
