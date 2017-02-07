@@ -14,6 +14,7 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   ## dev packages
   libdap-dev \
   libexpat1-dev \
+  libfftw3-dev \
   libfreexl-dev \
   libgeos-dev \
   libgsl0-dev \
@@ -25,12 +26,13 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libproj-dev \
   libsqlite3-dev \
   libssl-dev \
+  libtiff5-dev \
   libudunits2-dev \ 
   libxerces-c-dev \
   ## runtime packages
   netcdf-bin \
   unixodbc-dev \
-## Configure options based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
+## Configure options loosely based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
   && cd gdal* \
   && ./configure \
     --with-curl \
@@ -48,9 +50,11 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     --without-libgrass \
   && make \
   && make install \
-  && cd .. && rm -rf gdal-* \
+  && cd .. \
+  ## Cleanup gdal installation
+  && rm -rf gdal-* \
   && . /etc/environment \
-  ## Install R packages labeled "core" in Spatial taskview 
+## Install R packages labeled "core" in Spatial taskview 
   && install2.r --error \
     --repos 'https://cloud.r-project.org/' \
     --repos 'http://www.bioconductor.org/packages/release/bioc' \
@@ -79,4 +83,4 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     splancs \
     ##  geoR \ ## Needs R built with tcl/tk support
     ## from bioconductor
-    rhdf5 
+    rhdf5
