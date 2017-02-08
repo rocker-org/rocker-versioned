@@ -52,6 +52,8 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     perl \
+    tcl8.5-dev \
+    tk8.5-dev \
     texinfo \
     texlive-extra-utils \
     texlive-fonts-recommended \
