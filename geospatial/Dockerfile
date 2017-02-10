@@ -26,7 +26,8 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libproj-dev \
   libsqlite3-dev \
   libssl-dev \
-
+  libtcl8.5 \
+  libtk8.5 \
   libtiff5-dev \
   libudunits2-dev \ 
   libxerces-c-dev \
@@ -63,7 +64,7 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     ## from CRAN
     DCluster \
     RColorBrewer \
-    ## RandomFields \ ## depends on tcl/tk (direct or indirect)
+    RandomFields \
     classInt \
     deldir \
     dggridR \
@@ -76,12 +77,12 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     rgdal \
     rgeos \
     rlas \
-    ## sf \
+    sf \
     sp \
     spacetime \
-    ## spatstat \ ## Needs tcltk
+    spatstat \
     spdep \
     splancs \
-    ##  geoR \ ## Needs R built with tcl/tk support
+     geoR \
     ## from bioconductor
     rhdf5 
