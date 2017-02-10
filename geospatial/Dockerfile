@@ -26,12 +26,12 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libproj-dev \
   libsqlite3-dev \
   libssl-dev \
-  libtcl8.5 \
-  libtk8.5 \
   libtiff5-dev \
   libudunits2-dev \ 
   libxerces-c-dev \
-  ## runtime packages
+  tcl8.5-dev \
+  tk8.5-dev \
+ ## runtime packages
   netcdf-bin \
   unixodbc-dev \
 ## Configure options loosely based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
