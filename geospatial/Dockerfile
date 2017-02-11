@@ -60,7 +60,6 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   && install2.r --error \
     --repos 'https://cloud.r-project.org/' \
     --repos 'http://www.bioconductor.org/packages/release/bioc' \
-    --deps TRUE \
     ## from CRAN
     DCluster \
     RColorBrewer \
@@ -83,6 +82,6 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     spatstat \
     spdep \
     splancs \
-     geoR \
+    geoR \
     ## from bioconductor
     rhdf5 
