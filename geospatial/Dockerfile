@@ -26,11 +26,11 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libproj-dev \
   libsqlite3-dev \
   libssl-dev \
+  libtcl8.5 \
+  libtk8.5 \
   libtiff5-dev \
   libudunits2-dev \ 
   libxerces-c-dev \
-  tcl8.5-dev \
-  tk8.5-dev \
  ## runtime packages
   netcdf-bin \
   unixodbc-dev \
