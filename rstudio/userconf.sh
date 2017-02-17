@@ -12,8 +12,15 @@ UMASK=${UMASK:=022}
 if [ "$USERID" -lt 1000 ]
 # Probably a macOS user, https://github.com/rocker-org/rocker/issues/205
   then
-    echo "$USERID is less than 1000, setting minumum authorised user to 499"
-    echo auth-minimum-user-id=499 >> /etc/rstudio/rserver.conf
+    echo "$USERID is less than 1000"
+    check_user_id=$(grep -F "auth-minimum-user-id" /etc/rstudio/rserver.conf)
+    if [[ ! -z $check_user_id ]]
+    then
+      echo "minumum authorised user already exists in /etc/rstudio/rserver.conf: $check_user_id"
+    else
+      echo "setting minumum authorised user to 499"
+      echo auth-minimum-user-id=499 >> /etc/rstudio/rserver.conf
+    fi
 fi
 
 if [ "$USERID" -ne 1000 ]
