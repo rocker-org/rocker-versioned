@@ -26,11 +26,12 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libproj-dev \
   libsqlite3-dev \
   libssl-dev \
-
+  libtcl8.5 \
+  libtk8.5 \
   libtiff5-dev \
   libudunits2-dev \ 
   libxerces-c-dev \
-  ## runtime packages
+ ## runtime packages
   netcdf-bin \
   unixodbc-dev \
 ## Configure options loosely based on homebrew gdal2 https://github.com/OSGeo/homebrew-osgeo4mac/blob/master/Formula/gdal2.rb
@@ -59,11 +60,10 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   && install2.r --error \
     --repos 'https://cloud.r-project.org/' \
     --repos 'http://www.bioconductor.org/packages/release/bioc' \
-    --deps TRUE \
     ## from CRAN
     DCluster \
     RColorBrewer \
-    ## RandomFields \ ## depends on tcl/tk (direct or indirect)
+    RandomFields \
     classInt \
     deldir \
     dggridR \
@@ -76,12 +76,12 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
     rgdal \
     rgeos \
     rlas \
-    ## sf \
+    sf \
     sp \
     spacetime \
-    ## spatstat \ ## Needs tcltk
+    spatstat \
     spdep \
     splancs \
-    ##  geoR \ ## Needs R built with tcl/tk support
+    geoR \
     ## from bioconductor
     rhdf5 
