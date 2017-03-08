@@ -2,15 +2,19 @@ latest:
 	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio .
 
 sync: 
-	make 3.3.2 3.3.1
+	make 3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile
 
 
 ## FIXME consider setting RSTUDIO_VERSION and PANDOC_VERSION based on release date as well
 
-3.3.2: .PHONY
+3.3.3/Dockerfile: Dockerfile 
+	export R_VERSION=3.3.3 && make update
+
+
+3.3.2/Dockerfile: Dockerfile 
 	export R_VERSION=3.3.2 && make update
 
-3.3.1: .PHONY
+3.3.1/Dockerfile: Dockerfile
 	export R_VERSION=3.3.1 && make update
 
 update:
