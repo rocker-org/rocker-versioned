@@ -71,4 +71,7 @@ RUN apt-get update \
 COPY userconf.sh /etc/cont-init.d/conf
 EXPOSE 8787
 
+## automatically link a shared volume for kitematic users
+VOLUME /home/rstudio/kitematic
+
 CMD ["/init"]
