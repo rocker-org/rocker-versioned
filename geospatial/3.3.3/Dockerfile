@@ -21,6 +21,7 @@ RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar
   libglu1-mesa-dev \
   libhdf4-alt-dev \
   libhdf5-dev \
+  libwgeom-dev \
   libkml-dev \
   libnetcdf-dev \
   libproj-dev \
