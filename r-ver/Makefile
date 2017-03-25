@@ -1,4 +1,4 @@
-LATEST=3.3.2
+LATEST=3.3.3
 
 latest:
 	docker build --build-arg R_VERSION=${LATEST} -t rocker/r-ver .	
@@ -34,4 +34,6 @@ use-curl:
 	sed -i 's/curl \\/\\/' ${R_VERSION}/Dockerfile
 	sed -i 's/ca-certificates/ca-certificates curl/' ${R_VERSION}/Dockerfile
 
+clean:
+	rm  3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile
 
