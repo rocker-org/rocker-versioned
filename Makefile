@@ -15,7 +15,6 @@ sync:
 	make -C rstudio/ sync
 	make -C tidyverse/ sync
 	make -C verse/ sync
-	make -C geospatial/ sync
 
 .PHONY:
 	echo "Building Rocker versioned images locally...\n"
