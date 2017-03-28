@@ -11,3 +11,6 @@ test:
     - make tidyverse
     - make verse
     - docker run -ti -v $(pwd):/tmp -w /tmp rocker/verse ./tests.sh
+    - docker build -t r-ver:3.2.0 r-ver/3.2.0
+    - docker run -ti r-ver:3.2.0 R -e 'stopifnot(R.version$major == "3"); stopifnot(R.version$minor == "2.0")'
+    
