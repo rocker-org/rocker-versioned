@@ -14,9 +14,9 @@ sync: 3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/
 	export R_VERSION=3.3.1 && export BUILD_DATE=2016-10-31 && make update
 3.3.0/Dockerfile: Dockerfile
 	export R_VERSION=3.3.0 && export BUILD_DATE=2016-06-21 && make update
-## NOTE: This uses Build Date of the last day of version 3.2.x, e.g. day 3.3.0 was released
+## NOTE: This uses Build Date of the last day of version 3.2.0, e.g. day 3.2.1 was released
 3.2.0/Dockerfile: Dockerfile
-	export R_VERSION=3.2.0 && export BUILD_DATE=2016-05-03 && make update && make use-curl
+	export R_VERSION=3.2.0 && export BUILD_DATE=2015-06-18 && make update && make use-curl
 ## NOTE: MRAN goes back only to 2014-09-17, (during R 3.1.1; 3.1.2 was released in Oct 2014)
 ## Also NOTE: littler not avialable before 2015-10-29 
 3.1.0/Dockerfile: Dockerfile
