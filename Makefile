@@ -20,5 +20,10 @@ sync:
 	echo "Building Rocker versioned images locally...\n"
 
 
-clean:
-	docker rmi rocker/r-ver rocker/rstuido rocker/tidyverse rocker/verse
+clean::
+	make -C r-ver/ clean 
+	make -C rstudio/ clean
+	make -C tidyverse/ clean
+	make -C verse/ clean
+
+

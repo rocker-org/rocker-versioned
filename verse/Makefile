@@ -19,3 +19,6 @@ update:
 	cp Dockerfile ${R_VERSION}/Dockerfile
 	sed -i 's/tidyverse:latest/tidyverse:${R_VERSION}/' ${R_VERSION}/Dockerfile
 
+
+clean:
+	rm 3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 

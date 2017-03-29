@@ -19,3 +19,6 @@ update:
 build:
 	docker build -t rocker/tidyverse:${R_VERSION} ${R_VERSION}
 
+clean:
+	rm  3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 
+
