@@ -1,4 +1,4 @@
-FROM debian:jessie 
+FROM debian:jessie
 
 ARG BUILD_DATE
 ENV LC_ALL en_US.UTF-8
@@ -6,7 +6,7 @@ ENV LANG en_US.UTF-8
 ENV TERM xterm
 
 ## dependencies
-RUN apt-get update \ 
+RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     bash-completion \
     ca-certificates \
@@ -20,10 +20,10 @@ RUN apt-get update \
     libicu52 \
     libjpeg62-turbo \
     libopenblas-dev \
-    libpangocairo-1.0-0 \ 
+    libpangocairo-1.0-0 \
     libpcre3 \
     libpng12-0 \
-    libtiff5 \ 
+    libtiff5 \
     liblzma5 \
     locales \
     make \
@@ -36,7 +36,7 @@ RUN apt-get update \
   && BUILDDEPS="curl \
     default-jdk \
     libbz2-dev \
-    libcairo2-dev \ 
+    libcairo2-dev \
     libcurl4-openssl-dev \
     libpango1.0-dev \
     libjpeg-dev \
@@ -45,7 +45,7 @@ RUN apt-get update \
     libpng-dev \
     libreadline-dev \
     libtiff5-dev \
-    liblzma-dev \ 
+    liblzma-dev \
     libx11-dev \
     libxt-dev \
     perl \
@@ -62,9 +62,9 @@ RUN apt-get update \
     xfonts-base \
     xvfb \
     zlib1g-dev" \
-  && apt-get install -y --no-install-recommends $BUILDDEPS \ 
+  && apt-get install -y --no-install-recommends $BUILDDEPS \
   && cd tmp/ \
-  ## Download source code 
+  ## Download source code
   && svn co https://svn.r-project.org/R/trunk R-devel \
   && cd R-devel \
 	&& R_PAPERSIZE=letter \
