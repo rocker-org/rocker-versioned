@@ -1,11 +1,17 @@
 latest: 
 	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio .
 
+## Example with build-arg
+#	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio .
+
 sync: 
-	make 3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile
+	make devel/Dockerfile 3.*/Dockerfile
 
 
-## FIXME consider setting RSTUDIO_VERSION and PANDOC_VERSION based on release date as well
+## FIXME consider locking RSTUDIO_VERSION and/or PANDOC_VERSION based on release date as well
+
+devel/Dockerfile: Dockerfile
+	export R_VERSION=devel && make update
 
 3.3.3/Dockerfile: Dockerfile 
 	export R_VERSION=3.3.3 && make update
@@ -31,5 +37,5 @@ build:
 	echo "Syncing rstudio images...\n"
 
 clean:
-	rm  3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 
+	rm  3.*/Dockerfile
 
