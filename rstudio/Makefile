@@ -12,14 +12,12 @@ sync:
 
 devel/Dockerfile: Dockerfile
 	export R_VERSION=devel && make update
-
+3.4.0/Dockerfile: Dockerfile 
+	export R_VERSION=3.4.0 && make update
 3.3.3/Dockerfile: Dockerfile 
 	export R_VERSION=3.3.3 && make update
-
-
 3.3.2/Dockerfile: Dockerfile 
 	export R_VERSION=3.3.2 && make update
-
 3.3.1/Dockerfile: Dockerfile
 	export R_VERSION=3.3.1 && make update
 
