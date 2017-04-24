@@ -1,13 +1,15 @@
-LATEST=3.3.3
+LATEST=3.4.0
 
 latest:
 	docker build --build-arg R_VERSION=${LATEST} -t rocker/r-ver .	
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
-sync: 3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile
+sync: 3.*.*/Dockerfile
 
+3.4.0/Dockerfile: Dockerfile
+	export R_VERSION=3.4.0 && unset BUILD_DATE && make update
 3.3.3/Dockerfile: Dockerfile
-	export R_VERSION=3.3.3 && unset BUILD_DATE && make update
+	export R_VERSION=3.3.3 && export BUILD_DATE=2017-04-21 && make update
 3.3.2/Dockerfile: Dockerfile
 	export R_VERSION=3.3.2 && export BUILD_DATE=2017-03-06 && make update
 3.3.1/Dockerfile: Dockerfile
@@ -35,5 +37,5 @@ use-curl:
 	sed -i 's/ca-certificates/ca-certificates curl/' ${R_VERSION}/Dockerfile
 
 clean:
-	rm  3.3.3/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile
+	rm  3.*/Dockerfile
 
