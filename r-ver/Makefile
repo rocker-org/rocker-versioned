@@ -4,7 +4,8 @@ latest:
 	docker build --build-arg R_VERSION=${LATEST} -t rocker/r-ver .	
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
-sync: 3.*.*/Dockerfile
+sync: 3.3.3/Dockerfile 3.4.0/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile
+
 
 3.4.0/Dockerfile: Dockerfile
 	export R_VERSION=3.4.0 && unset BUILD_DATE && make update
@@ -26,7 +27,7 @@ sync: 3.*.*/Dockerfile
 
 update:
 	cp Dockerfile ${R_VERSION}/Dockerfile
-	sed -i 's/${LATEST}/${R_VERSION}/' ${R_VERSION}/Dockerfile
+	sed -i 's/X.X.X/${R_VERSION}/' ${R_VERSION}/Dockerfile
 	sed -i "s/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE $$\{BUILD_DATE:-${BUILD_DATE}\}/" ${R_VERSION}/Dockerfile
 	sed -i 's/## MRAN becomes default only in versioned images/\&\& echo \"options\(repos = c\(CRAN=\x27$$MRAN\x27\), download.file.method = \x27libcurl\x27\)\" >> \/usr\/local\/lib\/R\/etc\/Rprofile.site \\/' ${R_VERSION}/Dockerfile
 
