@@ -7,12 +7,15 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libmariadbd-dev \
   libmariadb-client-lgpl-dev \
   libpq-dev \
-  && . /etc/environment \
+  && R -e "source('https://bioconductor.org/biocLite.R')" \
   && install2.r --error \
-    --repos 'http://www.bioconductor.org/packages/release/bioc' \
-    --repos $MRAN \ 
     --deps TRUE \
-    tidyverse devtools dplyr ggplot2 profvis formatR remotes
+    tidyverse \
+    dplyr \
+    ggplot2 \
+    devtools \
+    formatR \
+    remotes
 
 ## Notes: Above install2.r uses --deps TRUE to get Suggests dependencies as well,
 ## dplyr and ggplot are already part of tidyverse, but listed explicitly to get their (many) suggested dependencies.
