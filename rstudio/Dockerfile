@@ -68,8 +68,13 @@ RUN apt-get update \
            \n rstudio-server stop' \
            > /etc/services.d/rstudio/finish
 
-COPY userconf.sh /etc/cont-init.d/conf
+COPY userconf.sh /etc/cont-init.d/userconf
+
+## running with "-e ADD=shiny" adds shiny server
+COPY add_shiny.sh /etc/cont-init.d/add
+
 EXPOSE 8787
+EXPOSE 3838
 
 ## automatically link a shared volume for kitematic users
 VOLUME /home/rstudio/kitematic
