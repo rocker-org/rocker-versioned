@@ -24,6 +24,7 @@ devel/Dockerfile: Dockerfile
 update:
 	cp Dockerfile ${R_VERSION}/Dockerfile
 	cp userconf.sh ${R_VERSION}/userconf.sh
+	cp add_shiny.sh ${R_VERSION}/add_shiny.sh
 	sed -i 's/r-ver:latest/r-ver:${R_VERSION}/' ${R_VERSION}/Dockerfile
 
 
