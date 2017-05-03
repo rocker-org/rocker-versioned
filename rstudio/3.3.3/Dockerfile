@@ -35,6 +35,7 @@ RUN apt-get update \
   && mkdir -p /opt/pandoc/templates && tar zxf ${PANDOC_TEMPLATES_VERSION}.tar.gz \
   && cp -r pandoc-templates*/* /opt/pandoc/templates && rm -rf pandoc-templates* \
   && mkdir /root/.pandoc && ln -s /opt/pandoc/templates /root/.pandoc/templates \
+  && rm ${PANDOC_TEMPLATES_VERSION}.tar.gz \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   ## RStudio wants an /etc/R, will populate from $R_HOME/etc
