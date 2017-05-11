@@ -17,7 +17,7 @@ RUN apt-get update \
     ## system dependency of hadley/pkgdown
     libmagick++-dev \
     ## for V8-based javascript wrappers
-    libv8-dev \
+    libv8-3.14-dev \
     ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
     qpdf \
     ## for git via ssh key 
