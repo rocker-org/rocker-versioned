@@ -17,7 +17,7 @@ RUN apt-get update \
     ## system dependency of hadley/pkgdown
     libmagick++-dev \
     ## for V8-based javascript wrappers
-    libv8-dev \
+    libv8-3.14-dev \
     ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
     qpdf \
     ## for git via ssh key 
@@ -47,7 +47,7 @@ RUN apt-get update \
     bookdown rticles rmdshower
 
 ## Consider including: 
-# - libv8-dev (Javascript V8 packages)
+# - libv8-3.14-dev (Javascript V8 packages)
 # - yihui/printr R package (when released to CRAN)
 # - jags 4.2 (build from source, repo version too old and apt-tagging forces upgrade of all compiler libs)
 # - libgsl0-dev (GSL math library dependencies)
