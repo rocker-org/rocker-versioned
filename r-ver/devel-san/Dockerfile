@@ -12,7 +12,7 @@ RUN apt-get update \
     ca-certificates \
     file \
     fonts-texgyre \
-    g++ \
+    clang \
     gfortran \
     gsfonts \
     libbz2-1.0 \
@@ -77,16 +77,14 @@ RUN apt-get update \
 	   R_PRINTCMD=/usr/bin/lpr \
 	   LIBnn=lib \
 	   AWK=/usr/bin/awk \
-	   CFLAGS="-pipe -Wall -pedantic -O2 -mtune=native -fsanitize=address" \
-	   FFLAGS="-pipe -O2 -mtune=native" \
-	   FCFLAGS="-pipe -O2 -mtune=native" \
-	   CXXFLAGS="-pipe -Wall -pedantic -O2 -mtune=native" \
-           MAIN_LDFLAGS="-fsanitize=address,undefined" \
-           CC="gcc -std=gnu99 -fsanitize=address,undefined -fno-omit-frame-pointer" \
-	   CXX="g++ -fsanitize=address,undefined,bounds-strict -fno-omit-frame-pointer -fno-sanitize=object-size,vptr" \
-           CXX1X="g++ -fsanitize=address,undefined,bounds-strict -fno-omit-frame-pointer -fno-sanitize=object-size,vptr" \
-	   FC="gfortran" \
-	   F77="gfortran" \
+	CC="clang -std=gnu99 -fsanitize=undefined" \
+	CFLAGS="-fno-omit-frame-pointer -Wall -pedantic -mtune=native" \
+	F77="gfortran" \
+	LIBnn="lib64" \
+	LDFLAGS="-L/usr/local/lib64 -L/usr/local/lib" \
+	CXX="clang++ -std=c++11 -fsanitize=undefined" \
+	CXXFLAGS="-fno-omit-frame-pointer -Wall -pedantic -mtune=native" \
+	FC="gfortran" \
 	   ./configure --enable-R-shlib \
                --without-blas \
                --without-lapack \
