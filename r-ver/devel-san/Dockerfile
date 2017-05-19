@@ -4,6 +4,9 @@ ARG BUILD_DATE
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV TERM xterm
+ARG VALGRIND_LEVEL
+ENV VALGRIND_LEVEL ${VALGRIND_LEVEL:-2}
+
 
 ## dependencies
 RUN apt-get update \
@@ -28,6 +31,7 @@ RUN apt-get update \
     locales \
     make \
     unzip \
+    valgrind \
     zip \
     zlib1g \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
@@ -92,6 +96,7 @@ RUN apt-get update \
                --without-recommended-packages \
                --program-suffix=dev \
                --disable-openmp \
+              --with-valgrind-instrumentation=$VALGRIND_LEVEL \
 	&& make \
 	&& make install \
 	&& make clean \
