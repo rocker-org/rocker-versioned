@@ -28,19 +28,20 @@ RUN apt-get update \
     texlive-generic-recommended \
     texlive-humanities \
     texlive-latex-extra \
+    texlive-science \
     texinfo \
     ## just because
     less \
     vim \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
-  && cd /usr/share/texlive/texmf-dist \
-  ## tex files needed for rticles templates
-  && wget http://mirrors.ctan.org/macros/latex/contrib/mhchem.zip \
-  && unzip mhchem.zip \
-  && http://mirrors.ctan.org/macros/latex/contrib/ametsoc.zip \
+  && cd /usr/share/texlive/texmf-dist/tex/latex \
+  ## additional tex files needed for certain rticles templates
+  && wget http://mirrors.ctan.org/macros/latex/contrib/ametsoc.zip \
   && unzip ametsoc.zip \
-  ## R manuals use inconsolata font, but texlive-fonts-extra is huge, so:
+  && rm *.zip \
+## R manuals use inconsolata font, but texlive-fonts-extra is huge, so:
+  && cd /usr/share/texlive/texmf-dist \
   && wget http://mirrors.ctan.org/install/fonts/inconsolata.tds.zip \
   && unzip inconsolata.tds.zip \
   && rm *.zip \
