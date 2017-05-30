@@ -25,6 +25,7 @@ RUN apt-get update \
     ## for building pdfs via pandoc/LaTeX
     lmodern \
     texlive-fonts-recommended \
+    texlive-generic-recommended \
     texlive-humanities \
     texlive-latex-extra \
     texinfo \
@@ -33,11 +34,16 @@ RUN apt-get update \
     vim \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
-  ## R manuals use inconsolata font, but texlive-fonts-extra is huge, so:
   && cd /usr/share/texlive/texmf-dist \
+  ## tex files needed for rticles templates
+  && wget http://mirrors.ctan.org/macros/latex/contrib/mhchem.zip \
+  && unzip mhchem.zip \
+  && http://mirrors.ctan.org/macros/latex/contrib/ametsoc.zip \
+  && unzip ametsoc.zip \
+  ## R manuals use inconsolata font, but texlive-fonts-extra is huge, so:
   && wget http://mirrors.ctan.org/install/fonts/inconsolata.tds.zip \
   && unzip inconsolata.tds.zip \
-  && rm inconsolata.tds.zip \
+  && rm *.zip \
   && echo "Map zi4.map" >> /usr/share/texlive/texmf-dist/web2c/updmap.cfg \
   && mktexlsr \
   && updmap-sys \
