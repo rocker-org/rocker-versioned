@@ -1,5 +1,4 @@
 FROM rocker/tidyverse:latest
-MAINTAINER "Carl Boettiger" cboettig@ropensci.org
 
 ## Add LaTeX, rticles and bookdown support
 RUN apt-get update \

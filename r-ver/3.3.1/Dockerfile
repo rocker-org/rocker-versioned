@@ -1,12 +1,17 @@
 FROM debian:jessie
 
+LABEL org.label-schema.license="GPL-2.0" \
+      org.label-schema.vcs-url="https://github.com/rocker-org/rocker-versioned" \
+      org.label-schema.vendor="Rocker Project" \
+      maintainer="Carl Boettiger <cboettig@ropensci.org>"
+
 ARG R_VERSION
 ARG BUILD_DATE
 ENV BUILD_DATE ${BUILD_DATE:-2016-10-31}
-ENV R_VERSION ${R_VERSION:-3.3.1}
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV TERM xterm
+ENV R_VERSION=${R_VERSION:-3.3.1} \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    TERM=xterm
 
 ## dependencies
 RUN apt-get update \

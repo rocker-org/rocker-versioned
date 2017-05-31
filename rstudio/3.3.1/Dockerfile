@@ -2,10 +2,8 @@ FROM rocker/r-ver:3.3.1
 
 ARG RSTUDIO_VERSION
 ARG PANDOC_TEMPLATES_VERSION 
-ENV PANDOC_TEMPLATES_VERSION ${PANDOC_TEMPLATES_VERSION:-1.18}
-
-## Add RStudio binaries to PATH
-ENV PATH /usr/lib/rstudio-server/bin:$PATH
+ENV PANDOC_TEMPLATES_VERSION=${PANDOC_TEMPLATES_VERSION:-1.18} \
+    PATH=/usr/lib/rstudio-server/bin:$PATH
 
 ## Download and install RStudio server & dependencies
 ## Attempts to get detect latest version, otherwise falls back to version given in $VER
@@ -55,6 +53,8 @@ RUN apt-get update \
 	&& mkdir /home/rstudio \
 	&& chown rstudio:rstudio /home/rstudio \
 	&& addgroup rstudio staff \
+  ## Prevent rstudio from deciding to use /usr/bin/R if a user apt-get installs a package
+  &&  echo 'rsession-which-r=/usr/local/bin/R' >> /etc/rstudio/rserver.conf \ 
   ## configure git not to request password each time 
   && git config --system credential.helper 'cache --timeout=3600' \
   && git config --system push.default simple \
@@ -75,7 +75,6 @@ COPY userconf.sh /etc/cont-init.d/userconf
 COPY add_shiny.sh /etc/cont-init.d/add
 
 EXPOSE 8787
-EXPOSE 3838
 
 ## automatically link a shared volume for kitematic users
 VOLUME /home/rstudio/kitematic

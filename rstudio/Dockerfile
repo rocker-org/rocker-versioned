@@ -2,10 +2,8 @@ FROM rocker/r-ver:latest
 
 ARG RSTUDIO_VERSION
 ARG PANDOC_TEMPLATES_VERSION 
-ENV PANDOC_TEMPLATES_VERSION ${PANDOC_TEMPLATES_VERSION:-1.18}
-
-## Add RStudio binaries to PATH
-ENV PATH /usr/lib/rstudio-server/bin:$PATH
+ENV PANDOC_TEMPLATES_VERSION=${PANDOC_TEMPLATES_VERSION:-1.18} \
+    PATH=/usr/lib/rstudio-server/bin:$PATH
 
 ## Download and install RStudio server & dependencies
 ## Attempts to get detect latest version, otherwise falls back to version given in $VER
