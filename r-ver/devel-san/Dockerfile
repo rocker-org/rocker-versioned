@@ -81,20 +81,20 @@ RUN apt-get update \
 	   R_PRINTCMD=/usr/bin/lpr \
 	   LIBnn=lib \
 	   AWK=/usr/bin/awk \
-	CC="clang -std=gnu99 -fsanitize=undefined" \
-	CFLAGS="-fno-omit-frame-pointer -Wall -pedantic -mtune=native" \
-	F77="gfortran" \
-	LIBnn="lib64" \
-	LDFLAGS="-L/usr/local/lib64 -L/usr/local/lib" \
-	CXX="clang++ -std=c++11 -fsanitize=undefined" \
-	CXXFLAGS="-fno-omit-frame-pointer -Wall -pedantic -mtune=native" \
-	FC="gfortran" \
+		 CC="clang -fsanitize=address,undefined -fno-sanitize=float-divide-by-zero -fno-omit-frame-pointer" \
+	   CXX="clang++ -stdlib=libc++ -fsanitize=address,undefined -fno-sanitize=float-divide-by-zero -fno-omit-frame-pointer" \
+	   CFLAGS="-g -O3 -Wall -pedantic -mtune=native" \
+	   FFLAGS="-g -O2 -mtune=native" \
+	   FCFLAGS="-g -O2 -mtune=native" \
+	   CXXFLAGS="-g -O3 -Wall -pedantic -mtune=native" \
+	   MAIN_LD="clang++ -stdlib=libc++ -fsanitize=undefined,address" \
+	   FC="gfortran" \
+	   F77="gfortran" \
 	   ./configure --enable-R-shlib \
                --without-blas \
                --without-lapack \
                --with-readline \
                --without-recommended-packages \
-               --program-suffix=dev \
                --disable-openmp \
               --with-valgrind-instrumentation=$VALGRIND_LEVEL \
 	&& make \

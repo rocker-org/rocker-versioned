@@ -22,5 +22,4 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
 ## dplyr and ggplot are already part of tidyverse, but listed explicitly to get their (many) suggested dependencies.
 ## In addition to the the title 'tidyverse' packages, devtools is included for package development.
 ## RStudio wants formatR for rmarkdown, even though it's not suggested.
-## profvis included just for profiling / development (developed by RStudio though not formally tidyverse).
-
+## remotes included for installation from heterogenous sources including git/svn, local, url, and specific cran versions
