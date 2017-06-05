@@ -25,12 +25,12 @@ RUN apt-get update \
     gsfonts \
     libbz2-1.0 \
     libcurl3 \
-    libicu52 \
+    libicu57 \
     libjpeg62-turbo \
     libopenblas-dev \
     libpangocairo-1.0-0 \
     libpcre3 \
-    libpng12-0 \
+    libpng16-16 \
     libtiff5 \
     liblzma5 \
     locales \
@@ -57,8 +57,8 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     perl \
-    tcl8.5-dev \
-    tk8.5-dev \
+    tcl8.6-dev \
+    tk8.6-dev \
     texinfo \
     texlive-extra-utils \
     texlive-fonts-recommended \
