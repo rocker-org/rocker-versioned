@@ -1,5 +1,6 @@
 {
   "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@id": "https://doi.org/10.5281/zenodo.802967",
   "@type": "SoftwareSourceCode",
   "identifier": "rocker-versioned",
   "description": "rocker-versioned provides Dockerfiles for versioned instances of R.  The rocker-versioned stack includes base R (rocker/r-ver), RStudio, tidyverse, and verse images for various versions of R. See repository readme for the more details.",
@@ -16,7 +17,7 @@
   "provider": {
     "@type": "Organization",
     "url": "https://hub.docker.com/",
-    "name": "Docker Hub",
+    "name": "Docker Hub"
   },
   "operatingSystem": ["OSX", "Windows", "Linux"],
   "runtimePlatform": "Docker",
