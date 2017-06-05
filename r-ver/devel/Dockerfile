@@ -1,9 +1,16 @@
-FROM debian:jessie
+FROM debian:stretch
 
+LABEL org.label-schema.license="GPL-2.0" \
+      org.label-schema.vcs-url="https://github.com/rocker-org/rocker-versioned" \
+      org.label-schema.vendor="Rocker Project" \
+      maintainer="Carl Boettiger <cboettig@ropensci.org>"
+
+ARG R_VERSION
 ARG BUILD_DATE
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV TERM xterm
+ENV R_VERSION=${R_VERSION:-3.4.0} \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    TERM=xterm
 
 ## dependencies
 RUN apt-get update \
@@ -49,8 +56,7 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     perl \
-    subversion \
-    tcl8.5-dev \
+    subversion tcl8.5-dev \
     tk8.5-dev \
     texinfo \
     texlive-extra-utils \
@@ -66,6 +72,8 @@ RUN apt-get update \
   && cd tmp/ \
   ## Download source code
   && svn co https://svn.r-project.org/R/trunk R-devel \
+  ## Extract source code
+
   && cd R-devel \
   ## Set compiler flags
   && R_PAPERSIZE=letter \
