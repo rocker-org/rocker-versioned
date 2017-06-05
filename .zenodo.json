@@ -1,7 +1,6 @@
 {
  "creators": [
       {
-        "email": "cboettig@gmail.com",
         "name": "Carl Boettiger",
         "affiliation": "UC Berkeley"
       },
@@ -18,6 +17,6 @@
     "containers"
   ],
   "license": "GPL-2.0",
-  "name": "rocker-versioned: Versioned stack of Docker images for R"
+  "title": "rocker-versioned: Versioned stack of Docker images for R"
 }
 
