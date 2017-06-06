@@ -48,9 +48,9 @@ RUN apt-get update \
   && mktexlsr \
   && updmap-sys \
   ## Currently (2017-06-06) need devel PKI for ssl issue: https://github.com/s-u/PKI/issues/19
-  && install2.r --error --repos http://rforge.net PKI \
+  && install2.r -r http://rforge.net PKI \
   ## And some nice R packages for publishing-related stuff
-  && install2.r --error --repos $MRAN --deps TRUE \
+  && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
 
 ## Consider including: 

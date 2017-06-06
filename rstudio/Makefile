@@ -1,5 +1,5 @@
 latest: 
-	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio .
+	docker build -t rocker/rstudio .
 
 ## Example with build-arg
 #	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio .
