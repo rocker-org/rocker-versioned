@@ -16,7 +16,7 @@ sync: devel/Dockerfile 3.4.0/Dockerfile
 
 devel/Dockerfile: Dockerfile
 	cp Dockerfile devel/Dockerfile 
-	sed -i 's/tcl8\.5-dev/subversion tcl8\.5-dev/' devel/Dockerfile
+	sed -i 's/tcl8\.6-dev/subversion tcl8.6-dev/' devel/Dockerfile
 	sed -i 's/curl -O .*\.gz/svn co https:\/\/svn\.r-project.org\/R\/trunk R-devel/' devel/Dockerfile
 	sed -i 's/.*tar -xf R-.*//' devel/Dockerfile
 	sed -i 's/cd R-.*/cd R-devel \\/' devel/Dockerfile

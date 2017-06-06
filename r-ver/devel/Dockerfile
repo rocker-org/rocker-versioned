@@ -56,7 +56,7 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     perl \
-    tcl8.6-dev \
+    subversion tcl8.6-dev \
     tk8.6-dev \
     texinfo \
     texlive-extra-utils \
