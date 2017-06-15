@@ -5,11 +5,24 @@ latest:
 	docker build --build-arg R_VERSION=${LATEST} -t rocker/r-ver .	
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
-sync: 3.3.3/Dockerfile 3.4.0/Dockerfile 3.3.2/Dockerfile 3.3.1/Dockerfile 3.3.0/Dockerfile 3.2.0/Dockerfile 3.1.0/Dockerfile
+sync: devel/Dockerfile 3.4.0/Dockerfile
 
 
 3.4.0/Dockerfile: Dockerfile
 	export R_VERSION=3.4.0 && unset BUILD_DATE && make update
+
+
+## Custom configuration for devel 
+
+devel/Dockerfile: Dockerfile
+	cp Dockerfile devel/Dockerfile 
+	sed -i 's/tcl8\.6-dev/subversion tcl8.6-dev/' devel/Dockerfile
+	sed -i 's/curl -O .*\.gz/svn co https:\/\/svn\.r-project.org\/R\/trunk R-devel/' devel/Dockerfile
+	sed -i 's/.*tar -xf R-.*//' devel/Dockerfile
+	sed -i 's/cd R-.*/cd R-devel \\/' devel/Dockerfile
+
+####### These are frozen now to debian:jessie images and should not be updated further!
+
 3.3.3/Dockerfile: Dockerfile
 	export R_VERSION=3.3.3 && export BUILD_DATE=2017-04-21 && make update
 3.3.2/Dockerfile: Dockerfile

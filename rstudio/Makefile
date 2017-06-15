@@ -1,12 +1,13 @@
 latest: 
-	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio .
+	docker build -t rocker/rstudio .
 
 ## Example with build-arg
 #	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio .
 
 sync: 
-	make devel/Dockerfile 3.*/Dockerfile
+	make devel/Dockerfile 3.4.0/Dockerfile
 
+## DO NOT SYNC versions older than 3.4.0, they are frozen to jessie
 
 ## FIXME consider locking RSTUDIO_VERSION and/or PANDOC_VERSION based on release date as well
 

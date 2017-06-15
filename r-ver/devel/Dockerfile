@@ -1,9 +1,16 @@
-FROM debian:jessie
+FROM debian:stretch
 
+LABEL org.label-schema.license="GPL-2.0" \
+      org.label-schema.vcs-url="https://github.com/rocker-org/rocker-versioned" \
+      org.label-schema.vendor="Rocker Project" \
+      maintainer="Carl Boettiger <cboettig@ropensci.org>"
+
+ARG R_VERSION
 ARG BUILD_DATE
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV TERM xterm
+ENV R_VERSION=${R_VERSION:-3.4.0} \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    TERM=xterm
 
 ## dependencies
 RUN apt-get update \
@@ -17,12 +24,12 @@ RUN apt-get update \
     gsfonts \
     libbz2-1.0 \
     libcurl3 \
-    libicu52 \
+    libicu57 \
     libjpeg62-turbo \
     libopenblas-dev \
     libpangocairo-1.0-0 \
     libpcre3 \
-    libpng12-0 \
+    libpng16-16 \
     libtiff5 \
     liblzma5 \
     locales \
@@ -49,9 +56,8 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     perl \
-    subversion \
-    tcl8.5-dev \
-    tk8.5-dev \
+    subversion tcl8.6-dev \
+    tk8.6-dev \
     texinfo \
     texlive-extra-utils \
     texlive-fonts-recommended \
@@ -66,6 +72,8 @@ RUN apt-get update \
   && cd tmp/ \
   ## Download source code
   && svn co https://svn.r-project.org/R/trunk R-devel \
+  ## Extract source code
+
   && cd R-devel \
   ## Set compiler flags
   && R_PAPERSIZE=letter \
@@ -110,6 +118,9 @@ RUN apt-get update \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
   && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
+  ## TEMPORARY WORKAROUND to get more robust error handling for install2.r prior to littler update
+  && curl -O /usr/local/bin/install2.r https://github.com/eddelbuettel/littler/raw/master/inst/examples/install2.r \
+  && chmod +x /usr/local/bin/install2.r \
   ## Clean up from R source install
   && cd / \
   && rm -rf /tmp/* \
