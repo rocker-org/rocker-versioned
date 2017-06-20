@@ -20,7 +20,7 @@ image            | description                               | size   | metrics 
 
 This repository provides alternate stack to `r-base`, `rocker/rstudio`, `rocker/hadleyverse` series, with an emphasis on reproducibility.  Compared to those images, this stack:
 
-- builds on debian stable (`debian:jessie` for versions < 3.4.0, `debian:stretch` thereafter) release instead of `debian:testing`, so no more apt-get breaking when debian:testing repos are updated and you had to muck with `-t unstable` to get apt-get to work.  
+- builds on debian stable (`debian:jessie` for versions < 3.4.0, `debian:stretch` thereafter) release instead of `debian:testing`, so no more apt-get breaking when `debian:testing` repos are updated and you had to muck with `-t unstable` to get apt-get to work.  
 - Further, this stack installs a fixed version of R itself from source, rather than whatever is already packaged for Debian (the r-base stack gets the latest R version as a binary from debian:unstable), 
 - and it installs all R packages from a fixed snapshot of CRAN at a given date (MRAN repos).
 - provides images that are generally smaller than the r-base series
@@ -29,7 +29,8 @@ Users should include the version tag, e.g. `rocker/verse:3.3.1` when reproducibl
 
 ### Version Tags
 
-Using the R version tag will naturally lock the R version, and also lock the install date of any R packages on the image.  For example,  `rocker/tidyverse:3.3.1` Docker image will always rebuild with R 3.3.1 and R packages installed from the **2016-10-31** snapshot of CRAN, matching **the last day that version was current**, while `rocker/tidyverse:latest` will always have both the latest R version and latest versions of the R packages.  Note that packages installed by a user (e.g. with `install.packages()` either interactively or via downstream Dockerfiles) will still install the latest versions from the RStudio CRAN mirror by default.  To install additional packages from the same CRAN snapshot as used on the `tidyverse` image (e.g. to decrease the chance of package incompatibilities), users must explicitly specify that MRAN repo, which is stored for reference in `/etc/environment`. See the [rocker/verse](https://github.com/rocker-org/rocker-versioned/blob/master/verse/Dockerfile) Dockerfile for an example of this.  New tags will be added with new R releases, with snapshot date being fixed when those Dockerfiles are created.
+Using the R version tag will naturally lock the R version, and also lock the install date of any R packages on the image.  For example,  `rocker/tidyverse:3.3.1` Docker image will always rebuild with R 3.3.1 and R packages installed from the **2016-10-31** MRAN snapshot, corresponding to **the last day that version of R was the most recent release**.   Meanwhile `rocker/tidyverse:latest` will always have both the latest R version and latest versions of the R packages.  
+
 
 ### Images
 
