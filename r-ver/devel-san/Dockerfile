@@ -12,12 +12,7 @@ RUN apt-get update -qq \
     fonts-texgyre \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && locale-gen en_US.utf8 \
-  && /usr/sbin/update-locale LANG=en_US.UTF-8
-
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-
-RUN apt-get update -qq \
+  && /usr/sbin/update-locale LANG=en_US.UTF-8 \
   && apt-get install -y --no-install-recommends \
     bash-completion \
     bison \
@@ -61,15 +56,12 @@ RUN apt-get update -qq \
     xdg-utils \
     xfonts-base \
     xvfb \
-    zlib1g-dev
-
-## Check out R-devel
-RUN cd /tmp \
-  && svn co https://svn.r-project.org/R/trunk R-devel 
-
+    zlib1g-dev \
+  && cd /tmp \
+  && svn co https://svn.r-project.org/R/trunk R-devel \ 
 ## Build and install according the standard 'recipe' I emailed/posted years ago
 ## Updated compiler flags to match https://www.stats.ox.ac.uk/pub/bdr/memtests/README.txt
-RUN cd /tmp/R-devel \
+  && cd /tmp/R-devel \
   && R_PAPERSIZE=letter \
      R_BATCHSAVE="--no-save --no-restore" \
      R_BROWSER=xdg-open \
@@ -99,17 +91,45 @@ RUN cd /tmp/R-devel \
                --disable-openmp \
   && make \
   && make install \
-  && make clean
+  && make clean \
+  ## Add a default CRAN mirror
+  && echo "options(repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site \
+  ## Add a library directory (for user-installed packages)
+  && mkdir -p /usr/local/lib/R/site-library \
+  && chown root:staff /usr/local/lib/R/site-library \
+  && chmod g+wx /usr/local/lib/R/site-library \
+  ## Fix library path
+  && echo "R_LIBS_USER='/usr/local/lib/R/site-library'" >> /usr/local/lib/R/etc/Renviron \
+  && echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron \
+  ## install packages from date-locked MRAN snapshot of CRAN
+  && [ -z "$BUILD_DATE" ] && BUILD_DATE=$(TZ="America/Los_Angeles" date -I) || true \
+  && MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE} \
+  && echo MRAN=$MRAN >> /etc/environment \
+  && export MRAN=$MRAN \
+  ## MRAN becomes default only in versioned images
+  ## Use littler installation scripts
+  && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
+  && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
+  && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
+  && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
+  ## TEMPORARY WORKAROUND to get more robust error handling for install2.r prior to littler update
+  && curl -O /usr/local/bin/install2.r https://github.com/eddelbuettel/littler/raw/master/inst/examples/install2.r \
+  && chmod +x /usr/local/bin/install2.r \
+  ## Clean up from R source install
+  && cd / \
+  && rm -rf /tmp/* \
+  && apt-get remove --purge -y $BUILDDEPS \
+  && apt-get autoremove -y \
+  && apt-get autoclean -y \
+  && rm -rf /var/lib/apt/lists/*
 
-## Set Renviron to get libs from base R install
-RUN echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron
-
-## Set default CRAN repo
-RUN echo 'options("repos"="http://cloud.r-project.org")' >> /usr/local/lib/R/etc/Rprofile.site
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
 
 ## More verbose UBSAN/SAN output (cf #3) -- this is still somewhat speculative
 ## Entry copied from Prof Ripley's setup described at http://www.stats.ox.ac.uk/pub/bdr/memtests/README.txt
 ENV ASAN_OPTIONS 'alloc_dealloc_mismatch=0:detect_leaks=0:detect_odr_violation=0' 
 
 
-RUN R -e "install.packages(c('docopt', 'littler'))"
+CMD ["R"]
+
