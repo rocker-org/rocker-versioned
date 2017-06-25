@@ -3,13 +3,15 @@ FROM debian:stretch
 ## From the Build-Depends of the Debian R package, plus subversion
 RUN apt-get update -qq \
   && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
     ed \
+    fonts-texgyre \
     less \
     locales \
+    libreadline-dev \
     vim-tiny \
     wget \
-    ca-certificates \
-    fonts-texgyre \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && locale-gen en_US.utf8 \
   && /usr/sbin/update-locale LANG=en_US.UTF-8 \
