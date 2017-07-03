@@ -5,7 +5,7 @@ latest:
 #	docker build --build-arg RSTUDIO_VERSION=1.0.44 -t rocker/rstudio .
 
 sync: 
-	make devel/Dockerfile 3.4.0/Dockerfile
+	make devel/Dockerfile 3.4.1/Dockerfile
 
 ## DO NOT SYNC versions older than 3.4.0, they are frozen to jessie
 
@@ -13,6 +13,8 @@ sync:
 
 devel/Dockerfile: Dockerfile
 	export R_VERSION=devel && make update
+3.4.1/Dockerfile: Dockerfile
+	export R_VERSION=3.4.1 && make update
 3.4.0/Dockerfile: Dockerfile 
 	export R_VERSION=3.4.0 && make update
 3.3.3/Dockerfile: Dockerfile 

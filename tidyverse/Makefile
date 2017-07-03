@@ -2,10 +2,12 @@ latest:
 	docker build -t rocker/tidyverse .
 
 sync: 
-	make devel/Dockerfile 3.4.0/Dockerfile 
+	make devel/Dockerfile 3.4.1/Dockerfile 
 
 devel/Dockerfile: Dockerfile
 	export R_VERSION=devel && make update
+3.4.1/Dockerfile: Dockerfile
+	export R_VERSION=3.4.1 && make update
 3.4.0/Dockerfile: Dockerfile
 	export R_VERSION=3.4.0 && make update
 

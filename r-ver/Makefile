@@ -1,15 +1,18 @@
-LATEST=3.4.0
+LATEST=3.4.1
 ## Also update this in default Dockerfile on new version release!!
 
 latest:
 	docker build --build-arg R_VERSION=${LATEST} -t rocker/r-ver .	
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
-sync: devel/Dockerfile 3.4.0/Dockerfile
+sync: devel/Dockerfile 3.4.1/Dockerfile
 
+
+3.4.1/Dockerfile: Dockerfile
+	export R_VERSION=3.4.1 && unset BUILD_DATE && make update
 
 3.4.0/Dockerfile: Dockerfile
-	export R_VERSION=3.4.0 && unset BUILD_DATE && make update
+	export R_VERSION=3.4.0 && export BUILD_DATE=2017-06-30 && make update
 
 
 ## Custom configuration for devel 
@@ -20,6 +23,8 @@ devel/Dockerfile: Dockerfile
 	sed -i 's/curl -O .*\.gz/svn co https:\/\/svn\.r-project.org\/R\/trunk R-devel/' devel/Dockerfile
 	sed -i 's/.*tar -xf R-.*//' devel/Dockerfile
 	sed -i 's/cd R-.*/cd R-devel \\/' devel/Dockerfile
+
+
 
 ####### These are frozen now to debian:jessie images and should not be updated further!
 
