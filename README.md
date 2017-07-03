@@ -42,15 +42,6 @@ The `rocker/rstudio` image builds with the latest version of RStudio by default.
 
 
 
-
-image            |  Dockerfiles  
----------------- | -------------
-[r-ver](https://hub.docker.com/r/rocker/r-ver/tags)         | [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/Dockerfile) [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-...-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/)  [![](https://img.shields.io/badge/Dockerfile-v3.1.0-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/3.1.0/Dockerfile) 
-[rstudio](https://hub.docker.com/r/rocker/rstudio/tags)     |  [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/rstudio/Dockerfile) [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker/blob/master/rstudio/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-v3.3.1-blue.svg)](https://github.com/rocker-org/rocker/blob/master/rstudio/3.3.1/Dockerfile) 
-[tidyverse](https://hub.docker.com/r/rocker/tidyverse/tags) | [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/tidyverse/Dockerfile) [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/tidyverse/3.3.2/Dockerfile)   [![](https://img.shields.io/badge/Dockerfile-v3.3.1-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/tidyverse/3.3.1/Dockerfile) 
-[verse](https://hub.docker.com/r/rocker/verse/tags)         |  [![](https://img.shields.io/badge/Dockerfile-latest-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/verse/Dockerfile) [![](https://img.shields.io/badge/Dockerfile-v3.3.2-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/verse/3.3.2/Dockerfile)  [![](https://img.shields.io/badge/Dockerfile-v3.3.1-blue.svg)](https://github.com/rocker-org/rocker-versioned/blob/master/verse/3.3.1/Dockerfile) 
-
-
 ## Maintenance and Updates
 
 These images are actively maintained.  This means that while an effort is made to preserve the general function of these images over time, both these Dockerfiles and the resulting images are subject to some change over time.  In particular:
