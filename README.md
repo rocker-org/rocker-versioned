@@ -38,7 +38,7 @@ The image `rocker/r-ver` is the functional equivalent of `r-base`, though slight
 
 The image `rocker/tidyverse` is the functional equivalent of `rocker/hadleyverse`, minus the LaTeX part which is moved into a downstream `rocker/verse` in order to keep the `tidyverse` image more compact.  Now that [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html) is a thing, the term "hadleyverse" is on the way out. 
  
-The `rocker/rstudio` image builds with RStudio `v1.0.44` by default. This can be customized by specifying the desired version in `--build-arg RSTUDIO_VERSION=<VERSION>` if building locally from its Dockerfile. *Note that:* `rocker/rstudio:latest` is the only image name in this stack that already existed.  For consistency, `rocker/rstudio:latest` now builds on `r-ver:latest` instead of `r-base:latest`.  This change may break downstream images, which should either build explicitly on the `debian:testing` stack by using the `testing` tag (`rocker/rstudio:testing`) or be patched to support this change.
+The `rocker/rstudio` image builds with the latest version of RStudio by default. This can be customized by specifying the desired version in `--build-arg RSTUDIO_VERSION=<VERSION>` if building locally from its Dockerfile. *Note that:* `rocker/rstudio:latest` is the only image name in this stack that already existed.  For consistency, `rocker/rstudio:latest` now builds on `r-ver:latest` instead of `r-base:latest`.  This change may break downstream images, which should either build explicitly on the `debian:testing` stack by using the `testing` tag (`rocker/rstudio:testing`) or be patched to support this change.
 
 
 
