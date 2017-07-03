@@ -36,6 +36,7 @@ RUN apt-get update \
     locales \
     make \
     unzip \
+    valgrind \
     zip \
     zlib1g \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
