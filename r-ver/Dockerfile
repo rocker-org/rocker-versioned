@@ -12,8 +12,9 @@ ENV R_VERSION=${R_VERSION:-3.4.1} \
     LANG=en_US.UTF-8 \
     TERM=xterm
 
-## dependencies
-RUN apt-get update \
+## dependencies. Use cloudfront, official CDN gives frequent 503 errors
+RUN sed -i s/deb.debian.org/cloudfront.debian.net/ /etc/apt/sources.list \
+  && apt-get update \
   && apt-get install -y --no-install-recommends \
     bash-completion \
     ca-certificates \
