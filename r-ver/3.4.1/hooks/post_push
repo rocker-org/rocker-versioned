@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+# add additional tags without bugfix and minor version
+MAJ_MIN_BUG=${PWD##*/}
+MAJ_MIN=$(echo $MAJ_MIN_BUG | sed "s/\.[^\.]*$//")
+MAJ=$(echo $MAJ_MIN | sed "s/\.[^\.]*$//")
+
+echo Add version tags $MAJ_MIN and $MAJ 
+docker tag $IMAGE_NAME $DOCKER_REPO:$MAJ_MIN
+docker push $DOCKER_REPO:$MAJ_MIN
+docker tag $IMAGE_NAME $DOCKER_REPO:$MAJ
+docker push $DOCKER_REPO:$MAJ
