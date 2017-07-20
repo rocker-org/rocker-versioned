@@ -16,8 +16,9 @@ docker push $DOCKER_REPO:$MAJ
 LATEST=`ls ../ | grep '^[0-9]' | sort | tail -n 1`
 if [ "$MAJ_MIN_BUG" == "$LATEST" ]
 then
-    echo "This r-ver is also latest, add version tag to $LATEST"
+    echo "This r-ver is also latest, add 'latest' tag to $LATEST"
     docker tag $IMAGE_NAME $DOCKER_REPO:latest
     docker push $DOCKER_REPO:latest
+fi
 
 echo "post_push tagging completed"
