@@ -6,8 +6,18 @@ MAJ_MIN_BUG=${PWD##*/}
 MAJ_MIN=$(echo $MAJ_MIN_BUG | sed "s/\.[^\.]*$//")
 MAJ=$(echo $MAJ_MIN | sed "s/\.[^\.]*$//")
 
-echo Add version tags $MAJ_MIN and $MAJ 
+echo "Add version tags $MAJ_MIN and $MAJ"
 docker tag $IMAGE_NAME $DOCKER_REPO:$MAJ_MIN
 docker push $DOCKER_REPO:$MAJ_MIN
 docker tag $IMAGE_NAME $DOCKER_REPO:$MAJ
 docker push $DOCKER_REPO:$MAJ
+
+# test if we can find out this is "latest": list parent directory files starting with number, sort them and only select the last one
+LATEST=`ls ../ | grep '^[0-9]' | sort | tail -n 1`
+if [ "$MAJ_MIN_BUG" == "$LATEST" ]
+then
+    echo "This r-ver is also latest, add version tag to $LATEST"
+    docker tag $IMAGE_NAME $DOCKER_REPO:latest
+    docker push $DOCKER_REPO:latest
+
+echo "post_push tagging completed"
