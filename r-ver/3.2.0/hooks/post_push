@@ -24,7 +24,7 @@ fi
 ## x
 # Check if this image is "latest" within major
 NEWEST_MAJ=`ls ../ | grep "^$MAJ" | sort --version-sort | tail -n 1`
-if [ "$MAJ_MIN_BUG" == "$NEWEST_MAJ" ]
+if [ "$MAJ" == "$NEWEST_MAJ" ]
 then
     echo "This version is also the newest major version, add tag '$MAJ' to $MAJ_MIN_BUG"
     docker tag $IMAGE_NAME $DOCKER_REPO:$MAJ
