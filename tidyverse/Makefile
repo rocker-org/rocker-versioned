@@ -22,6 +22,7 @@ devel/Dockerfile: Dockerfile
 
 update:
 	cp Dockerfile ${R_VERSION}/Dockerfile
+	cp post_push ${R_VERSION}/hooks/post_push
 	sed -i 's/rstudio:latest/rstudio:${R_VERSION}/' ${R_VERSION}/Dockerfile
 
 build:
@@ -29,4 +30,5 @@ build:
 
 clean:
 	rm  3.*.*/Dockerfile
+	rm  3.*.*/hooks/post_push
 

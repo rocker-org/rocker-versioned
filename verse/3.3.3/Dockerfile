@@ -21,7 +21,7 @@ RUN apt-get update \
     qpdf \
     ## for git via ssh key 
     ssh \
-    ## for building pdfs via pandoc/LaTeX
+    ## for building pdfs via pandoc/LaTeX (These are large!)
     lmodern \
     texlive-fonts-recommended \
     texlive-generic-recommended \
@@ -47,14 +47,13 @@ RUN apt-get update \
   && echo "Map zi4.map" >> /usr/share/texlive/texmf-dist/web2c/updmap.cfg \
   && mktexlsr \
   && updmap-sys \
-  ## And some nice R packages for publishing-related stuff 
-  && . /etc/environment \ 
-  && install2.r --error --repos $MRAN --deps TRUE \
+  ## Currently (2017-06-06) need devel PKI for ssl issue: https://github.com/s-u/PKI/issues/19
+  && install2.r -r http://rforge.net PKI \
+  ## And some nice R packages for publishing-related stuff
+  && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
 
 ## Consider including: 
-# - libv8-dev (Javascript V8 packages)
 # - yihui/printr R package (when released to CRAN)
-# - jags 4.2 (build from source, repo version too old and apt-tagging forces upgrade of all compiler libs)
 # - libgsl0-dev (GSL math library dependencies)
-# - librdf ?
+# - librdf0-dev
