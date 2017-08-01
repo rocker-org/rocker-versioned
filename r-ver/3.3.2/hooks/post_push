@@ -14,7 +14,7 @@ echo "Add version tags for major and major.minor releases."
 ## x.y
 # Check if this image is "latest" within major.minor
 NEWEST_MAJ_MIN=`ls ../ | grep '^$MAJ_MIN' | sort --version-sort | tail -n 1`
-if [ "$MAJ_MIN_BUG" == "$NEWEST_MAJ_MIN" ]
+if [ "$MAJ_MIN" == "$NEWEST_MAJ_MIN" ]
 then
     echo "This version is also the newest major.minor version, add tag '$MAJ_MIN' to $MAJ_MIN_BUG"
     docker tag $IMAGE_NAME $DOCKER_REPO:$MAJ_MIN
@@ -26,7 +26,7 @@ fi
 NEWEST_MAJ=`ls ../ | grep "^$MAJ" | sort --version-sort | tail -n 1`
 if [ "$MAJ_MIN_BUG" == "$NEWEST_MAJ" ]
 then
-    echo "This version is also the newest major version, add tag $MAJ' to $MAJ_MIN_BUG"
+    echo "This version is also the newest major version, add tag '$MAJ' to $MAJ_MIN_BUG"
     docker tag $IMAGE_NAME $DOCKER_REPO:$MAJ
     docker push $DOCKER_REPO:$MAJ
 fi
