@@ -29,7 +29,9 @@ Users should include the version tag, e.g. `rocker/verse:3.3.1` when reproducibl
 
 ### Version Tags
 
-Using the R version tag will naturally lock the R version, and also lock the install date of any R packages on the image.  For example,  `rocker/tidyverse:3.3.1` Docker image will always rebuild with R 3.3.1 and R packages installed from the **2016-10-31** MRAN snapshot, corresponding to **the last day that version of R was the most recent release**.   Meanwhile `rocker/tidyverse:latest` will always have both the latest R version and latest versions of the R packages.  
+Using the R version tag will naturally lock the R version, and also lock the install date of any R packages on the image.  For example,  `rocker/tidyverse:3.3.1` Docker image will always rebuild with R 3.3.1 and R packages installed from the **2016-10-31** MRAN snapshot, corresponding to **the last day that version of R was the most recent release**.  Meanwhile `rocker/tidyverse:latest` will always have both the latest R version and latest versions of the R packages.  
+
+Version tags for major and minor releases, such as `rocker/r-ver:3.4` or `rocker/verse:3`, are added to the newest available bugfix version.  The rules from the previous paragraph on R package versions apply.  For example, if the latest bugfix versions availalbe are `3.3.3` and `3.4.1`, then `rocker/{stack name}:3.3.3` will also be tagged `rocker/{stack name}:3.3` and  `rocker/{stack name}:3.4.1` will also be tagged `rocker/{stack name}:3.4` _and_ `rocker/{stack name}:3`.
 
 
 ### Images
