@@ -23,6 +23,7 @@ if [ "$ADD" == "shiny" ]; then
     cd /etc/services.d/shiny-server && \
     echo '#!/bin/bash' > run && echo 'exec shiny-server' >> run && \
     chmod +x run && \
+    adduser rstudio shiny \
     cd /
 fi
 
