@@ -25,5 +25,8 @@ update:
 	cp post_push ${R_VERSION}/hooks/post_push
 	sed -i 's/tidyverse:latest/tidyverse:${R_VERSION}/' ${R_VERSION}/Dockerfile
 
+hooks_update:
+	echo ./*/hooks/ | xargs -n 1 cp post_push
+
 clean:
 	rm 3.*.*/Dockerfile devel/Dockerfile 3.*.*/hooks/post_push

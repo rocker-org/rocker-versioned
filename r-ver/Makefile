@@ -51,6 +51,9 @@ update:
 	sed -i "s/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE $$\{BUILD_DATE:-${BUILD_DATE}\}/" ${R_VERSION}/Dockerfile
 	sed -i 's/## MRAN becomes default only in versioned images/\&\& echo \"options\(repos = c\(CRAN=\x27$$MRAN\x27\), download.file.method = \x27libcurl\x27\)\" >> \/usr\/local\/lib\/R\/etc\/Rprofile.site \\/' ${R_VERSION}/Dockerfile
 
+hooks_update:
+	echo ./*/hooks/ | xargs -n 1 cp post_push
+
 ## libcurl not an option before 3.3.0, https support requires curl
 use-curl:
 	sed -i "s/'libcurl'/'curl'/g" ${R_VERSION}/Dockerfile

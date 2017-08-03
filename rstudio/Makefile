@@ -31,6 +31,9 @@ update:
 	cp post_push ${R_VERSION}/hooks/post_push
 	sed -i 's/r-ver:latest/r-ver:${R_VERSION}/' ${R_VERSION}/Dockerfile
 
+hooks_update:
+	echo ./*/hooks/ | xargs -n 1 cp post_push
+
 build:
 	docker build -t rocker/rstudio:${R_VERSION} ${R_VERSION}
 
