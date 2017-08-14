@@ -46,9 +46,13 @@ devel/Dockerfile: Dockerfile
 
 update:
 	cp Dockerfile ${R_VERSION}/Dockerfile
+	cp post_push ${R_VERSION}/hooks/post_push
 	sed -i 's/${LATEST}/${R_VERSION}/' ${R_VERSION}/Dockerfile
 	sed -i "s/ARG BUILD_DATE/ARG BUILD_DATE\nENV BUILD_DATE $$\{BUILD_DATE:-${BUILD_DATE}\}/" ${R_VERSION}/Dockerfile
 	sed -i 's/## MRAN becomes default only in versioned images/\&\& echo \"options\(repos = c\(CRAN=\x27$$MRAN\x27\), download.file.method = \x27libcurl\x27\)\" >> \/usr\/local\/lib\/R\/etc\/Rprofile.site \\/' ${R_VERSION}/Dockerfile
+
+hooks_update:
+	echo ./*/hooks/ | xargs -n 1 cp post_push
 
 ## libcurl not an option before 3.3.0, https support requires curl
 use-curl:
@@ -57,5 +61,5 @@ use-curl:
 	sed -i 's/ca-certificates/ca-certificates curl/' ${R_VERSION}/Dockerfile
 
 clean:
-	rm  3.*/Dockerfile
+	rm  3.*/Dockerfile 3.*/hooks/post_push
 

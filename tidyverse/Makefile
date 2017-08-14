@@ -22,11 +22,16 @@ devel/Dockerfile: Dockerfile
 
 update:
 	cp Dockerfile ${R_VERSION}/Dockerfile
+	cp post_push ${R_VERSION}/hooks/post_push
 	sed -i 's/rstudio:latest/rstudio:${R_VERSION}/' ${R_VERSION}/Dockerfile
+
+hooks_update:
+	echo ./*/hooks/ | xargs -n 1 cp post_push
 
 build:
 	docker build -t rocker/tidyverse:${R_VERSION} ${R_VERSION}
 
 clean:
 	rm  3.*.*/Dockerfile
+	rm  3.*.*/hooks/post_push
 

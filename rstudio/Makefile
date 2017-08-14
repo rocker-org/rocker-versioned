@@ -28,8 +28,11 @@ update:
 	cp Dockerfile ${R_VERSION}/Dockerfile
 	cp userconf.sh ${R_VERSION}/userconf.sh
 	cp add_shiny.sh ${R_VERSION}/add_shiny.sh
+	cp post_push ${R_VERSION}/hooks/post_push
 	sed -i 's/r-ver:latest/r-ver:${R_VERSION}/' ${R_VERSION}/Dockerfile
 
+hooks_update:
+	echo ./*/hooks/ | xargs -n 1 cp post_push
 
 build:
 	docker build -t rocker/rstudio:${R_VERSION} ${R_VERSION}
@@ -40,4 +43,5 @@ build:
 
 clean:
 	rm  3.*/Dockerfile
+	rm  3.*/hooks/post_push
 
