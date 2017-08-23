@@ -3,22 +3,22 @@ services:
 
   3.3.0: 
     image: rocker/r-ver:3.3.0
-    cmd: Rscript --quiet -e "getOption('repos')"
+    command: Rscript --quiet -e "getOption('repos')"
   3.3.1: 
     image: rocker/r-ver:3.3.1
-    cmd: Rscript --quiet -e "getOption('repos')"
+    command: Rscript --quiet -e "getOption('repos')"
   3.3.2: 
     image: rocker/r-ver:3.3.2
-    cmd: Rscript --quiet -e "getOption('repos')"
+    command: Rscript --quiet -e "getOption('repos')"
   3.3.3: 
     image: rocker/r-ver:3.3.3
-    cmd: Rscript --quiet -e "getOption('repos')"
+    command: Rscript --quiet -e "getOption('repos')"
   3.4.0: 
     image: rocker/r-ver:3.4.0
-    cmd: Rscript --quiet -e "getOption('repos')"
+    command: Rscript --quiet -e "getOption('repos')"
   3.4.1: 
     image: rocker/r-ver:3.4.1
-    cmd: Rscript --quiet -e "getOption('repos')"
+    command: Rscript --quiet -e "getOption('repos')"
 
 
 
