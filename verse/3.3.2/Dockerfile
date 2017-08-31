@@ -15,6 +15,8 @@ RUN apt-get update \
     libhunspell-dev \
     ## system dependency of hadley/pkgdown
     libmagick++-dev \
+    ## rdf, for redland / linked data
+    librdf0-dev \
     ## for V8-based javascript wrappers
     libv8-dev \
     ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
