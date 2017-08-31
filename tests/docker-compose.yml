@@ -19,6 +19,16 @@ services:
   3.4.1: 
     image: rocker/r-ver:3.4.1
     command: Rscript --quiet -e "getOption('repos')"
+  latest: 
+    image: rocker/r-ver:latest
+    command: Rscript --quiet -e "getOption('repos')"
+  devel: 
+    image: rocker/r-ver:devel
+    command: Rscript --quiet -e "getOption('repos')"
+
+
+
+
 
 
 
