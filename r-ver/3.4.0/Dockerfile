@@ -13,7 +13,6 @@ ENV R_VERSION=${R_VERSION:-3.4.0} \
     LANG=en_US.UTF-8 \
     TERM=xterm
 
-## dependencies
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     bash-completion \
