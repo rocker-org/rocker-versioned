@@ -10,7 +10,8 @@ ARG BUILD_DATE
 ENV R_VERSION=${R_VERSION:-3.4.1} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
-    TERM=xterm
+    TERM=xterm \
+    PATH=/usr/lib/ccache:$PATH
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -128,7 +129,7 @@ RUN apt-get update \
   && apt-get remove --purge -y $BUILDDEPS \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
-  && rm -rf /var/lib/apt/lists/*
-
+  && rm -rf /var/lib/apt/lists/* \
+  && ccache -C 
 CMD ["R"]
 
