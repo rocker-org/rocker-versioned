@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:latest
+FROM rocker/tidyverse:3.3.1
 
 ## Add LaTeX, rticles and bookdown support
 RUN apt-get update \
