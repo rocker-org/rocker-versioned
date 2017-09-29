@@ -1,15 +1,18 @@
-LATEST=3.4.1
+LATEST=3.4.2
 ## Also update this in default Dockerfile on new version release!!
 
 latest:
 	docker build --build-arg R_VERSION=${LATEST} -t rocker/r-ver .	
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
-sync: devel/Dockerfile 3.4.1/Dockerfile
+sync: devel/Dockerfile ${LATEST}/Dockerfile
 
 
 3.4.1/Dockerfile: Dockerfile
-	export R_VERSION=3.4.1 && unset BUILD_DATE && make update
+	export R_VERSION=3.4.2 && unset BUILD_DATE && make update
+
+3.4.0/Dockerfile: Dockerfile
+	export R_VERSION=3.4.1 && export BUILD_DATE=2017-09-28 && make update
 
 3.4.0/Dockerfile: Dockerfile
 	export R_VERSION=3.4.0 && export BUILD_DATE=2017-06-30 && make update
