@@ -8,10 +8,10 @@ latest:
 sync: devel/Dockerfile ${LATEST}/Dockerfile
 
 
-3.4.1/Dockerfile: Dockerfile
+3.4.2/Dockerfile: Dockerfile
 	export R_VERSION=3.4.2 && unset BUILD_DATE && make update
 
-3.4.0/Dockerfile: Dockerfile
+3.4.1/Dockerfile: Dockerfile
 	export R_VERSION=3.4.1 && export BUILD_DATE=2017-09-28 && make update
 
 3.4.0/Dockerfile: Dockerfile
