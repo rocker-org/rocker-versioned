@@ -1,29 +1,29 @@
 version: '2'
 services: 
 
-  3.3.0: 
-    image: rocker/r-ver:3.3.0
-    command: Rscript --quiet -e "getOption('repos')"
   3.3.1: 
-    image: rocker/r-ver:3.3.1
+    image: rocker/verse:3.3.1
     command: Rscript --quiet -e "getOption('repos')"
   3.3.2: 
-    image: rocker/r-ver:3.3.2
+    image: rocker/verse:3.3.2
     command: Rscript --quiet -e "getOption('repos')"
   3.3.3: 
-    image: rocker/r-ver:3.3.3
+    image: rocker/verse:3.3.3
     command: Rscript --quiet -e "getOption('repos')"
   3.4.0: 
-    image: rocker/r-ver:3.4.0
+    image: rocker/verse:3.4.0
     command: Rscript --quiet -e "getOption('repos')"
   3.4.1: 
-    image: rocker/r-ver:3.4.1
+    image: rocker/verse:3.4.1
+    command: Rscript --quiet -e "getOption('repos')"
+  3.4.2: 
+    image: rocker/verse:3.4.2
     command: Rscript --quiet -e "getOption('repos')"
   latest: 
-    image: rocker/r-ver:latest
+    image: rocker/verse:latest
     command: Rscript --quiet -e "getOption('repos')"
   devel: 
-    image: rocker/r-ver:devel
+    image: rocker/verse:devel
     command: Rscript --quiet -e "getOption('repos')"
 
 
