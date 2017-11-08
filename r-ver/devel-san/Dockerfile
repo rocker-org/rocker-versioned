@@ -60,7 +60,7 @@ RUN apt-get update -qq \
     xvfb \
     zlib1g-dev \
   && cd /tmp \
-  && svn co https://svn.r-project.org/R/trunk R-devel \ 
+  && svn co https://svn.r-project.org/R/trunk R-devel \
 ## Build and install according the standard 'recipe' I emailed/posted years ago
 ## Updated compiler flags to match https://www.stats.ox.ac.uk/pub/bdr/memtests/README.txt
   && cd /tmp/R-devel \
@@ -85,8 +85,7 @@ RUN apt-get update -qq \
      FC="gfortran" \
      F77="gfortran" \
      ./configure --enable-R-shlib \
-               --without-blas \
-               --without-lapack \
+               --with-blas \
                --with-readline \
                --without-recommended-packages \
                --program-suffix=dev \
@@ -130,7 +129,7 @@ ENV LANG en_US.UTF-8
 
 ## More verbose UBSAN/SAN output (cf #3) -- this is still somewhat speculative
 ## Entry copied from Prof Ripley's setup described at http://www.stats.ox.ac.uk/pub/bdr/memtests/README.txt
-ENV ASAN_OPTIONS 'alloc_dealloc_mismatch=0:detect_leaks=0:detect_odr_violation=0' 
+ENV ASAN_OPTIONS 'alloc_dealloc_mismatch=0:detect_leaks=0:detect_odr_violation=0'
 
 
 CMD ["R"]
