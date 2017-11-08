@@ -22,6 +22,7 @@ RUN apt-get update \
     g++ \
     gfortran \
     gsfonts \
+    libblas-dev \
     libbz2-1.0 \
     libcurl3 \
     libicu57 \
@@ -93,7 +94,8 @@ RUN apt-get update \
   ./configure --enable-R-shlib \
                --enable-memory-profiling \
                --with-readline \
-               --with-blas="-lopenblas" \
+               --with-blas \
+               --with-tcltk \
                --disable-nls \
                --without-recommended-packages \
   ## Build and install
