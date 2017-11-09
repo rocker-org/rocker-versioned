@@ -6,6 +6,8 @@ RUN apt-get update \
     ## for rJava
     default-jdk \
     ## used by some base R plots
+    ## Nice Google fonts
+    fonts-roboto \    
     ghostscript \
     ## used to build rJava and other packages
     libbz2-dev \
