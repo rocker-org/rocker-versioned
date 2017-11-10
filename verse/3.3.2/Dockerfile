@@ -5,6 +5,8 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ## for rJava
     default-jdk \
+    ## Nice Google fonts
+    fonts-roboto \
     ## used by some base R plots
     ghostscript \
     ## used to build rJava and other packages
