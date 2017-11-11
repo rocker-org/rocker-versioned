@@ -1,9 +1,7 @@
 FROM rocker/r-ver:3.4.0
 
 ARG RSTUDIO_VERSION
-ARG PANDOC_TEMPLATES_VERSION 
-ENV PANDOC_TEMPLATES_VERSION=${PANDOC_TEMPLATES_VERSION:-1.18} \
-    PATH=/usr/lib/rstudio-server/bin:$PATH
+ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 
 ## Download and install RStudio server & dependencies
 ## Attempts to get detect latest version, otherwise falls back to version given in $VER
@@ -32,11 +30,10 @@ RUN apt-get update \
   ## Symlink pandoc & standard pandoc templates for use system-wide
   && ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc /usr/local/bin \
   && ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc-citeproc /usr/local/bin \
-  && wget https://github.com/jgm/pandoc-templates/archive/${PANDOC_TEMPLATES_VERSION}.tar.gz \
-  && mkdir -p /opt/pandoc/templates && tar zxf ${PANDOC_TEMPLATES_VERSION}.tar.gz \
+  && git clone https://github.com/jgm/pandoc-templates \
+  && mkdir -p /opt/pandoc/templates \
   && cp -r pandoc-templates*/* /opt/pandoc/templates && rm -rf pandoc-templates* \
   && mkdir /root/.pandoc && ln -s /opt/pandoc/templates /root/.pandoc/templates \
-  && rm ${PANDOC_TEMPLATES_VERSION}.tar.gz \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   ## RStudio wants an /etc/R, will populate from $R_HOME/etc
