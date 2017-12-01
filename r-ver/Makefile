@@ -1,4 +1,4 @@
-LATEST=3.4.2
+LATEST=3.4.3
 ## Also update this in default Dockerfile on new version release!!
 
 latest:
@@ -8,8 +8,11 @@ latest:
 sync: devel/Dockerfile ${LATEST}/Dockerfile
 
 
+3.4.3/Dockerfile: Dockerfile
+	export R_VERSION=3.4.3 && unset BUILD_DATE && make update
+
 3.4.2/Dockerfile: Dockerfile
-	export R_VERSION=3.4.2 && unset BUILD_DATE && make update
+	export R_VERSION=3.4.2 && export BUILD_DATE=2017-11-30 && make update
 
 3.4.1/Dockerfile: Dockerfile
 	export R_VERSION=3.4.1 && export BUILD_DATE=2017-09-28 && make update
