@@ -37,12 +37,12 @@ RUN apt-get update \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \
   && mv ~/.TinyTeX /opt/TinyTeX \
-  && chown -R root:staff /opt/TinyTeX \
-  && chmod -R g+wx /opt/TinyTeX \
   && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
   && tlmgr path add \
   && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
+  && chown -R root:staff /opt/TinyTeX \
+  && chmod -R g+wx /opt/TinyTeX \
  ## And some nice R packages for publishing-related stuff
   && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
