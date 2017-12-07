@@ -38,7 +38,7 @@ RUN apt-get update \
     sh -s - --admin --no-path \
   && mv ~/.TinyTeX /opt/TinyTeX \
   && chown -R root:staff /opt/TinyTeX \
-  && chmod g+wx /opt/TinyTeX \
+  && chmod -R g+wx /opt/TinyTeX \
   && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
   && tlmgr path add \
