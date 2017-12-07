@@ -1,7 +1,11 @@
 FROM rocker/tidyverse:latest
 
 ## Add LaTeX, rticles and bookdown support
-RUN apt-get update \
+## uses dummy texlive, see FAQ 8: https://yihui.name/tinytex/faq/
+RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
+  && dpkg -i texlive-local.deb \
+  && rm texlive-local.deb \
+  && apt-get update \
   && apt-get install -y --no-install-recommends \
     ## for rJava
     default-jdk \
