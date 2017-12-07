@@ -36,17 +36,18 @@ RUN apt-get update \
   && wget -qO- \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \
-    && mv ~/.TinyTex /opt/TinyTex \
-    && chown -R root:staff /opt/TinyTex \
-    && /opt/TinyTeX/bin/*/tlmgr path add \
-    && tlmgr install metafont mfware inconsolata tex ae parskip listings \
-    && tlmgr path add \
-    && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
-  ## And some nice R packages for publishing-related stuff
+  && ~/.TinyTeX/bin/*/tlmgr path add \
+  && tlmgr install metafont mfware inconsolata tex ae parskip listings \
+  && tlmgr path add \
+  && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
+ ## And some nice R packages for publishing-related stuff
   && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
 
-## Consider including: 
-# - yihui/printr R package (when released to CRAN)
-# - libgsl0-dev (GSL math library dependencies)
-# - librdf0-dev
+## Well here's a puzzle! This simple mv call doesn't work in `sh` shell, but works fine in bash shell.
+## Amazingly, /bin/bash -c "mv ~/.TinyTex /opt/TinyTex" doesn't work either, but actually becoming 
+## bash shell first and then running it works fine.  I'm stumped.  
+RUN mv ~/.TinyTex /opt/TinyTex \
+  && chown -R root:staff /opt/TinyTex \
+  && /opt/TinyTeX/bin/*/tlmgr path add
+ 
