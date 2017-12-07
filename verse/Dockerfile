@@ -36,7 +36,10 @@ RUN apt-get update \
   && wget -qO- \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \
-  && ~/.TinyTeX/bin/*/tlmgr path add \
+  && mv ~/.TinyTeX /opt/TinyTeX \
+  && chown -R root:staff /opt/TinyTeX \
+  && chmod g+wx /opt/TinyTeX \
+  && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
   && tlmgr path add \
   && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
@@ -44,10 +47,3 @@ RUN apt-get update \
   && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
 
-## Well here's a puzzle! This simple mv call doesn't work in `sh` shell, but works fine in bash shell.
-## Amazingly, /bin/bash -c "mv ~/.TinyTex /opt/TinyTex" doesn't work either, but actually becoming 
-## bash shell first and then running it works fine.  I'm stumped.  
-RUN mv ~/.TinyTeX /opt/TinyTeX \
-  && chown -R root:staff /opt/TinyTeX \
-  && /opt/TinyTeX/bin/*/tlmgr path add
- 
