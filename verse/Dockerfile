@@ -29,8 +29,6 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     qpdf \
     ## for git via ssh key 
     ssh \
-    ## for building pdfs via pandoc/LaTeX (These are large!)
-    lmodern \
    ## just because
     less \
     vim \
