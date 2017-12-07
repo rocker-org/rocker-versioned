@@ -45,7 +45,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
   && chown -R root:staff /opt/TinyTeX \
   && chmod -R g+w /opt/TinyTeX \
-  && chmod -R g+wx /opt/TinyTex/bin \
+  && chmod -R g+wx /opt/TinyTeX/bin \
  ## And some nice R packages for publishing-related stuff
   && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
