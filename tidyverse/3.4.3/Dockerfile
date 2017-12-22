@@ -17,7 +17,8 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     devtools \
     formatR \
     remotes \
-    selectr
+    selectr \
+    caTools
 
 ## Notes: Above install2.r uses --deps TRUE to get Suggests dependencies as well,
 ## dplyr and ggplot are already part of tidyverse, but listed explicitly to get their (many) suggested dependencies.

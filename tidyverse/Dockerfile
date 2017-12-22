@@ -17,7 +17,8 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     devtools \
     formatR \
     remotes \
-    selectr
+    selectr \
+    caTools
 
 # not clear why selectr needs explicit re-install, see https://github.com/rocker-org/rocker-versioned/pull/63
 
