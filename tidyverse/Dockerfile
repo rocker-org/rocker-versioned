@@ -16,7 +16,11 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     ggplot2 \
     devtools \
     formatR \
-    remotes 
+    remotes \
+    selectr \
+    caTools
+
+# not clear why selectr needs explicit re-install, see https://github.com/rocker-org/rocker-versioned/pull/63
 
 ## Notes: Above install2.r uses --deps TRUE to get Suggests dependencies as well,
 ## dplyr and ggplot are already part of tidyverse, but listed explicitly to get their (many) suggested dependencies.

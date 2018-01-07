@@ -25,6 +25,8 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     librdf0-dev \
     ## for V8-based javascript wrappers
     libv8-dev \
+    ## for jq queries
+    libjq-dev \
     ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
     qpdf \
     ## for git via ssh key 
