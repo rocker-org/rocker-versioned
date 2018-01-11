@@ -50,5 +50,5 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && chmod -R g+wx /opt/TinyTeX/bin \
  ## And some nice R packages for publishing-related stuff
   && install2.r --error --deps TRUE \
-    bookdown rticles rmdshower
+    bookdown rticles rmdshower DT
 
