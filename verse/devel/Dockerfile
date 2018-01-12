@@ -1,7 +1,10 @@
 FROM rocker/tidyverse:devel
 
 ## Add LaTeX, rticles and bookdown support
-RUN apt-get update \
+RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
+  && dpkg -i texlive-local.deb \
+  && rm texlive-local.deb \
+  && aapt-get update \
   && apt-get install -y --no-install-recommends \
     ## for rJava
     default-jdk \
@@ -25,35 +28,24 @@ RUN apt-get update \
     qpdf \
     ## for git via ssh key 
     ssh \
-    ## for building pdfs via pandoc/LaTeX (These are large!)
-    lmodern \
-    texlive-fonts-recommended \
-    texlive-generic-recommended \
-    texlive-humanities \
-    texlive-latex-extra \
-    texlive-science \
-    texinfo \
     ## just because
     less \
     vim \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
-  && cd /usr/share/texlive/texmf-dist/tex/latex \
-  ## additional tex files needed for certain rticles templates
-  && wget http://mirrors.ctan.org/macros/latex/contrib/ametsoc.zip \
-  && unzip ametsoc.zip \
-  && rm *.zip \
-## R manuals use inconsolata font, but texlive-fonts-extra is huge, so:
-  && cd /usr/share/texlive/texmf-dist \
-  && wget http://mirrors.ctan.org/install/fonts/inconsolata.tds.zip \
-  && unzip inconsolata.tds.zip \
-  && rm *.zip \
-  && echo "Map zi4.map" >> /usr/share/texlive/texmf-dist/web2c/updmap.cfg \
-  && mktexlsr \
-  && updmap-sys \
-  ## Currently (2017-06-06) need devel PKI for ssl issue: https://github.com/s-u/PKI/issues/19
-  && install2.r -r http://rforge.net PKI \
-  ## And some nice R packages for publishing-related stuff
+  ## Use tinytex for LaTeX installation
+  && wget -qO- \
+    "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
+    sh -s - --admin --no-path \
+  && mv ~/.TinyTeX /opt/TinyTeX \
+  && /opt/TinyTeX/bin/*/tlmgr path add \
+  && tlmgr install metafont mfware inconsolata tex ae parskip listings \
+  && tlmgr path add \
+  && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
+  && chown -R root:staff /opt/TinyTeX \
+  && chmod -R g+w /opt/TinyTeX \
+  && chmod -R g+wx /opt/TinyTeX/bin \
+   ## And some nice R packages for publishing-related stuff
   && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
 
