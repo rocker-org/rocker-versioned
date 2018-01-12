@@ -4,7 +4,7 @@ FROM rocker/tidyverse:devel
 RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && dpkg -i texlive-local.deb \
   && rm texlive-local.deb \
-  && aapt-get update \
+  && apt-get update \
   && apt-get install -y --no-install-recommends \
     ## for rJava
     default-jdk \
