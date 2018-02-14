@@ -75,6 +75,8 @@ COPY userconf.sh /etc/cont-init.d/userconf
 ## running with "-e ADD=shiny" adds shiny server
 COPY add_shiny.sh /etc/cont-init.d/add
 
+COPY pam-helper.sh /usr/lib/rstudio-server/bin/pam-helper
+
 EXPOSE 8787
 
 ## automatically link a shared volume for kitematic users
