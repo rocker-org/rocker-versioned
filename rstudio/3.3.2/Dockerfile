@@ -63,7 +63,7 @@ RUN apt-get update \
   && wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz \
   && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
   && mkdir -p /etc/services.d/rstudio \
-  && echo '#!/bin/bash \
+  && echo '#!/usr/bin/with-contenv bash \
            \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
            > /etc/services.d/rstudio/run \
    && echo '#!/bin/bash \
