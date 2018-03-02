@@ -30,6 +30,8 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     libjq-dev \
     ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
     qpdf \
+    ## For building PDF manuals
+    texinfo \
     ## for git via ssh key 
     ssh \
    ## just because
