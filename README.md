@@ -4,6 +4,8 @@
 [![DOI](https://zenodo.org/badge/25048007.svg)](https://zenodo.org/badge/latestdoi/25048007)
 
 
+Visit [rocker-project.org](https://rocker-project.org) for more about available Rocker images, configuration, and use. 
+
 
 ## Version-stable Rocker images
 
@@ -33,6 +35,7 @@ Using the R version tag will naturally lock the R version, and also lock the ins
 
 Version tags for major and minor releases, such as `rocker/r-ver:3.4` or `rocker/verse:3`, are added to the newest available bugfix version.  The rules from the previous paragraph on R package versions apply.  For example, if the latest bugfix versions availalbe are `3.3.3` and `3.4.1`, then `rocker/{stack name}:3.3.3` will also be tagged `rocker/{stack name}:3.3` and  `rocker/{stack name}:3.4.1` will also be tagged `rocker/{stack name}:3.4` _and_ `rocker/{stack name}:3`.
 
+See [VERSIONS.md](/VERSIONS.md) for details
 
 ### Images
 
@@ -42,6 +45,9 @@ The image `rocker/tidyverse` is the functional equivalent of `rocker/hadleyverse
  
 The `rocker/rstudio` image builds with the latest version of RStudio by default. This can be customized by specifying the desired version in `--build-arg RSTUDIO_VERSION=<VERSION>` if building locally from its Dockerfile. *Note that:* `rocker/rstudio:latest` is the only image name in this stack that already existed.  For consistency, `rocker/rstudio:latest` now builds on `r-ver:latest` instead of `r-base:latest`.  This change may break downstream images, which should either build explicitly on the `debian:testing` stack by using the `testing` tag (`rocker/rstudio:testing`) or be patched to support this change.
 
+## RStudio and Runtime Options
+
+See the [RStudio README](https://github.com/rocker-org/rocker-versioned/blob/master/rstudio/README.md) for documentation on setting passwords, sharing volumes, adding RStudio Shiny Server(TM), and other configuration.
 
 
 ## Maintenance and Updates
