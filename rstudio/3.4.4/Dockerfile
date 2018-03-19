@@ -1,4 +1,4 @@
-FROM rocker/r-ver:3.4.3
+FROM rocker/r-ver:3.4.4
 
 ARG RSTUDIO_VERSION
 ## Comment the next line to use the latest RStudio Server version by default
