@@ -8,10 +8,11 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libmariadb-client-lgpl-dev \
   libpq-dev \
   libssh2-1-dev \
+  unixodbc-dev \
   && R -e "source('https://bioconductor.org/biocLite.R')" \
   && install2.r --error \
     --deps TRUE \
-    tidyverse \ 
+    tidyverse \
     dplyr \
     ggplot2 \
     devtools \
