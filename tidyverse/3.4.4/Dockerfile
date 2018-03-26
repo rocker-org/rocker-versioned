@@ -3,7 +3,7 @@ FROM rocker/rstudio:3.4.4
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libxml2-dev \
   libcairo2-dev \
-  libsqlite-dev \
+  libsqlite3-dev \
   libmariadbd-dev \
   libmariadb-client-lgpl-dev \
   libpq-dev \
