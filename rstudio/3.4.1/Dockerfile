@@ -72,13 +72,7 @@ RUN apt-get update \
           > /etc/services.d/rstudio/run \
    && echo '#!/bin/bash \
           \n rstudio-server stop' \
-          > /etc/services.d/rstudio/finish \ 
-  && mkdir -p /home/rstudio/.rstudio/monitored/user-settings \ 
-  && echo 'alwaysSaveHistory="0" \ 
-          \nloadRData="0" \
-          \nsaveAction="0"' \ 
-          > /home/rstudio/.rstudio/monitored/user-settings/user-settings \ 
-  && chown -R rstudio:rstudio /home/rstudio/.rstudio
+          > /etc/services.d/rstudio/finish
 
 COPY userconf.sh /etc/cont-init.d/userconf
 
@@ -91,5 +85,10 @@ EXPOSE 8787
 
 ## automatically link a shared volume for kitematic users
 VOLUME /home/rstudio/kitematic
+
+COPY user-settings /home/rstudio/.rstudio/monitored/user-settings/
+# No chown will cause "RStudio Initalization Error"
+# "Error occurred during the transmission"; RStudio will not load.
+RUN chown -R rstudio:rstudio /home/rstudio/.rstudio
 
 CMD ["/init"]
