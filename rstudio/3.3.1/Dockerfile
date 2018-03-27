@@ -66,9 +66,9 @@ RUN apt-get update \
   && echo '#!/usr/bin/with-contenv bash \
            \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
            > /etc/services.d/rstudio/run \
-   && echo '#!/bin/bash \
-           \n rstudio-server stop' \
-           > /etc/services.d/rstudio/finish
+  && echo '#!/bin/bash \
+          \n rstudio-server stop' \
+          > /etc/services.d/rstudio/finish
 
 COPY userconf.sh /etc/cont-init.d/userconf
 
@@ -81,5 +81,10 @@ EXPOSE 8787
 
 ## automatically link a shared volume for kitematic users
 VOLUME /home/rstudio/kitematic
+
+COPY user-settings /home/rstudio/.rstudio/monitored/user-settings/
+# No chown will cause "RStudio Initalization Error"
+# "Error occurred during the transmission"; RStudio will not load.
+RUN chown -R rstudio:rstudio /home/rstudio/.rstudio
 
 CMD ["/init"]
