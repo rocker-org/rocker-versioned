@@ -19,13 +19,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     formatR \
     remotes \
     selectr \
-    caTools \ 
-  && mkdir -p /home/rstudio/.rstudio/monitored/user-settings \ 
-  && echo 'alwaysSaveHistory="0" \ 
-          \nloadRData="0" \
-          \nsaveAction="0"' \ 
-          > /home/rstudio/.rstudio/monitored/user-settings/user-settings \ 
-  && chown -R rstudio:rstudio /home/rstudio/.rstudio
+    caTools
 
 ## Notes: Above install2.r uses --deps TRUE to get Suggests dependencies as well,
 ## dplyr and ggplot are already part of tidyverse, but listed explicitly to get their (many) suggested dependencies.
