@@ -66,9 +66,15 @@ RUN apt-get update \
   && echo '#!/usr/bin/with-contenv bash \
            \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
            > /etc/services.d/rstudio/run \
-   && echo '#!/bin/bash \
-           \n rstudio-server stop' \
-           > /etc/services.d/rstudio/finish
+  && echo '#!/bin/bash \
+          \n rstudio-server stop' \
+          > /etc/services.d/rstudio/finish \ 
+  && mkdir -p /home/rstudio/.rstudio/monitored/user-settings \ 
+  && echo 'alwaysSaveHistory="0" \ 
+          \nloadRData="0" \
+          \nsaveAction="0"' \ 
+          > /home/rstudio/.rstudio/monitored/user-settings/user-settings \ 
+  && chown -R rstudio:rstudio /home/rstudio/.rstudio
 
 COPY userconf.sh /etc/cont-init.d/userconf
 
