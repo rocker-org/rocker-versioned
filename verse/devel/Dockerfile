@@ -9,7 +9,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     ## for rJava
     default-jdk \
     ## Nice Google fonts
-    fonts-roboto \    
+    fonts-roboto \
     ## used by some base R plots
     ghostscript \
     ## used to build rJava and other packages
@@ -24,12 +24,14 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     librdf0-dev \
     ## for V8-based javascript wrappers
     libv8-dev \
-    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
+    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning
     qpdf \
     ## For building PDF manuals
     texinfo \
-    ## for git via ssh key 
+    ## for git via ssh key
     ssh \
+	## no longer getting pre-installed
+	xz-utils \
     ## just because
     less \
     vim \
@@ -51,7 +53,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
 
-## Consider including: 
+## Consider including:
 # - yihui/printr R package (when released to CRAN)
 # - libgsl0-dev (GSL math library dependencies)
 # - librdf0-dev

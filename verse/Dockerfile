@@ -27,13 +27,15 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     libv8-dev \
     ## for jq queries
     libjq-dev \
-    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
+    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning
     qpdf \
     ## For building PDF manuals
     texinfo \
-    ## for git via ssh key 
+    ## for git via ssh key
     ssh \
-   ## just because
+	## xz compression
+	xz-utils \
+    ## just because
     less \
     vim \
   && apt-get clean \
