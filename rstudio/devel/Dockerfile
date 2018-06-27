@@ -19,7 +19,7 @@ RUN apt-get update \
     python-setuptools \
     sudo \
     wget \
-  && wget -O libssl1.0.0.deb http://ftp.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u7_amd64.deb \
+  && wget -O libssl1.0.0.deb http://ftp.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb \
   && dpkg -i libssl1.0.0.deb \
   && rm libssl1.0.0.deb \
   && RSTUDIO_LATEST=$(wget --no-check-certificate -qO- https://s3.amazonaws.com/rstudio-server/current.ver) \
@@ -54,10 +54,10 @@ RUN apt-get update \
 	&& chown rstudio:rstudio /home/rstudio \
 	&& addgroup rstudio staff \
   ## Prevent rstudio from deciding to use /usr/bin/R if a user apt-get installs a package
-  &&  echo 'rsession-which-r=/usr/local/bin/R' >> /etc/rstudio/rserver.conf \ 
+  &&  echo 'rsession-which-r=/usr/local/bin/R' >> /etc/rstudio/rserver.conf \
   ## use more robust file locking to avoid errors when using shared volumes:
   && echo 'lock-type=advisory' >> /etc/rstudio/file-locks \
-  ## configure git not to request password each time 
+  ## configure git not to request password each time
   && git config --system credential.helper 'cache --timeout=3600' \
   && git config --system push.default simple \
   ## Set up S6 init system
