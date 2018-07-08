@@ -1,15 +1,19 @@
-LATEST=3.5.0
+LATEST=3.5.1
 ## Also update this in default Dockerfile on new version release!!
 
 latest:
-	docker build --build-arg R_VERSION=${LATEST} -t rocker/r-ver .	
+	docker build --build-arg R_VERSION=${LATEST} -t rocker/r-ver .
 
 ## Auto-generate separate Dockerfiles for auto builds by hub
 sync: devel/Dockerfile ${LATEST}/Dockerfile
 
 
-3.5.0/Dockerfile: Dockerfile
+3.5.1/Dockerfile: Dockerfile
 	export R_VERSION=${LATEST} && unset BUILD_DATE && make update
+
+3.5.0/Dockerfile: Dockerfile
+	export R_VERSION=3.5.0 && export BUILD_DATE=2018-07-02 && make update
+
 
 3.4.4/Dockerfile: Dockerfile
 	export R_VERSION=3.4.4 && export BUILD_DATE=2018-04-23 && make update
@@ -27,10 +31,10 @@ sync: devel/Dockerfile ${LATEST}/Dockerfile
 	export R_VERSION=3.4.0 && export BUILD_DATE=2017-06-30 && make update
 
 
-## Custom configuration for devel 
+## Custom configuration for devel
 
 devel/Dockerfile: Dockerfile
-	cp Dockerfile devel/Dockerfile 
+	cp Dockerfile devel/Dockerfile
 	sed -i 's/tcl8\.6-dev/subversion tcl8.6-dev/' devel/Dockerfile
 	sed -i 's/curl -O .*\.gz/svn co https:\/\/svn\.r-project.org\/R\/trunk R-devel/' devel/Dockerfile
 	sed -i 's/.*tar -xf R-.*//' devel/Dockerfile
@@ -52,7 +56,7 @@ devel/Dockerfile: Dockerfile
 3.2.0/Dockerfile: Dockerfile
 	export R_VERSION=3.2.0 && export BUILD_DATE=2015-06-18 && make update && make use-curl
 ## NOTE: MRAN goes back only to 2014-09-17, (during R 3.1.1; 3.1.2 was released in Oct 2014)
-## Also NOTE: littler not avialable before 2015-10-29 
+## Also NOTE: littler not avialable before 2015-10-29
 3.1.0/Dockerfile: Dockerfile
 	export R_VERSION=3.1.0 && export BUILD_DATE=2014-09-17 && make update && make use-curl
 
