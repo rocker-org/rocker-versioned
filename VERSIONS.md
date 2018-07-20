@@ -39,7 +39,8 @@ docker build --build-arg RSTUDIO_VERSION=1.1.414 -t rocker/rstudio:3.4.2 .
 | 3.4.2    | 2017-11-30 | 1.1.383         | 2017-10-09   |
 | 3.4.3    | 2017-03-15 | 1.1.442         | 2018-03-12   |
 | 3.4.4    | 2018-04-23 | 1.1.447         | 2018-04-18   |
-| 3.5.0    | latest     | latest          | latest       |
+| 3.5.0    | 2018-07-02 | 1.1.447         | 2018-04-18   |
+| 3.5.1    | latest     | latest          | latest       |
 
 **The old rule where `rocker/rstudio` was build, by default, using the latest
 RStudio Server is cancelled**, since RStudio ships with `rmarkdown` package. 
