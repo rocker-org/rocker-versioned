@@ -87,7 +87,7 @@ RUN apt-get update -qq \
      ./configure --enable-R-shlib \
                --with-blas \
                --with-readline \
-               --without-recommended-packages \
+               --with-recommended-packages \
                --program-suffix=dev \
                --disable-openmp \
   && make \
