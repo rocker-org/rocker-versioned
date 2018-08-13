@@ -98,7 +98,7 @@ RUN apt-get update \
                --with-blas \
                --with-tcltk \
                --disable-nls \
-               --without-recommended-packages \
+               --with-recommended-packages \
   ## Build and install
   && make \
   && make install \
