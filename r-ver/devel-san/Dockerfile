@@ -40,6 +40,7 @@ RUN apt-get update -qq \
     libx11-dev \
     libxt-dev \
     mpack \
+    rsync \
     subversion \
     tcl8.6-dev \
     texinfo \
@@ -64,6 +65,8 @@ RUN apt-get update -qq \
 ## Build and install according the standard 'recipe' I emailed/posted years ago
 ## Updated compiler flags to match https://www.stats.ox.ac.uk/pub/bdr/memtests/README.txt
   && cd /tmp/R-devel \
+  ## Get source code of recommended packages
+  && ./tools/rsync-recommended \
   && R_PAPERSIZE=letter \
      R_BATCHSAVE="--no-save --no-restore" \
      R_BROWSER=xdg-open \

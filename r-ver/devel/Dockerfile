@@ -59,6 +59,7 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     perl \
+    rsync \
     subversion tcl8.6-dev \
     tk8.6-dev \
     texinfo \
@@ -78,6 +79,8 @@ RUN apt-get update \
   ## Extract source code
 
   && cd R-devel \
+  ## Get source code of recommended packages
+  && ./tools/rsync-recommended \
   ## Set compiler flags
   && R_PAPERSIZE=letter \
     R_BATCHSAVE="--no-save --no-restore" \
