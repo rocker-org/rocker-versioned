@@ -1,6 +1,9 @@
 FROM rocker/r-ver:latest
 
 ARG RSTUDIO_VERSION
+ARG S6_VERSION
+ENV S6_VERSION=${S6_VERSION:-v1.21.4.0}
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 
 ## Download and install RStudio server & dependencies
@@ -16,7 +19,7 @@ RUN apt-get update \
     libssl-dev \
     lsb-release \
     psmisc \
-	procps \
+    procps \
     python-setuptools \
     sudo \
     wget \
@@ -62,7 +65,7 @@ RUN apt-get update \
   && git config --system credential.helper 'cache --timeout=3600' \
   && git config --system push.default simple \
   ## Set up S6 init system
-  && wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz \
+  && wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-amd64.tar.gz \
   && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
   && mkdir -p /etc/services.d/rstudio \
   && echo '#!/usr/bin/with-contenv bash \

@@ -2,9 +2,9 @@
 
 ## Quickstart
 
-    docker run -d -p 8787:8787 rocker/rstudio
+    docker run --rm -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio
 
-Visit `localhost:8787` in your browser and log in with username:password as `rstudio:rstudio`.
+Visit `localhost:8787` in your browser and log in with username `rstudio` and the password you set. **NB: Setting a password is now REQUIRED.**  Container will error otherwise.
 
 
 Note that all commands documented here work in just the same way with any container derived from `rocker/rstudio`,
@@ -12,24 +12,19 @@ such as `rocker/tidyverse`.
 
 ## Common configuration options:
 
-#### Use a custom password by specifying the `PASSWORD` environmental variable
-
-
-    docker run -d -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio
-
 
 #### Give the user root permissions (add to sudoers)
 
-    docker run -d -p 8787:8787 -e ROOT=TRUE rocker/rstudio
+    docker run -d -p 8787:8787 -e ROOT=TRUE -e PASSWORD=yourpasswordhere rocker/rstudio
 
 Link a local volume (in this example, the current working directory, `$(pwd)`) to the rstudio container:
 
-    docker run -d -p 8787:8787 -v $(pwd):/home/rstudio rocker/rstudio
+    docker run -d -p 8787:8787 -v $(pwd):/home/rstudio -e PASSWORD=yourpasswordhere rocker/rstudio
 
 
 #### Add shiny server on start up with `e ADD=shiny`
 
-    docker run -d -p 3838:3838 -p 8787:8787 -e ADD=shiny rocker/rstudio
+    docker run -d -p 3838:3838 -p 8787:8787 -e ADD=shiny -e PASSWORD=yourpasswordhere rocker/rstudio
 
 shiny server is now running on `localhost:3838` and RStudio on `localhost:8787`.  
 
@@ -44,9 +39,9 @@ Then omit the `-e ADD=shiny` when running your image and shiny should be install
 
 #### Use different versions of R
 
-    docker run -d -p 8787:8787 rocker/rstudio:devel
+    docker run -d -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio:devel
 
-    docker run -d -p 8787:8787 rocker/rstudio:3.2.0
+    docker run -d -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio:3.2.0
 
 See [rocker/r-ver](https://github.com/rocker-org/rocker-versioned) for details.
 

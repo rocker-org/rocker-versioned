@@ -1,8 +1,10 @@
 FROM rocker/r-ver:3.5.1
 
 ARG RSTUDIO_VERSION
-## Comment the next line to use the latest RStudio Server version by default
 ENV RSTUDIO_VERSION=${RSTUDIO_VERSION:-1.1.456}
+ARG S6_VERSION
+ENV S6_VERSION=${S6_VERSION:-v1.21.4.0}
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 
 ## Download and install RStudio server & dependencies
@@ -18,10 +20,10 @@ RUN apt-get update \
     libssl-dev \
     lsb-release \
     psmisc \
+    procps \
     python-setuptools \
     sudo \
     wget \
-    multiarch-support \
   && wget -O libssl1.0.0.deb http://ftp.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb \
   && dpkg -i libssl1.0.0.deb \
   && rm libssl1.0.0.deb \
@@ -64,15 +66,21 @@ RUN apt-get update \
   && git config --system credential.helper 'cache --timeout=3600' \
   && git config --system push.default simple \
   ## Set up S6 init system
-  && wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz \
+  && wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-amd64.tar.gz \
   && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
   && mkdir -p /etc/services.d/rstudio \
   && echo '#!/usr/bin/with-contenv bash \
-           \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
-           > /etc/services.d/rstudio/run \
-   && echo '#!/bin/bash \
-           \n rstudio-server stop' \
-           > /etc/services.d/rstudio/finish
+          \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
+          > /etc/services.d/rstudio/run \
+  && echo '#!/bin/bash \
+          \n rstudio-server stop' \
+          > /etc/services.d/rstudio/finish \
+  && mkdir -p /home/rstudio/.rstudio/monitored/user-settings \
+  && echo 'alwaysSaveHistory="0" \
+          \nloadRData="0" \
+          \nsaveAction="0"' \
+          > /home/rstudio/.rstudio/monitored/user-settings/user-settings \
+  && chown -R rstudio:rstudio /home/rstudio/.rstudio
 
 COPY userconf.sh /etc/cont-init.d/userconf
 
