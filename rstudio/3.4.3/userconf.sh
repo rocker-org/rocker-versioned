@@ -17,7 +17,7 @@ if [ "$PASSWORD" == "rstudio" ]
 then
   printf "\n\n"
   tput bold
-  printf "\e[31mERROR\e[39m: You must set a unique PASSWORD first!! e.g. run with:\n"
+  printf "\e[31mERROR\e[39m: You must set a unique PASSWORD (not 'rstudio') first! e.g. run with:\n"
   printf "docker run -e PASSWORD=\e[92m<YOUR_PASS>\e[39m -p 8787:8787 rocker/rstudio\n"
   tput sgr0
   printf "\n\n"
