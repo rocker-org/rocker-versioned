@@ -29,6 +29,10 @@ This repository provides alternate stack to `r-base`, `rocker/rstudio`, `rocker/
 
 Users should include the version tag, e.g. `rocker/verse:3.3.1` when reproduciblity is paramount, and use the default `latest` tag, e.g. `rocker/verse` for the most up-to-date R packages.  All images still receive any Debian security patch updates.  Note that any debian packages on these images (C libraries, compilers, etc) will likely be older/earlier versions than those found on the `r-base` image series.
 
+### NOTES
+
+- The requested R version and all R packages are installed from source in the version-stable stack.  Installing R packages from `apt` (e.g. the `r-cran-*` packages) will install the version of R and versions of the packages that were built for the stable debian release (e.g. `debian:stretch`), giving you a second version of R and different packages.  Please install R packages from source using the `install.packages()` R function (or the `install2.r` script), and use `apt` only to install necessary system libraries (e.g. `libxml2`). If you would prefer to install only the latest verions of packages from pre-built binaries using `apt-get`, consider using the `r-base` stack instead.  
+
 ### Version Tags
 
 Using the R version tag will naturally lock the R version, and also lock the install date of any R packages on the image.  For example,  `rocker/tidyverse:3.3.1` Docker image will always rebuild with R 3.3.1 and R packages installed from the **2016-10-31** MRAN snapshot, corresponding to **the last day that version of R was the most recent release**.  Meanwhile `rocker/tidyverse:latest` will always have both the latest R version and latest versions of the R packages.  
