@@ -42,10 +42,10 @@ line `auth-none=1`.  When running docker, map this script to overwrite
 environmental variable `USER=rstudio` at runtime, as shown.
 
 ```
-docker run 
-  --rm -p 127.0.0.1:8787:8787
-  -e USER=rstudio 
-  -v $(pwd)/rstudio/rserver.conf:/etc/rstudio/rserver.conf 
+docker run --rm \
+  -p 127.0.0.1:8787:8787 \
+  -e USER=rstudio \
+  -v $(pwd)/rstudio/rserver.conf:/etc/rstudio/rserver.conf \
   rocker/rstudio
 ```
 
