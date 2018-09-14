@@ -12,16 +12,19 @@ UMASK=${UMASK:=022}
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-## Throw an error if password has not been provided
-if [ "$PASSWORD" == "rstudio" ]
+
+if grep --quiet "auth-none=1" /etc/rstudio/rserver.conf
 then
-  printf "\n\n"
-  tput bold
-  printf "\e[31mERROR\e[39m: You must set a unique PASSWORD (not 'rstudio') first! e.g. run with:\n"
-  printf "docker run -e PASSWORD=\e[92m<YOUR_PASS>\e[39m -p 8787:8787 rocker/rstudio\n"
-  tput sgr0
-  printf "\n\n"
-  exit 1
+	echo "Skipping authentication as requested"
+elif [ "$PASSWORD" == "rstudio" ]
+then
+    printf "\n\n"
+    tput bold
+    printf "\e[31mERROR\e[39m: You must set a unique PASSWORD (not 'rstudio') first! e.g. run with:\n"
+    printf "docker run -e PASSWORD=\e[92m<YOUR_PASS>\e[39m -p 8787:8787 rocker/rstudio\n"
+    tput sgr0
+    printf "\n\n"
+    exit 1
 fi
 
 if [ "$USERID" -lt 1000 ]
@@ -52,12 +55,12 @@ elif [ "$USER" != "rstudio" ]
   then
     ## cannot move home folder when it's a shared volume, have to copy and change permissions instead
     cp -r /home/rstudio /home/$USER
-    ## RENAME the user   
+    ## RENAME the user
     usermod -l $USER -d /home/$USER rstudio
     groupmod -n $USER rstudio
     usermod -a -G staff $USER
     chown -R $USER:$USER /home/$USER
-    echo "USER is now $USER"  
+    echo "USER is now $USER"
 fi
 
 if [ "$GROUPID" -ne 1000 ]
@@ -67,7 +70,7 @@ if [ "$GROUPID" -ne 1000 ]
     groupmod -g $GROUPID $(id $USER -g -n)
     echo "Primary group ID is now custom_group $GROUPID"
 fi
-  
+
 ## Add a password to user
 echo "$USER:$PASSWORD" | chpasswd
 
@@ -85,6 +88,6 @@ if [ "$UMASK" -ne 022 ]
     echo "Sys.umask(mode=$UMASK)" >> /home/$USER/.Rprofile
 fi
 
-## add these to the global environment so they are avialable to the RStudio user 
+## add these to the global environment so they are avialable to the RStudio user
 echo "HTTR_LOCALHOST=$HTTR_LOCALHOST" >> /etc/R/Renviron.site
 echo "HTTR_PORT=$HTTR_PORT" >> /etc/R/Renviron.site

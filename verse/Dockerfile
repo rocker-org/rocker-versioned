@@ -10,7 +10,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     ## for rJava
     default-jdk \
     ## Nice Google fonts
-    fonts-roboto \    
+    fonts-roboto \
     ## used by some base R plots
     ghostscript \
     ## used to build rJava and other packages
@@ -25,11 +25,11 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     librdf0-dev \
     ## for V8-based javascript wrappers
     libv8-dev \
-    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
+    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning
     qpdf \
     ## For building PDF manuals
     texinfo \
-    ## for git via ssh key 
+    ## for git via ssh key
     ssh \
  ## just because
     less \
@@ -38,7 +38,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && rm -rf /var/lib/apt/lists/ \
   ## Use tinytex for LaTeX installation
   && install2.r --error tinytex \
-  && R -e "tinytex::install_tinytex(dir = '/opt/TinyTeX')" \ 
+  && R -e "tinytex::install_tinytex(dir = '/opt/TinyTeX')" \
   && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
   && tlmgr path add \
@@ -52,6 +52,6 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
 #
-## Consider including: 
+## Consider including:
 # - yihui/printr R package (when released to CRAN)
 # - libgsl0-dev (GSL math library dependencies)

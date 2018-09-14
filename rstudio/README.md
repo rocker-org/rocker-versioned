@@ -13,7 +13,16 @@ such as `rocker/tidyverse`.
 ## Common configuration options:
 
 
-#### Give the user root permissions (add to sudoers)
+### Use different versions of R
+
+    docker run -d -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio:devel
+
+    docker run -d -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio:3.2.0
+
+See [rocker/r-ver](https://github.com/rocker-org/rocker-versioned) for details.
+
+
+### Give the user root permissions (add to sudoers)
 
     docker run -d -p 8787:8787 -e ROOT=TRUE -e PASSWORD=yourpasswordhere rocker/rstudio
 
@@ -21,8 +30,30 @@ Link a local volume (in this example, the current working directory, `$(pwd)`) t
 
     docker run -d -p 8787:8787 -v $(pwd):/home/rstudio -e PASSWORD=yourpasswordhere rocker/rstudio
 
+### Bypassing the authentication step
 
-#### Add shiny server on start up with `e ADD=shiny`
+**Warning: use only in a secure environment**.  Do not use this approach on an
+AWS or other cloud machine with a publicly accessible IP address.  
+
+
+Create an `rserver.conf` script [like the example](rserver.conf) which has the
+line `auth-none=1`.  When running docker, map this script to overwrite
+`/etc/rstudio/rserver.conf` as shown below.  You will also need to set the
+environmental variable `USER=rstudio` at runtime, as shown.
+
+```
+docker run 
+  --rm -p 127.0.0.1:8787:8787
+  -e USER=rstudio 
+  -v $(pwd)/rstudio/rserver.conf:/etc/rstudio/rserver.conf 
+  rocker/rstudio
+```
+
+Navigate to <http://localhost:8787> and you should be logged into RStudio as
+the `rstudio` user without needing a password.
+
+
+### Add shiny server on start up with `e ADD=shiny`
 
     docker run -d -p 3838:3838 -p 8787:8787 -e ADD=shiny -e PASSWORD=yourpasswordhere rocker/rstudio
 
@@ -36,14 +67,9 @@ If you are building your own Dockerfiles on top of this stack, you should simply
 
 Then omit the `-e ADD=shiny` when running your image and shiny should be installed and waiting on port 3838.
 
+**Note**: Please see the `rocker/shiny` and `rocker/shiny-verse` images for
+setting up a shiny server in a separate container from RStudio. 
 
-#### Use different versions of R
-
-    docker run -d -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio:devel
-
-    docker run -d -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio:3.2.0
-
-See [rocker/r-ver](https://github.com/rocker-org/rocker-versioned) for details.
 
 #### Access a root shell for a running `rstudio` container instance
 
@@ -53,6 +79,7 @@ First, determine the name or id of your container (unless you provided a `--name
 
 You can now perform maintenance operations requiring root behavior such as `apt-get`, adding/removing users, etc.  
 
+Or, simply enable root as shown above and use the RStudio bash terminal.
 
 
 ## Additional configuration options
@@ -65,9 +92,6 @@ Custom uid/gid etc is usually only needed when sharing a local volume for a user
 
 
 Adding additional users:  From a root bash shell (see above), the usual debian linux commands can be used to create new users and passwords, e.g. 
-
-     
-
 
 ## Developers / Dockerfile authors
 
