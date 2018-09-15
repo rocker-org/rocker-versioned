@@ -70,6 +70,8 @@ RUN apt-get update \
   && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
   && mkdir -p /etc/services.d/rstudio \
   && echo '#!/usr/bin/with-contenv bash \
+          \n## load /etc/environment vars first: \
+  		  \n for line in $( cat /etc/environment ) ; do export $line ; done \
           \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
           > /etc/services.d/rstudio/run \
   && echo '#!/bin/bash \
@@ -86,7 +88,7 @@ COPY userconf.sh /etc/cont-init.d/userconf
 
 ## running with "-e ADD=shiny" adds shiny server
 COPY add_shiny.sh /etc/cont-init.d/add
-
+COPY disable_auth_rserver.conf /etc/rstudio/disable_auth_rserver.conf
 COPY pam-helper.sh /usr/lib/rstudio-server/bin/pam-helper
 
 EXPOSE 8787

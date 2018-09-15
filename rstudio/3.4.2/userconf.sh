@@ -13,6 +13,14 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 
+if [[ ${DISABLE_AUTH,,} == "true" ]]
+then
+	mv /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf
+	echo "USER=$USER" >> /etc/environment
+fi
+
+
+
 if grep --quiet "auth-none=1" /etc/rstudio/rserver.conf
 then
 	echo "Skipping authentication as requested"
@@ -75,7 +83,7 @@ fi
 echo "$USER:$PASSWORD" | chpasswd
 
 # Use Env flag to know if user should be added to sudoers
-if [ "$ROOT" == "TRUE" ]
+if [[ ${ROOT,,} == "true" ]]
   then
     adduser $USER sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
     echo "$USER added to sudoers"
