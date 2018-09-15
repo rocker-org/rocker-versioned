@@ -31,7 +31,7 @@ Users should include the version tag, e.g. `rocker/verse:3.3.1` when reproducibl
 
 ### NOTES
 
-- The requested R version and all R packages are installed from source in the version-stable stack.  Installing R packages from `apt` (e.g. the `r-cran-*` packages) will install the version of R and versions of the packages that were built for the stable debian release (e.g. `debian:stretch`), giving you a second version of R and different packages.  Please install R packages from source using the `install.packages()` R function (or the `install2.r` script), and use `apt` only to install necessary system libraries (e.g. `libxml2`). If you would prefer to install only the latest verions of packages from pre-built binaries using `apt-get`, consider using the `r-base` stack instead.  
+- **do not use `apt-get install r-cran-*` to install R packages on this stack**. The requested R version and all R packages are installed from source in the version-stable stack.  Installing R packages from `apt` (e.g. the `r-cran-*` packages) will install the version of R and versions of the packages that were built for the stable debian release (e.g. `debian:stretch`), giving you a second version of R and different packages.  Please install R packages from source using the `install.packages()` R function (or the `install2.r` script), and use `apt` only to install necessary system libraries (e.g. `libxml2`). If you would prefer to install only the latest verions of packages from pre-built binaries using `apt-get`, consider using the `r-base` stack instead.  
 
 ### Version Tags
 
