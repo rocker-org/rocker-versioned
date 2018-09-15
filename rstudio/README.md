@@ -33,19 +33,14 @@ Link a local volume (in this example, the current working directory, `$(pwd)`) t
 ### Bypassing the authentication step
 
 **Warning: use only in a secure environment**.  Do not use this approach on an
-AWS or other cloud machine with a publicly accessible IP address.  
+AWS or other cloud machine with a publicly accessible IP address. 
 
-
-Create an `rserver.conf` script [like the example](rserver.conf) which has the
-line `auth-none=1`.  When running docker, map this script to overwrite
-`/etc/rstudio/rserver.conf` as shown below.  You will also need to set the
-environmental variable `USER=rstudio` at runtime, as shown.
+Simply set the environmental variable `DISABLE_AUTH=true`, e.g.
 
 ```
 docker run --rm \
   -p 127.0.0.1:8787:8787 \
-  -e USER=rstudio \
-  -v $(pwd)/rstudio/rserver.conf:/etc/rstudio/rserver.conf \
+  -e DISABLE_AUTH=true \
   rocker/rstudio
 ```
 
