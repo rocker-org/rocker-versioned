@@ -9,7 +9,6 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libpq-dev \
   libssh2-1-dev \
   unixodbc-dev \
-  && R -e "source('https://bioconductor.org/biocLite.R')" \
   && install2.r --error \
     --deps TRUE \
     tidyverse \
@@ -18,5 +17,6 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     formatR \
     remotes \
     selectr \
-    caTools
+    caTools \
+    BiocManager
 
