@@ -38,7 +38,11 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && rm -rf /var/lib/apt/lists/ \
   ## Use tinytex for LaTeX installation
   && install2.r --error tinytex \
-  && R -e "tinytex::install_tinytex(dir = '/opt/TinyTeX')" \
+  ## Admin-based install of TinyTeX:
+  && wget -qO- \
+    "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
+    sh -s - --admin --no-path \
+  && mv ~/.TinyTeX /opt/TinyTeX \
   && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
   && tlmgr path add \
@@ -54,5 +58,5 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     bookdown rticles rmdshower
 #
 ## Consider including:
-# - yihui/printr R package (when released to CRAN)
+# - yihui/printr ?
 # - libgsl0-dev (GSL math library dependencies)
