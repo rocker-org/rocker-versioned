@@ -48,7 +48,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && tlmgr path add \
   && Rscript -e "tinytex::r_texmf()" \
   ## This should be root:staff, but tinytex only understands user permission, not group
-  && chown -R rstudio:staff /opt/TinyTeX \
+  && chown -R root:staff /opt/TinyTeX \
   && chmod -R a+w /opt/TinyTeX \
   && chmod -R a+wx /opt/TinyTeX/bin \
   && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron \
