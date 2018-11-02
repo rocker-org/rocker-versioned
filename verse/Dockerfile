@@ -47,12 +47,10 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
   && tlmgr path add \
   && Rscript -e "tinytex::r_texmf()" \
-  ## This should be root:staff, but tinytex only understands user permission, not group
   && chown -R root:staff /opt/TinyTeX \
   && chmod -R a+w /opt/TinyTeX \
   && chmod -R a+wx /opt/TinyTeX/bin \
   && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron \
-  ## Currently (2017-06-06) need devel PKI for ssl issue: https://github.com/s-u/PKI/issues/19
   && install2.r --error PKI \
   ## And some nice R packages for publishing-related stuff
   && install2.r --error --deps TRUE \
