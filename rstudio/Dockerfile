@@ -94,6 +94,6 @@ COPY pam-helper.sh /usr/lib/rstudio-server/bin/pam-helper
 EXPOSE 8787
 
 ## automatically link a shared volume for kitematic users
-VOLUME /home/rstudio/kitematic
+#VOLUME /home/rstudio/kitematic
 
 CMD ["/init"]

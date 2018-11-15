@@ -1,6 +1,9 @@
 FROM rocker/r-ver:devel
 
 ARG RSTUDIO_VERSION
+ARG S6_VERSION
+ENV S6_VERSION=${S6_VERSION:-v1.21.4.0}
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 
 ## Download and install RStudio server & dependencies
@@ -61,31 +64,36 @@ RUN apt-get update \
   && git config --system credential.helper 'cache --timeout=3600' \
   && git config --system push.default simple \
   ## Set up S6 init system
-  && wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz \
+  && wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-amd64.tar.gz \
   && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
   && mkdir -p /etc/services.d/rstudio \
   && echo '#!/usr/bin/with-contenv bash \
+          \n## load /etc/environment vars first: \
+  		  \n for line in $( cat /etc/environment ) ; do export $line ; done \
           \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
           > /etc/services.d/rstudio/run \
   && echo '#!/bin/bash \
           \n rstudio-server stop' \
-          > /etc/services.d/rstudio/finish
+          > /etc/services.d/rstudio/finish \
+  && mkdir -p /home/rstudio/.rstudio/monitored/user-settings \
+  && echo 'alwaysSaveHistory="0" \
+          \nloadRData="0" \
+          \nsaveAction="0"' \
+          > /home/rstudio/.rstudio/monitored/user-settings/user-settings \
+  && chown -R rstudio:rstudio /home/rstudio/.rstudio
 
-COPY userconf.sh /etc/cont-init.d/userconf
+## User configuration script
+COPY userconf.sh /etc/cont-init.d/01-userconf
 
 ## running with "-e ADD=shiny" adds shiny server
 COPY add_shiny.sh /etc/cont-init.d/add
-
+COPY disable_auth_rserver.conf /etc/rstudio/disable_auth_rserver.conf
 COPY pam-helper.sh /usr/lib/rstudio-server/bin/pam-helper
 
 EXPOSE 8787
 
 ## automatically link a shared volume for kitematic users
-VOLUME /home/rstudio/kitematic
-
-COPY user-settings /home/rstudio/.rstudio/monitored/user-settings/
-# No chown will cause "RStudio Initalization Error"
-# "Error occurred during the transmission"; RStudio will not load.
-RUN chown -R rstudio:rstudio /home/rstudio/.rstudio
+#VOLUME /home/rstudio/kitematic
 
 CMD ["/init"]
+
