@@ -5,19 +5,17 @@ LABEL org.label-schema.license="GPL-2.0" \
       org.label-schema.vendor="Rocker Project" \
       maintainer="Carl Boettiger <cboettig@ropensci.org>"
 
+ARG R_VERSION
 ARG BUILD_DATE
-ENV LC_ALL=en_US.UTF-8 \
+ENV R_VERSION=${R_VERSION:-3.5.2} \
+    LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     TERM=xterm
-
-## ccache can speed compiling later on, but including by default can increase image sizes greatly
-#    PATH=/usr/lib/ccache:$PATH
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     bash-completion \
     ca-certificates \
-    ccache \
     file \
     fonts-texgyre \
     g++ \
@@ -59,8 +57,7 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     perl \
-    rsync \
-    subversion tcl8.6-dev \
+    tcl8.6-dev \
     tk8.6-dev \
     texinfo \
     texlive-extra-utils \
@@ -75,12 +72,10 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends $BUILDDEPS \
   && cd tmp/ \
   ## Download source code
-  && svn co https://svn.r-project.org/R/trunk R-devel \
+  && curl -O https://cran.r-project.org/src/base/R-3/R-${R_VERSION}.tar.gz \
   ## Extract source code
-
-  && cd R-devel \
-  ## Get source code of recommended packages
-  && ./tools/rsync-recommended \
+  && tar -xf R-${R_VERSION}.tar.gz \
+  && cd R-${R_VERSION} \
   ## Set compiler flags
   && R_PAPERSIZE=letter \
     R_BATCHSAVE="--no-save --no-restore" \
@@ -119,15 +114,12 @@ RUN apt-get update \
   && MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE} \
   && echo MRAN=$MRAN >> /etc/environment \
   && export MRAN=$MRAN \
-  ## MRAN becomes default only in versioned images
+  && echo "options(repos = c(CRAN='$MRAN'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site \
   ## Use littler installation scripts
   && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
   && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
-  ## TEMPORARY WORKAROUND to get more robust error handling for install2.r prior to littler update
-  && curl -O /usr/local/bin/install2.r https://github.com/eddelbuettel/littler/raw/master/inst/examples/install2.r \
-  && chmod +x /usr/local/bin/install2.r \
   ## Clean up from R source install
   && cd / \
   && rm -rf /tmp/* \
@@ -135,6 +127,6 @@ RUN apt-get update \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/*
-#  && ccache -C
+
 CMD ["R"]
 
