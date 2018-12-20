@@ -18,12 +18,22 @@ docker build --build-arg RSTUDIO_VERSION=1.1.414 -t rocker/rstudio:3.4.2 .
 
 ## Rules
 
+- The default docker tag, `latest`, is now identical to the image tagged with
+  the current version.  (Previously, the former used the 
+  <https://cran.rstudio.com> mirror while the latter used MRAN snapshot
+  matching the build date.  Now this image is built nightly using MRAN snapshot
+  for that day.)
+
 - MRAN date is the last date CRAN distributed that R version.
 
 - RStudio Server version (and date) from http://download2.rstudio.org/ as the
   version that was available at MRAN date, with the only exception of R 3.3.1
   where RStudio Server v. 1.0.44 with tons of improvements over v. 0.9.903 was
   released just one day after the MRAN date.
+
+- Docker tags specifying only the minor (`3.4`) or major version (`3`) are also
+  available. Requesting a minor version `3.4` will automatically correspond to
+  the highest available patch number (`3.4.4`).   
 
 |R version | MRAN date  | RStudio version | RStudio date |
 |----------|------------|-----------------|--------------|
@@ -40,12 +50,7 @@ docker build --build-arg RSTUDIO_VERSION=1.1.414 -t rocker/rstudio:3.4.2 .
 | 3.4.3    | 2017-03-15 | 1.1.442         | 2018-03-12   |
 | 3.4.4    | 2018-04-23 | 1.1.447         | 2018-04-18   |
 | 3.5.0    | 2018-07-02 | 1.1.447         | 2018-04-18   |
-| 3.5.1    | latest     | latest          | latest       |
+| 3.5.1    | 2018-12-20 | 1.1.463         | 2018-10-29   |
+| 3.5.2    | latest     | latest          | latest       |
 
-**The old rule where `rocker/rstudio` was build, by default, using the latest
-RStudio Server is cancelled**, since RStudio ships with `rmarkdown` package. 
-With time, RStudio
-packages requirements do not matching versions available on MRAN any more. So,
-more recent RStudio features _may_ not be available anyway with older R
-versions. You can change this behaviour back for your own builds if you
-prefer (see the `Dockerfile`)... at your own risks!
+

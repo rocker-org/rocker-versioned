@@ -1,6 +1,7 @@
-FROM rocker/r-ver:devel
+FROM rocker/r-ver:3.5.2
 
 ARG RSTUDIO_VERSION
+#ENV RSTUDIO_VERSION=${RSTUDIO_VERSION:0.1.463}
 ARG S6_VERSION
 ENV S6_VERSION=${S6_VERSION:-v1.21.7.0}
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
@@ -19,6 +20,7 @@ RUN apt-get update \
     libssl-dev \
     lsb-release \
     psmisc \
+    procps \
     python-setuptools \
     sudo \
     wget \
@@ -82,8 +84,7 @@ RUN apt-get update \
           > /home/rstudio/.rstudio/monitored/user-settings/user-settings \
   && chown -R rstudio:rstudio /home/rstudio/.rstudio
 
-## User configuration script
-COPY userconf.sh /etc/cont-init.d/01-userconf
+COPY userconf.sh /etc/cont-init.d/userconf
 
 ## running with "-e ADD=shiny" adds shiny server
 COPY add_shiny.sh /etc/cont-init.d/add
@@ -93,7 +94,6 @@ COPY pam-helper.sh /usr/lib/rstudio-server/bin/pam-helper
 EXPOSE 8787
 
 ## automatically link a shared volume for kitematic users
-#VOLUME /home/rstudio/kitematic
+VOLUME /home/rstudio/kitematic
 
 CMD ["/init"]
-
