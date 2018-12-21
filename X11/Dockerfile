@@ -1,4 +1,4 @@
-FROM rocker/r-ver:latest
+FROM rocker/r-ver:devel
 
 ## R's X11 runtime dependencies
 RUN apt-get update \

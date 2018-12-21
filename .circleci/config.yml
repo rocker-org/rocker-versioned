@@ -1,8 +1,0 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: rocker/tidyverse:3.4.3
-    steps:
-      - checkout
-      - run: R --version
