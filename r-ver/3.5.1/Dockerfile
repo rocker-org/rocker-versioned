@@ -7,6 +7,7 @@ LABEL org.label-schema.license="GPL-2.0" \
 
 ARG R_VERSION
 ARG BUILD_DATE
+ENV BUILD_DATE ${BUILD_DATE:-2018-12-20}
 ENV R_VERSION=${R_VERSION:-3.5.1} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
