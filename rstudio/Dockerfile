@@ -1,8 +1,8 @@
-FROM rocker/r-ver:3.4.0
+FROM rocker/r-ver:3.4.1
 
 ARG RSTUDIO_VERSION
 ## Comment the next line to use the latest RStudio Server version by default
-ENV RSTUDIO_VERSION=${RSTUDIO_VERSION:-1.0.143}
+ENV RSTUDIO_VERSION=${RSTUDIO_VERSION:-1.0.153}
 ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 
 ## Download and install RStudio server & dependencies
@@ -72,7 +72,7 @@ RUN apt-get update \
   		  \n for line in $( cat /etc/environment ) ; do export $line ; done \
           \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
           > /etc/services.d/rstudio/run \
-  && echo '#!/bin/bash \
+   && echo '#!/bin/bash \
           \n rstudio-server stop' \
           > /etc/services.d/rstudio/finish
 
