@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:3.3.2
+FROM rocker/tidyverse:3.3.3
 
 ## Add LaTeX, rticles and bookdown support
 RUN apt-get update \
@@ -6,7 +6,7 @@ RUN apt-get update \
     ## for rJava
     default-jdk \
     ## Nice Google fonts
-    fonts-roboto \
+    fonts-roboto \    
     ## used by some base R plots
     ghostscript \
     ## used to build rJava and other packages
