@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:3.4.3
+FROM rocker/tidyverse:3.4.4
 ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
 
 ## Add LaTeX, rticles and bookdown support
@@ -38,7 +38,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && rm -rf /var/lib/apt/lists/ \
   ## Use tinytex for LaTeX installation
   && install2.r --error tinytex \
-## Admin-based install of TinyTeX:
+  ## Admin-based install of TinyTeX:
   && wget -qO- \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \

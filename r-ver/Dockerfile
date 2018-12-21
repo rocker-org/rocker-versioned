@@ -7,8 +7,8 @@ LABEL org.label-schema.license="GPL-2.0" \
 
 ARG R_VERSION
 ARG BUILD_DATE
-ENV BUILD_DATE ${BUILD_DATE:-2018-03-15}
-ENV R_VERSION=${R_VERSION:-3.4.3} \
+ENV BUILD_DATE ${BUILD_DATE:-2018-04-23}
+ENV R_VERSION=${R_VERSION:-3.4.4} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     TERM=xterm
@@ -121,9 +121,6 @@ RUN apt-get update \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
   && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
-  ## TEMPORARY WORKAROUND to get more robust error handling for install2.r prior to littler update
-  && curl -O /usr/local/bin/install2.r https://github.com/eddelbuettel/littler/raw/master/inst/examples/install2.r \
-  && chmod +x /usr/local/bin/install2.r \
   ## Clean up from R source install
   && cd / \
   && rm -rf /tmp/* \
