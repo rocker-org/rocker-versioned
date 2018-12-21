@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 LABEL org.label-schema.license="GPL-2.0" \
       org.label-schema.vcs-url="https://github.com/rocker-org/rocker-versioned" \
@@ -7,13 +7,12 @@ LABEL org.label-schema.license="GPL-2.0" \
 
 ARG R_VERSION
 ARG BUILD_DATE
-ENV BUILD_DATE ${BUILD_DATE:-2017-04-21}
-ENV R_VERSION=${R_VERSION:-3.3.3} \
+ENV BUILD_DATE ${BUILD_DATE:-2017-06-30}
+ENV R_VERSION=${R_VERSION:-3.4.0} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     TERM=xterm
 
-## dependencies
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     bash-completion \
@@ -26,12 +25,13 @@ RUN apt-get update \
     libblas-dev \
     libbz2-1.0 \
     libcurl3 \
-    libicu52 \
+    libicu57 \
     libjpeg62-turbo \
     libopenblas-dev \
     libpangocairo-1.0-0 \
     libpcre3 \
-    libpng12-0 \
+    libpng16-16 \
+    libreadline7 \
     libtiff5 \
     liblzma5 \
     locales \
@@ -58,8 +58,8 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     perl \
-    tcl8.5-dev \
-    tk8.5-dev \
+    tcl8.6-dev \
+    tk8.6-dev \
     texinfo \
     texlive-extra-utils \
     texlive-fonts-recommended \
@@ -121,6 +121,9 @@ RUN apt-get update \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
   && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
+  ## TEMPORARY WORKAROUND to get more robust error handling for install2.r prior to littler update
+  && curl -O /usr/local/bin/install2.r https://github.com/eddelbuettel/littler/raw/master/inst/examples/install2.r \
+  && chmod +x /usr/local/bin/install2.r \
   ## Clean up from R source install
   && cd / \
   && rm -rf /tmp/* \
