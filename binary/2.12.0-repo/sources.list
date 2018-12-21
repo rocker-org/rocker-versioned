@@ -1,9 +1,0 @@
-deb http://http.debian.net/debian squeeze main
-deb http://http.debian.net/debian squeeze-updates main
-deb http://security.debian.org squeeze/updates main
-deb http://http.debian.net/debian squeeze-lts main
-deb     http://snapshot.debian.org/archive/debian/20111016T044154Z/ squeeze main
-deb-src http://snapshot.debian.org/archive/debian/20111016T044154Z/ squeeze main
-deb     http://snapshot.debian.org/archive/debian-security/20111016T044154Z/ squeeze/updates main
-deb-src http://snapshot.debian.org/archive/debian-security/20111016T044154Z/ squeeze/updates main
-
