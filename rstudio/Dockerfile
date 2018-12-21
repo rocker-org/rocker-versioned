@@ -1,4 +1,4 @@
-FROM rocker/r-ver:3.4.4
+FROM rocker/r-ver:3.5.0
 
 ARG RSTUDIO_VERSION
 ## Comment the next line to use the latest RStudio Server version by default
@@ -68,13 +68,13 @@ RUN apt-get update \
   && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
   && mkdir -p /etc/services.d/rstudio \
   && echo '#!/usr/bin/with-contenv bash \
-          \n## load /etc/environment vars first: \
-  		  \n for line in $( cat /etc/environment ) ; do export $line ; done \
-          \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
-          > /etc/services.d/rstudio/run \
-  && echo '#!/bin/bash \
-          \n rstudio-server stop' \
-          > /etc/services.d/rstudio/finish
+           \n## load /etc/environment vars first: \
+           \n for line in $( cat /etc/environment ) ; do export $line ; done \
+           \n exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0' \
+           > /etc/services.d/rstudio/run \
+   && echo '#!/bin/bash \
+           \n rstudio-server stop' \
+           > /etc/services.d/rstudio/finish
 
 COPY userconf.sh /etc/cont-init.d/userconf
 
@@ -87,10 +87,5 @@ EXPOSE 8787
 
 ## automatically link a shared volume for kitematic users
 VOLUME /home/rstudio/kitematic
-
-COPY user-settings /home/rstudio/.rstudio/monitored/user-settings/
-# No chown will cause "RStudio Initalization Error"
-# "Error occurred during the transmission"; RStudio will not load.
-RUN chown -R rstudio:rstudio /home/rstudio/.rstudio
 
 CMD ["/init"]
