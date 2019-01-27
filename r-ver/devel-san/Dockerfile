@@ -112,7 +112,7 @@ RUN apt-get update -qq \
   && export MRAN=$MRAN \
   ## MRAN becomes default only in versioned images
   ## Use littler installation scripts
-  && Rscript -e "install.packages(c('littler', 'docopt'), repo = '$MRAN')" \
+  && Rscript -e "install.packages(c('littler', 'docopt'), repos = '$MRAN')" \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
   && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
