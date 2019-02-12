@@ -34,7 +34,10 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
  ## just because
     less \
     vim \
-  && apt-get clean \
+ ## parallelization
+    libzmq3-dev \
+    libopenmpi-dev \
+ && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   ## Use tinytex for LaTeX installation
   && install2.r --error tinytex \
