@@ -8,6 +8,7 @@ LABEL org.label-schema.license="GPL-2.0" \
 ARG R_VERSION
 ARG BUILD_DATE
 ENV R_VERSION=${R_VERSION:-3.5.2} \
+    OPENBLAS_VERSION=0.3.5 \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     TERM=xterm
@@ -26,7 +27,7 @@ RUN apt-get update \
     libcurl3 \
     libicu57 \
     libjpeg62-turbo \
-    libopenblas-dev \
+##    libopenblas-dev \
     libpangocairo-1.0-0 \
     libpcre3 \
     libpng16-16 \
@@ -70,8 +71,15 @@ RUN apt-get update \
     xvfb \
     zlib1g-dev" \
   && apt-get install -y --no-install-recommends $BUILDDEPS \
-  && cd tmp/ \
-  ## Download source code
+  ## Download & install openblas
+  && cd /tmp \
+  && curl -O -J -L https://github.com/xianyi/OpenBLAS/archive/v${OPENBLAS_VERSION}.tar.gz \
+  && tar -xf OpenBLAS-${OPENBLAS_VERSION}.tar.gz \
+  && cd OpenBLAS-${OPENBLAS_VERSION} \
+  && make NO_LAPACKE=1 NO_AFFINITY=1 USE_OPENMP=0 NO_WARMUP=1 NUM_THREADS=64 DYNAMIC_ARCH=1 DYNAMIC_OLDER=1 \
+  && make PREFIX=/usr install \
+  ## Download and install R from source
+  && cd /tmp \
   && curl -O https://cran.r-project.org/src/base/R-3/R-${R_VERSION}.tar.gz \
   ## Extract source code
   && tar -xf R-${R_VERSION}.tar.gz \
@@ -93,7 +101,8 @@ RUN apt-get update \
   ./configure --enable-R-shlib \
                --enable-memory-profiling \
                --with-readline \
-               --with-blas \
+               --with-blas="-lopenblas" \
+               --with-lapack \
                --with-tcltk \
                --disable-nls \
                --with-recommended-packages \
