@@ -17,21 +17,22 @@ ENV R_VERSION=${R_VERSION:-3.1.0} \
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     bash-completion \
-    ca-certificates curl \
+    build-essential \
+    ca-certificates \
+    curl \
     file \
-    fonts-texgyre \
     g++ \
     gfortran \
     gsfonts \
     libblas-dev \
     libbz2-1.0 \
     libcurl3 \
-    libicu52 \
-    libjpeg62-turbo \
+    libicu-dev \
+    libjpeg-dev \
     libopenblas-dev \
-    libpangocairo-1.0-0 \
+    libcairo2-dev \
     libpcre3 \
-    libpng12-0 \
+    libpng-dev \
     libtiff5 \
     liblzma5 \
     locales \
@@ -45,13 +46,9 @@ RUN apt-get update \
   && BUILDDEPS="\
     default-jdk \
     libbz2-dev \
-    libcairo2-dev \
     libcurl4-openssl-dev \
     libpango1.0-dev \
-    libjpeg-dev \
-    libicu-dev \
     libpcre3-dev \
-    libpng-dev \
     libreadline-dev \
     libtiff5-dev \
     liblzma-dev \
