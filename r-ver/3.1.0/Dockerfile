@@ -74,7 +74,7 @@ RUN apt-get update \
   ## Extract source code
   && tar -xf R-${R_VERSION}.tar.gz \
   && cd R-${R_VERSION} \
-  ## Set compiler flags
+  ## Set compiler flags (adjusted from standard recipe for compatibility with gcc 4.7)
   && R_PAPERSIZE=letter \
     R_BATCHSAVE="--no-save --no-restore" \
     R_BROWSER=xdg-open \
@@ -85,8 +85,8 @@ RUN apt-get update \
     R_PRINTCMD=/usr/bin/lpr \
     LIBnn=lib \
     AWK=/usr/bin/awk \
-    CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g" \
-    CXXFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g" \
+    CFLAGS="-g -O2  -Wformat -Werror=format-security  -D_FORTIFY_SOURCE=2 -g" \
+    CXXFLAGS="-g -O2 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g" \
   ## Configure options
   ./configure --enable-R-shlib \
                --enable-memory-profiling \
