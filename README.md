@@ -25,9 +25,9 @@ image            | description                               | size   | metrics 
 [rocker/shiny](https://github.com/rocker-org/shiny) are also build on this
 stack, following the same versioning rules as described here.  
 
-This repository provides alternate stack to `r-base`, `rocker/rstudio`, `rocker/hadleyverse` series, with an emphasis on reproducibility.  Compared to those images, this stack:
+This repository provides alternate stack to `r-base`, with an emphasis on reproducibility.  Compared to those images, this stack:
 
-- builds on debian stable (`debian:jessie` for versions < 3.4.0, `debian:stretch` thereafter) release instead of `debian:testing`, so no more apt-get breaking when `debian:testing` repos are updated and you had to muck with `-t unstable` to get apt-get to work.  
+- builds on debian stable (`debian:jessie` for versions < 3.4.0, `debian:stretch` after, etc) release instead of `debian:testing`, so no more apt-get breaking when `debian:testing` repos are updated and you had to muck with `-t unstable` to get apt-get to work.  
 - Further, this stack installs a fixed version of R itself from source, rather than whatever is already packaged for Debian (the r-base stack gets the latest R version as a binary from debian:unstable), 
 - and it installs all R packages from a fixed snapshot of CRAN at a given date (MRAN repos).
 - provides images that are generally smaller than the r-base series
