@@ -40,19 +40,16 @@ Users should include the version tag, e.g. `rocker/verse:3.3.1` when reproducibl
 
 ### Version Tags
 
-Using the R version tag will naturally lock the R version, and also lock the install date of any R packages on the image.  For example,  `rocker/tidyverse:3.3.1` Docker image will always rebuild with R 3.3.1 and R packages installed from the **2016-10-31** MRAN snapshot, corresponding to **the last day that version of R was the most recent release**.  Meanwhile `rocker/tidyverse:latest` will always have both the latest R version and latest versions of the R packages.  
+Using the R version tag will naturally lock the R version, and also lock the install date of any R packages on the image.  For example,  `rocker/tidyverse:3.3.1` Docker image will always rebuild with R 3.3.1 and R packages installed from the **2016-10-31** MRAN snapshot, corresponding to **the last day that version of R was the most recent release**.  Meanwhile `rocker/tidyverse:latest` will always have both the latest R version and latest versions of the R packages, built nightly.   
 
-Version tags for major and minor releases, such as `rocker/r-ver:3.4` or `rocker/verse:3`, are added to the newest available bugfix version.  The rules from the previous paragraph on R package versions apply.  For example, if the latest bugfix versions availalbe are `3.3.3` and `3.4.1`, then `rocker/{stack name}:3.3.3` will also be tagged `rocker/{stack name}:3.3` and  `rocker/{stack name}:3.4.1` will also be tagged `rocker/{stack name}:3.4` _and_ `rocker/{stack name}:3`.
-
-See [VERSIONS.md](/VERSIONS.md) for details
+See [VERSIONS.md](https://github.com/rocker-org/rocker-versioned/tree/master/VERSIONS.md) for details
 
 ### Images
 
 The image `rocker/r-ver` is the functional equivalent of `r-base`, though slightly pared down.  Currently `r-ver` has tags for all minor R versions back to `3.1.0` (as far back as MRAN snapshots of CRAN are avialable); see [all tags](https://hub.docker.com/r/rocker/r-ver/tags). Users can attempt to build other versions from the `r-ver` Dockerfile by specifying `--build-arg R_VERSION=<VERSION>`, though this is unlikely to work with very old R versions.  Likewise, all non-current images are automatically pinned to a MRAN snapshot of CRAN from the last day that version was current.  Users can set a custom snapshot date for the `r-ver` images by using `--build-arg BUILD_DATE=<DATE>` when building that Dockerfile. 
 
-The image `rocker/tidyverse` is the functional equivalent of `rocker/hadleyverse`, minus the LaTeX part which is moved into a downstream `rocker/verse` in order to keep the `tidyverse` image more compact.  Now that [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html) is a thing, the term "hadleyverse" is on the way out. 
- 
-The `rocker/rstudio` image builds with the latest version of RStudio by default. This can be customized by specifying the desired version in `--build-arg RSTUDIO_VERSION=<VERSION>` if building locally from its Dockerfile. *Note that:* `rocker/rstudio:latest` is the only image name in this stack that already existed.  For consistency, `rocker/rstudio:latest` now builds on `r-ver:latest` instead of `r-base:latest`. 
+The `rocker/rstudio` image builds with the latest version of RStudio by default. This can be customized by specifying the desired version in `--build-arg RSTUDIO_VERSION=<VERSION>` if building locally from its Dockerfile.
+
 
 ## RStudio and Runtime Options
 
