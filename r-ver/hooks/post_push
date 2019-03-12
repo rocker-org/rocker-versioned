@@ -3,9 +3,8 @@ set -e
 
 
 ## Not all bash commands are available. notably grep -o -e options fail!!
-VERSION=`cat Dockerfile | head -n1 | sed 's/.*\([0-9].[0-9].[0-9]\)/\1/'`
-echo "Version being built is:"
-echo $VERSION
+VERSION=`sed -n 10p Dockerfile | sed 's/.*\([0-9].[0-9].[0-9]\).*/\1/'`
+echo "Version being built is: $VERSION"
 
 echo "tagging $IMAGE_NAME as $DOCKER_REPO:$VERSION..."
 docker tag $IMAGE_NAME $DOCKER_REPO:$VERSION
