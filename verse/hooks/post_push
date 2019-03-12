@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+echo "Working dir and contents I see are:"
+echo `pwd`
+echo `ls`
+
+## Not all bash commands are available. notably grep -o -e options fail!!
+VERSION=`cat Dockerfile | head -n1 | sed 's/.*\([0-9].[0-9].[0-9]\)/\1/'`
+echo "Version being built is:"
+echo $VERSION
+
+echo "tagging $IMAGE_NAME as $DOCKER_REPO:$VERSION..."
+docker tag $IMAGE_NAME $DOCKER_REPO:$VERSION
+
+echo "pushing $DOCKER_REPO:$VERSION to hub..."
+docker push $DOCKER_REPO:$VERSION
+
+
+# docker tag $IMAGE_NAME $DOCKER_REPO:$SOURCE_BRANCH
+# docker push $DOCKER_REPO:$SOURCE_BRANCH
+
+
