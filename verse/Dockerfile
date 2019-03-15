@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:3.5.2
+FROM rocker/tidyverse:3.5.3
 ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
 
 ## Add LaTeX, rticles and bookdown support
