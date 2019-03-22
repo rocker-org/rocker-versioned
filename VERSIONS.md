@@ -26,9 +26,7 @@ docker build --build-arg RSTUDIO_VERSION=1.1.414 -t rocker/rstudio:3.4.2 .
 - MRAN date is the last date CRAN distributed that R version.
 
 - RStudio Server version (and date) from http://download2.rstudio.org/ as the
-  version that was available at MRAN date, (with the only exception of R 3.3.1
-  where RStudio Server v. 1.0.44 with tons of improvements over v. 0.9.903 was
-  released just one day after the MRAN date).
+  version that was available at MRAN date.
 
 <!-- (tags may not always be available)
 - Docker tags specifying only the minor (`3.4`) or major version (`3`) are also
@@ -52,6 +50,7 @@ docker build --build-arg RSTUDIO_VERSION=1.1.414 -t rocker/rstudio:3.4.2 .
 | 3.4.4    | 2018-04-23 | 1.1.447         | stretch (9)    |
 | 3.5.0    | 2018-07-02 | 1.1.447         | stretch (9)    |
 | 3.5.1    | 2018-12-20 | 1.1.463         | stretch (9)    |
-| 3.5.2    | latest     | latest          | stretch (9)    |
+| 3.5.2    | 2018-03-11 | 1.1.463         | stretch (9)    |
+| 3.5.3    | latest     | latest          | stretch (9)    |
 
 
