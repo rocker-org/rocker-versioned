@@ -26,6 +26,8 @@ RUN apt-get update \
     python-setuptools \
     sudo \
     wget \
+    libclang-dev libclang-3.8-dev libobjc-6-dev libclang1-3.8 libclang-common-3.8-dev \
+    libllvm3.8 libllvm3.8 libobjc4 libgc1c2 \
   && wget -O libssl1.0.0.deb http://ftp.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb \
   && dpkg -i libssl1.0.0.deb \
   && rm libssl1.0.0.deb \
