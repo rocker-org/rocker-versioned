@@ -7,7 +7,7 @@ LABEL org.label-schema.license="GPL-2.0" \
 
 ARG R_VERSION
 ARG BUILD_DATE
-ENV R_VERSION=${R_VERSION:-3.6.0} \
+ENV R_VERSION=${R_VERSION:-3.5.3} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     TERM=xterm
