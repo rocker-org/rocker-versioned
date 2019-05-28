@@ -3,7 +3,8 @@ FROM debian:jessie
 LABEL org.label-schema.license="GPL-2.0" \
       org.label-schema.vcs-url="https://github.com/rocker-org/rocker-versioned" \
       org.label-schema.vendor="Rocker Project" \
-      maintainer="Carl Boettiger <cboettig@ropensci.org>"
+      maintainer="Carl Boettiger <cboettig@ropensci.org>" \
+      contributor="Colin Fay <contact@colinfay.me>"
 
 ARG R_VERSION
 ARG BUILD_DATE
