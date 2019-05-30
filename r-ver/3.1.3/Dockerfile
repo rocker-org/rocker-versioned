@@ -151,7 +151,7 @@ RUN rm /etc/apt/sources.list \
   && R -e 'tools::testInstalledBasic("both")' \
   ## Install littler from tarball \
   && curl -O http://dirk.eddelbuettel.com/code/littler/littler-${LITTLER_VER}.tar.gz \
-  && tar -zxvf littler-0.2.2.tar.gz \
+  && tar -zxvf littler-${LITTLER_VER}.tar.gz \
   && cd littler-${LITTLER_VER} \
   && ./bootstrap \
   && make \
