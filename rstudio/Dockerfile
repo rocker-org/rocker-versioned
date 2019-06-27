@@ -38,6 +38,13 @@ RUN apt-get update \
   && wget -q $RSTUDIO_URL \
   && dpkg -i rstudio-server-*-amd64.deb \
   && rm rstudio-server-*-amd64.deb \
+  ## Add Language Support for Chinese
+  && sed -i 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/g' /etc/locale.gen
+  && locale-gen
+  && mkdir /usr/share/fonts/truetype/source
+  && wget -P /usr/share/fonts/truetype/source/ https://github.com/be5invis/source-han-sans-ttf/releases/download/v1.04.20170825/SourceHanSansSC-Regular.ttf
+  && fc-cache -vf
+  && fc-list
   ## Symlink pandoc & standard pandoc templates for use system-wide
   && ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc /usr/local/bin \
   && ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc-citeproc /usr/local/bin \
