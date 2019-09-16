@@ -25,8 +25,8 @@ RUN apt-get update \
     gsfonts \
     libblas-dev \
     libbz2-1.0 \
-    libcurl3 \
-    libicu57 \
+    libcurl4 \
+    libicu63 \
     libjpeg62-turbo \
     libopenblas-dev \
     libpangocairo-1.0-0 \
