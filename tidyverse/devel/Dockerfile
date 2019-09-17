@@ -5,7 +5,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libcairo2-dev \
   libsqlite-dev \
   libmariadbd-dev \
-  libmariadb-client-lgpl-dev \
+  libmariadbclient-dev \
   libpq-dev \
   libssh2-1-dev \
   && install2.r --error \
