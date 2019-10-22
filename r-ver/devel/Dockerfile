@@ -18,6 +18,7 @@ RUN apt-get update \
     bash-completion \
     ca-certificates \
     ccache \
+    devscripts \
     file \
     fonts-texgyre \
     g++ \
