@@ -1,4 +1,12 @@
 FROM rocker/tidyverse:3.4.4
+
+# Version-stable CTAN repo from the tlnet archive at texlive.info, used in the
+# TinyTeX installation: chosen as the frozen snapshot of the TeXLive release
+# shipped for the base Debian image of a given rocker/r-ver tag.
+# Debian stretch => TeXLive 2016, frozen release snapshot 2017/04/13
+ARG CTAN_REPO=${CTAN_REPO:-http://www.texlive.info/tlnet-archive/2017/04/13/tlnet}
+ENV CTAN_REPO=${CTAN_REPO}
+
 ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
 
 ## Add LaTeX, rticles and bookdown support
@@ -10,7 +18,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     ## for rJava
     default-jdk \
     ## Nice Google fonts
-    fonts-roboto \    
+    fonts-roboto \
     ## used by some base R plots
     ghostscript \
     ## used to build rJava and other packages
@@ -25,11 +33,11 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     librdf0-dev \
     ## for V8-based javascript wrappers
     libv8-dev \
-    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning 
+    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning
     qpdf \
     ## For building PDF manuals
     texinfo \
-    ## for git via ssh key 
+    ## for git via ssh key
     ssh \
  ## just because
     less \
@@ -43,9 +51,9 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \
   && mv ~/.TinyTeX /opt/TinyTeX \
-  && /opt/TinyTeX/bin/*/tlmgr path add \
+  && (/opt/TinyTeX/bin/*/tlmgr path add || true) \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
-  && tlmgr path add \
+  && (tlmgr path add || true) \
   && Rscript -e "tinytex::r_texmf()" \
   && chown -R root:staff /opt/TinyTeX \
   && chmod -R g+w /opt/TinyTeX \
@@ -57,6 +65,6 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && install2.r --error --deps TRUE \
     bookdown rticles rmdshower
 #
-## Consider including: 
+## Consider including:
 # - yihui/printr R package (when released to CRAN)
 # - libgsl0-dev (GSL math library dependencies)

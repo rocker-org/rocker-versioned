@@ -1,4 +1,12 @@
 FROM rocker/tidyverse:3.5.2
+
+# Version-stable CTAN repo from the tlnet archive at texlive.info, used in the
+# TinyTeX installation: chosen as the frozen snapshot of the TeXLive release
+# shipped for the base Debian image of a given rocker/r-ver tag.
+# Debian stretch => TeXLive 2016, frozen release snapshot 2017/04/13
+ARG CTAN_REPO=${CTAN_REPO:-http://www.texlive.info/tlnet-archive/2017/04/13/tlnet}
+ENV CTAN_REPO=${CTAN_REPO}
+
 ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
 
 ## Add LaTeX, rticles and bookdown support
@@ -46,9 +54,9 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \
   && mv ~/.TinyTeX /opt/TinyTeX \
-  && /opt/TinyTeX/bin/*/tlmgr path add \
+  && (/opt/TinyTeX/bin/*/tlmgr path add || true) \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
-  && tlmgr path add \
+  && (tlmgr path add || true) \
   && Rscript -e "tinytex::r_texmf()" \
   && chown -R root:staff /opt/TinyTeX \
   && chown -R root:staff /usr/local/lib/R/site-library \
