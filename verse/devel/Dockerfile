@@ -1,4 +1,12 @@
 FROM rocker/tidyverse:devel
+
+# Version-stable CTAN repo from the tlnet archive at texlive.info, used in the
+# TinyTeX installation: chosen as the frozen snapshot of the TeXLive release
+# shipped for the base Debian image of a given rocker/r-ver tag.
+# Debian buster => TeXLive 2018, frozen release snapshot 2019/02/27
+ARG CTAN_REPO=${CTAN_REPO:-https://www.texlive.info/tlnet-archive/2019/02/27/tlnet}
+ENV CTAN_REPO=${CTAN_REPO}
+
 ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
 
 ## Add LaTeX, rticles and bookdown support
