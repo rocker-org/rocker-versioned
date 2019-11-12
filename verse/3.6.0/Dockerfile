@@ -60,7 +60,9 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && Rscript -e "tinytex::r_texmf()" \
   && chown -R root:staff /opt/TinyTeX \
   && chown -R root:staff /usr/local/lib/R/site-library \
+  ## So all users can install and symlink tlmgr packages
   && chmod -R 775 /opt/TinyTeX \
+  && chmod -R g+wx /usr/local/bin \
   && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron \
   && install2.r --error PKI \
   ## And some nice R packages for publishing-related stuff
