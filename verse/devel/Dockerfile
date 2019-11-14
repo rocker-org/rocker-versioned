@@ -39,21 +39,31 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     texinfo \
     ## for git via ssh key
     ssh \
- ## just because
+    ## just because
     less \
     vim \
- ## parallelization
+    ## parallelization
     libzmq3-dev \
     libopenmpi-dev \
- && apt-get clean \
+  && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   ## Use tinytex for LaTeX installation
   && install2.r --error tinytex \
- ## Admin-based install of TinyTeX:
+  ## Admin-based install of TinyTeX:
   && wget -qO- \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \
   && mv ~/.TinyTeX /opt/TinyTeX \
+  && if /opt/TinyTeX/bin/*/tex -v | grep -q 'TeX Live 2018'; then \
+      ## Patch the Perl modules in the frozen TeX Live 2018 snapshot with the newer
+      ## version available for the installer in tlnet/tlpkg/TeXLive, to include the
+      ## fix described in https://github.com/yihui/tinytex/issues/77#issuecomment-466584510
+      ## as discussed in https://www.preining.info/blog/2019/09/tex-services-at-texlive-info/#comments
+      wget -P /tmp/ ${CTAN_REPO}/install-tl-unx.tar.gz \
+      && tar -xzf /tmp/install-tl-unx.tar.gz -C /tmp/ \
+      && cp -Tr /tmp/install-tl-*/tlpkg/TeXLive /opt/TinyTeX/tlpkg/TeXLive \
+      && rm -r /tmp/install-tl-*; \
+    fi \
   && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install ae inconsolata listings metafont mfware parskip pdfcrop tex \
   && tlmgr path add \
