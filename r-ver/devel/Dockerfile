@@ -61,7 +61,8 @@ RUN apt-get update \
     libxt-dev \
     perl \
     rsync \
-    subversion tcl8.6-dev \
+    subversion \
+    tcl8.6-dev \
     tk8.6-dev \
     texinfo \
     texlive-extra-utils \
@@ -111,7 +112,7 @@ RUN apt-get update \
   ## Add a library directory (for user-installed packages)
   && mkdir -p /usr/local/lib/R/site-library \
   && chown root:staff /usr/local/lib/R/site-library \
-  && chmod g+wx /usr/local/lib/R/site-library \
+  && chmod g+ws /usr/local/lib/R/site-library \
   ## Fix library path
   && echo "R_LIBS_USER='/usr/local/lib/R/site-library'" >> /usr/local/lib/R/etc/Renviron \
   && echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron \
@@ -126,9 +127,6 @@ RUN apt-get update \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
   && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
-  ## TEMPORARY WORKAROUND to get more robust error handling for install2.r prior to littler update
-  && curl -O /usr/local/bin/install2.r https://github.com/eddelbuettel/littler/raw/master/inst/examples/install2.r \
-  && chmod +x /usr/local/bin/install2.r \
   ## Clean up from R source install
   && cd / \
   && rm -rf /tmp/* \
