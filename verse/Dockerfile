@@ -70,11 +70,12 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
       ## Patch error handling of tlmgr path (https://tex.stackexchange.com/a/314079)
       ## in the frozen TeX Live 2016 snapshot by back-porting the corresponding fix:
       ## https://git.texlive.info/texlive/commit/Master/tlpkg/TeXLive/TLUtils.pm?id=69cee5e1ce4b20f6ebb6af77e19d49706a842a3e
-      apt-get update && apt-get install patch \
+      apt-get update && apt-get install -y --no-install-recommends patch \
       && wget -qO- \
          "https://git.texlive.info/texlive/patch/Master/tlpkg/TeXLive/TLUtils.pm?id=69cee5e1ce4b20f6ebb6af77e19d49706a842a3e" | \
          patch -i - /opt/TinyTeX/tlpkg/TeXLive/TLUtils.pm \
-      && apt-get purge -y patch && apt-get clean; \
+      && apt-get remove --purge --autoremove -y patch \
+      && apt-get clean && rm -rf /var/lib/apt/lists/; \
     fi \
   && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install ae inconsolata listings metafont mfware parskip pdfcrop tex \
