@@ -66,9 +66,19 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
       && cp -Tr /tmp/install-tl-*/tlpkg/TeXLive /opt/TinyTeX/tlpkg/TeXLive \
       && rm -r /tmp/install-tl-*; \
     fi \
-  && (/opt/TinyTeX/bin/*/tlmgr path add || true) \
+  && if /opt/TinyTeX/bin/*/tex -v | grep -q 'TeX Live 2016'; then \
+      ## Patch error handling of tlmgr path (https://tex.stackexchange.com/a/314079)
+      ## in the frozen TeX Live 2016 snapshot by back-porting the corresponding fix:
+      ## https://git.texlive.info/texlive/commit/Master/tlpkg/TeXLive/TLUtils.pm?id=69cee5e1ce4b20f6ebb6af77e19d49706a842a3e
+      apt-get update && apt-get install patch \
+      && wget -qO- \
+         "https://git.texlive.info/texlive/patch/Master/tlpkg/TeXLive/TLUtils.pm?id=69cee5e1ce4b20f6ebb6af77e19d49706a842a3e" | \
+         patch -i - /opt/TinyTeX/tlpkg/TeXLive/TLUtils.pm \
+      && apt-get purge -y patch && apt-get clean; \
+    fi \
+  && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install ae inconsolata listings metafont mfware parskip pdfcrop tex \
-  && (tlmgr path add || true) \
+  && tlmgr path add \
   && Rscript -e "tinytex::r_texmf()" \
   && chown -R root:staff /opt/TinyTeX \
   && chmod -R g+w /opt/TinyTeX \
