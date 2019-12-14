@@ -51,9 +51,20 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \
   && mv ~/.TinyTeX /opt/TinyTeX \
-  && (/opt/TinyTeX/bin/*/tlmgr path add || true) \
+  && if /opt/TinyTeX/bin/*/tex -v | grep -q 'TeX Live 2016'; then \
+      ## Patch error handling of tlmgr path (https://tex.stackexchange.com/a/314079)
+      ## in the frozen TeX Live 2016 snapshot by back-porting the corresponding fix:
+      ## https://git.texlive.info/texlive/commit/Master/tlpkg/TeXLive/TLUtils.pm?id=69cee5e1ce4b20f6ebb6af77e19d49706a842a3e
+      apt-get update && apt-get install -y --no-install-recommends patch \
+      && wget -qO- \
+         "https://git.texlive.info/texlive/patch/Master/tlpkg/TeXLive/TLUtils.pm?id=69cee5e1ce4b20f6ebb6af77e19d49706a842a3e" | \
+         patch -i - /opt/TinyTeX/tlpkg/TeXLive/TLUtils.pm \
+      && apt-get remove --purge --autoremove -y patch \
+      && apt-get clean && rm -rf /var/lib/apt/lists/; \
+    fi \
+  && /opt/TinyTeX/bin/*/tlmgr path add \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
-  && (tlmgr path add || true) \
+  && tlmgr path add \
   && Rscript -e "tinytex::r_texmf()" \
   && chown -R root:staff /opt/TinyTeX \
   && chown -R root:staff /usr/local/lib/R/site-library \
