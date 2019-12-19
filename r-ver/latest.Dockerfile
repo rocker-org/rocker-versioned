@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 LABEL org.label-schema.license="GPL-2.0" \
       org.label-schema.vcs-url="https://github.com/rocker-org/rocker-versioned" \
@@ -7,7 +7,7 @@ LABEL org.label-schema.license="GPL-2.0" \
 
 ARG R_VERSION
 ARG BUILD_DATE
-ENV R_VERSION=${R_VERSION:-3.6.1} \
+ENV R_VERSION=${R_VERSION:-3.6.2} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     TERM=xterm
@@ -23,8 +23,8 @@ RUN apt-get update \
     gsfonts \
     libblas-dev \
     libbz2-1.0 \
-    libcurl3 \
-    libicu57 \
+    libcurl4 \
+    libicu63 \
     libjpeg62-turbo \
     libopenblas-dev \
     libpangocairo-1.0-0 \
