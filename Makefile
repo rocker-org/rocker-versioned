@@ -20,6 +20,14 @@ sync:
 	echo "Building Rocker versioned images locally...\n"
 
 
+
+devel:
+	make -C r-ver/ devel
+	make -C rstudio/ devel
+	make -C tidyverse/ devel
+	make -C verse/ devel
+	
+
 clean::
 	make -C r-ver/ clean
 	make -C rstudio/ clean
