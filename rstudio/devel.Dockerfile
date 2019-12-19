@@ -17,6 +17,7 @@ RUN apt-get update \
     file \
     git \
     libapparmor1 \
+    libclang-dev \
     libcurl4-openssl-dev \
     libedit2 \
     libssl-dev \
@@ -27,7 +28,6 @@ RUN apt-get update \
     python-setuptools \
     sudo \
     wget \
-    libclang-dev \
   && if [ -z "$RSTUDIO_VERSION" ]; \
     then RSTUDIO_URL="https://www.rstudio.org/download/latest/stable/server/bionic/rstudio-server-latest-amd64.deb"; \
     else RSTUDIO_URL="http://download2.rstudio.org/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb"; fi \
