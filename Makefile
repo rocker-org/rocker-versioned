@@ -1,5 +1,5 @@
-all:
-	make sync r-ver rstudio tidyverse verse
+latest:
+	make r-ver rstudio tidyverse verse
 
 r-ver: .PHONY
 	make -C r-ver/ latest
@@ -10,11 +10,11 @@ tidyverse: .PHONY
 verse: .PHONY
 	make -C verse/ latest
 
-sync:
-	make -C r-ver/ sync
-	make -C rstudio/ sync
-	make -C tidyverse/ sync
-	make -C verse/ sync
+all:
+	make -C r-ver/ all
+	make -C rstudio/ all
+	make -C tidyverse/ all
+	make -C verse/ all
 
 .PHONY:
 	echo "Building Rocker versioned images locally...\n"
