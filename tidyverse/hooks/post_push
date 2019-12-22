@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+if [ "$DOCKERFILE_PATH" == "latest.Dockerfile" ];
+then
 echo "Working dir and contents I see are:"
 echo `pwd`
 echo `ls`
@@ -16,6 +18,7 @@ docker tag $IMAGE_NAME $DOCKER_REPO:$VERSION
 echo "pushing $DOCKER_REPO:$VERSION to hub..."
 docker push $DOCKER_REPO:$VERSION
 
+fi
 
 # docker tag $IMAGE_NAME $DOCKER_REPO:$SOURCE_BRANCH
 # docker push $DOCKER_REPO:$SOURCE_BRANCH
