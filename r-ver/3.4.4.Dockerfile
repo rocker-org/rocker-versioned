@@ -121,6 +121,8 @@ RUN apt-get update \
   && ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
   && ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r \
+  ## Remove fixed R_LIBS_USER library path
+  && sed -i '/^R_LIBS_USER=/ d' /usr/local/lib/R/etc/Renviron \
   ## Clean up from R source install
   && cd / \
   && rm -rf /tmp/* \
