@@ -52,6 +52,7 @@ RUN apt-get update \
     libpango1.0-dev \
     libjpeg-dev \
     libicu-dev \
+    libpcre2-dev \
     libpcre3-dev \
     libpng-dev \
     libreadline-dev \
