@@ -15,36 +15,25 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && rm texlive-local.deb \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ## for rJava
     default-jdk \
-    ## Nice Google fonts
     fonts-roboto \
-    ## used by some base R plots
     ghostscript \
-    ## used to build rJava and other packages
+    less \
     libbz2-dev \
     libicu-dev \
     liblzma-dev \
-    ## system dependency of hunspell (devtools)
     libhunspell-dev \
-    ## system dependency of hadley/pkgdown
+    libjpeg-dev \
     libmagick++-dev \
-    ## rdf, for redland / linked data
-    librdf0-dev \
-    ## for V8-based javascript wrappers
-    libv8-dev \
-    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning
-    qpdf \
-    ## For building PDF manuals
-    texinfo \
-    ## for git via ssh key
-    ssh \
-    ## just because
-    less \
-    vim \
-    ## parallelization
-    libzmq3-dev \
     libopenmpi-dev \
+    librdf0-dev \
+    libtiff-dev \
+    libv8-dev \
+    libzmq3-dev \
+    qpdf \
+    ssh \
+    texinfo \
+    vim \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   ## Use tinytex for LaTeX installation
