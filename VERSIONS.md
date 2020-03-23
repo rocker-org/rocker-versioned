@@ -52,6 +52,9 @@ docker build --build-arg RSTUDIO_VERSION=1.1.414 -t rocker/rstudio:3.4.2 .
 | 3.5.1    | 2018-12-20 | 1.1.463         | stretch (9)    |
 | 3.5.2    | 2019-03-11 | 1.1.463         | stretch (9)    |
 | 3.5.3    | 2019-04-26 | 1.2.1335        | stretch (9)    |
-| 3.6.0    | latest     | latest          | stretch (9)    |
+| 3.6.0    | 2019-07-05 |           | stretch (9)    |
+| 3.6.1    | 2019-12-12 |           | stretch (9)    |
+| 3.6.2    | 2020-02-29 |           | stretch (9)    |
+| 3.6.3    | latest     | latest          | stretch (9)    |
 
 
