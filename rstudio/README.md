@@ -85,6 +85,7 @@ Or, simply enable root as shown above and use the RStudio bash terminal.
 
 Custom uid/gid etc is usually only needed when sharing a local volume for a user/group whose id does not match the default (`1000`:`1000`).  Failing to do this could make files change permissions on the linked volume when accessed from RStudio. 
 
+Custom uid/gid below 500 are currently not supported.
 
 Adding additional users:  From a root bash shell (see above), the usual debian linux commands can be used to create new users and passwords, e.g. 
 
