@@ -8,9 +8,8 @@ LABEL org.label-schema.license="GPL-2.0" \
 ARG R_VERSION
 ARG BUILD_DATE
 ARG CRAN
-## Setting a BUILD_DATE will set CRAN to the matching MRAN date
-## No BUILD_DATE means that CRAN will default to latest 
-ENV R_VERSION=${R_VERSION:-3.6.3} \
+ENV BUILD_DATE ${BUILD_DATE:-2020-02-28}
+ENV R_VERSION=${R_VERSION:-3.6.2} \
     CRAN=${CRAN:-https://cran.rstudio.com} \ 
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \

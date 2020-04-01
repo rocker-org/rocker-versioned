@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:3.6.3
+FROM rocker/tidyverse:3.6.2
 
 # Version-stable CTAN repo from the tlnet archive at texlive.info, used in the
 # TinyTeX installation: chosen as the frozen snapshot of the TeXLive release
