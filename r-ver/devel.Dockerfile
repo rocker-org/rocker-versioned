@@ -28,6 +28,7 @@ RUN apt-get update \
     libbz2-1.0 \
     libcurl4 \
     libicu63 \
+    libpcre2-8-0 \
     libjpeg62-turbo \
     libopenblas-dev \
     libpangocairo-1.0-0 \
