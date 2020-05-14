@@ -1,3 +1,7 @@
+**Note**: See the rocker-org/rocker-versioned2 repo for Dockerfile recipes for R >= 4.0.0
+
+
+
 # Using the rocker/rstudio container
 
 ## Quickstart
