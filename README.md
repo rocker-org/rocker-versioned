@@ -11,6 +11,8 @@ Visit [rocker-project.org](https://rocker-project.org) for more about available 
 
 ![rocker](https://avatars0.githubusercontent.com/u/9100160?v=3&s=200)
 
+***For documentation for R >= 4.0.0, for images `r-ver`, `rstudio`, `tidyverse`, `verse`, `geospatial`, `shiny`, and `binder`, please see the [`rocker-versioned2` repository`](https://github.com/rocker-org/rocker-versioned2).*** 
+
 
 image            | description                               | size   | metrics | build status 
 ---------------- | ----------------------------------------- | ------ | ------- | --------------
