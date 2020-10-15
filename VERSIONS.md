@@ -57,4 +57,4 @@ docker build --build-arg RSTUDIO_VERSION=1.1.414 -t rocker/rstudio:3.4.2 .
 | 3.6.2    | 2020-02-29 |           | buster (10)    |
 | 3.6.3    | latest     | latest          | buster (10)    |
 
-
+Images starting with 4.0.0 are based on the stable Ubuntu release contemporary with the R version release (i.e. `ubuntu:focal` for 4.0.x and 4.1.x), and pin versions of RStudio, R packages and other software as defined in https://github.com/rocker-org/rocker-versioned2/tree/master/stacks
