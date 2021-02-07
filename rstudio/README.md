@@ -62,7 +62,7 @@ shiny server is now running on `localhost:3838` and RStudio on `localhost:8787`.
 Note: this triggers shiny install at runtime, which may require a few minutes to execute before services come up.
 If you are building your own Dockerfiles on top of this stack, you should simply include the RUN command:
 
-    RUN export ADD=shiny && bash /etc/cont-init.d/add
+    RUN /rocker_scripts/install_shiny_server.sh
 
 Then omit the `-e ADD=shiny` when running your image and shiny should be installed and waiting on port 3838.
 
