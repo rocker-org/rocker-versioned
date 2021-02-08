@@ -52,19 +52,18 @@ Navigate to <http://localhost:8787> and you should be logged into RStudio as
 the `rstudio` user without needing a password.
 
 
-### Add shiny server on start up with `e ADD=shiny`
+### Add shiny server 
 
-    docker run -d -p 3838:3838 -p 8787:8787 -e ADD=shiny -e PASSWORD=yourpasswordhere rocker/rstudio
-
-shiny server is now running on `localhost:3838` and RStudio on `localhost:8787`.  
-
-
-Note: this triggers shiny install at runtime, which may require a few minutes to execute before services come up.
 If you are building your own Dockerfiles on top of this stack, you should simply include the RUN command:
+
+    RUN /rocker_scripts/install_shiny_server.sh
+
+This works on any rocker-versioned image with R >= 4.0.0. 
+NOTE: older images tagged with R version 3.x.x will need to do:
 
     RUN export ADD=shiny && bash /etc/cont-init.d/add
 
-Then omit the `-e ADD=shiny` when running your image and shiny should be installed and waiting on port 3838.
+Run your image and shiny should be installed and waiting on port 3838.
 
 **Note**: Please see the `rocker/shiny` and `rocker/shiny-verse` images for
 setting up a shiny server in a separate container from RStudio. 
