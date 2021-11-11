@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/rocker-org/rocker-versioned.svg?style=svg)](https://circleci.com/gh/rocker-org/rocker-versioned)
 [![license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://opensource.org/licenses/GPL-2.0)
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Project Status: Moved to https://github.com/rocker-org/rocker-versioned2 – The project has been moved to a new location, and the version at that location should be considered authoritative.](https://www.repostatus.org/badges/latest/moved.svg)](https://www.repostatus.org/#moved) to [https://github.com/rocker-org/rocker-versioned2](https://github.com/rocker-org/rocker-versioned2)
 [![DOI](https://zenodo.org/badge/25048007.svg)](https://zenodo.org/badge/latestdoi/25048007)
 
 
