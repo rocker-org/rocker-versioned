@@ -1,4 +1,3 @@
-[![CircleCI](https://circleci.com/gh/rocker-org/rocker-versioned.svg?style=svg)](https://circleci.com/gh/rocker-org/rocker-versioned)
 [![license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://opensource.org/licenses/GPL-2.0)
 [![Project Status: Moved to https://github.com/rocker-org/rocker-versioned2 – The project has been moved to a new location, and the version at that location should be considered authoritative.](https://www.repostatus.org/badges/latest/moved.svg)](https://www.repostatus.org/#moved) to [https://github.com/rocker-org/rocker-versioned2](https://github.com/rocker-org/rocker-versioned2)
 [![DOI](https://zenodo.org/badge/25048007.svg)](https://zenodo.org/badge/latestdoi/25048007)
@@ -6,8 +5,12 @@
 
 Visit [rocker-project.org](https://rocker-project.org) for more about available Rocker images, configuration, and use. 
 
+# MOVED to [`rocker-versioned2`](https://github.com/rocker-org/rocker-versioned2)
 
-## Version-stable Rocker images
+This repository contains archived build scripts from the 3.x versioned series only.  Visit  [`rocker-versioned2`](https://github.com/rocker-org/rocker-versioned2) for current build scripts for 4.x versioned images.
+
+
+## Version-stable Rocker images for R 3.x
 
 ![rocker](https://avatars0.githubusercontent.com/u/9100160?v=3&s=200)
 
